@@ -22,10 +22,7 @@ $this->registerMetaTag([
     <div class="container">
         <div class="row">
             
-            <?php
-            // Список категорий
-            echo categoryList\CategoryList::widget();
-            ?>
+            <?= /* Список категорий */ categoryList\CategoryList::widget(); ?>
             
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
@@ -36,21 +33,23 @@ $this->registerMetaTag([
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="<?php echo Product::getImage($product['id']);?>" alt="" />
-                                        <h2><?php echo $product['price'];?>$</h2>
+                                        <img src="<?php echo Product::getImage($product->id) ;?>" alt="" />
+                                        <h2><?php echo $product->price ;?>$</h2>
                                         <p>
-                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $product['id']]);?>">
-                                                <?php echo '#' . $product['id'] . ' ' . $product['name'];?>
+                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $product->id]) ;?>">
+                                                <?php echo '#' . $product->id . ' ' . $product->name ;?>
                                             </a>
                                         </p>
-                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['cart/addajax', 'id' => $product['id']]);?>"
-                                           data-id ="<?php echo $product['id'];?>"
+                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['cart/addajax', 'id' => $product->id]) ;?>"
+                                           data-id ="<?php echo $product->id; ?>"
                                            class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину
                                         </a>
                                     </div>
-                                    <?php if ($product['is_new']): ?>
-                                    <img src="/frontend/web/images/home/new.png" class="new" alt="" />
+                                    
+                                    <?php if ($product->is_new): ?>
+                                    <img src="/images/home/new.png" class="new" alt="" />
                                     <?php endif; ?>
+                                    
                                 </div>
                             </div>
                         </div>

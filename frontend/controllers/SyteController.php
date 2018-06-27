@@ -6,9 +6,8 @@ use Yii;
 use frontend\models\Contact;
 use yii\web\Controller;
 use frontend\models\Category;
-use frontend\models\Product;
 use frontend\components\Pagination;
-use frontend\models\activerecor\Categoryactive;
+use frontend\models\activerecord\Product;
 use frontend\models\example\Testdb;
 use frontend\models\example\Testdbmodel;
 
@@ -16,16 +15,28 @@ class SyteController extends Controller
 {
     public function actionIndex($page = 1)
     {   
-        $latestProducts = [];
-        $latestProducts = Product::getLatestProducts(6, $page);
+        $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
         
-        $total = Product::getTotalProductsCategory();
+        $latestProducts = Product::find()
+                ->where(['status' => 1])
+                ->orderBy(['id' => SORT_DESC])
+                ->limit(Yii::$app->params['showByDefailtProducts'])
+                ->offset($offset)
+                ->all();
+        
+        $total = Product::find()
+                ->where(['status' => 1])
+                ->orderBy(['id' => SORT_DESC])
+                ->count();
         
         // Создаем объект Pagination - постраничная навигация
-        $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, 'page-');
+        $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
         
-        $recomend = [];
-        $recomend = Product::getRecommendedProducts();
+        $recomend = Product::find()
+                ->where(['is_recommended' => 1])
+                ->andWhere(['status' => 1])
+                ->orderBy(['id' => SORT_DESC])
+                ->all();
 
         return $this->render('index', [
             'latestProducts' => $latestProducts, 
@@ -37,13 +48,15 @@ class SyteController extends Controller
     
     public function actionCategory($categoryId, $page = 1)
     {
-        $categoryProducts = [];
-        $categoryProducts = Product::getProductsListByCategory($categoryId, $page);
-
+        $categoryProducts = Product::find()
+                ->where(['category_id' => $categoryId])
+                ->orderBy(['id' => SORT_DESC])
+                ->limit(Yii::$app->params['showByDefailtProducts'])
+                ->all();
+        
         return $this->render('category', [
             'categoryId' => $categoryId,
             'categoryProducts' => $categoryProducts,
-            'total' => $total,
         ]);
     }
     
@@ -58,50 +71,19 @@ class SyteController extends Controller
         
         if (Yii::$app->request->isPost) {
             $contact->attributes = $formData['Contact'];
-            
-            if ($errors == false) {
-                $adminEmail = 'vadimtestacc@gmail.com';
-                $message = "Tекст: {$userText} . от {$userEmail}";
-                $subject = 'Тема письма';
-                $result = mail($adminEmail, $subject, $message);
-                $result = true;
+            if ($contact->validate()) {
+                $adminEmail = Yii::$app->params['adminEmail'];
+                    $message = "Tекст: {$contact->userText} . от {$contact->userEmail}";
+                    $subject = 'Тема письма';
+                    $result = mail($adminEmail, $subject, $message);
+                    $result = true;
             }
         }
-        
+
         return $this->render('contact', [
             'contact' => $contact,
             'result' => $result,
         ]);
     }
-    
-    public function actionActiverecord()
-    {
-        /* $var $testDbModel extends base/Model*/
-        $testDbModel = new Testdbmodel();
-        
-        if ($testDbModel->load(Yii::$app->request->post()) && $testDbModel->validate()) {
-            /*
-            echo '<pre>';
-            print_r($testDbModel);
-            echo '</pre>';
-             * 
-             */
-            /* $var $testDbModel extends ActiveRecord*/
-            $testDb = new Testdb();
-            $testDb->title = $testDbModel['title'];
-            $testDb->content = $testDbModel['content'];
-            $testDb->status = $testDbModel['status'];
-            $testDb->save();
-            Yii::$app->session->setFlash('success', 'saved');
-            
-            return $this->redirect(['syte/index']);
-        }
-        
-        return $this->render('activerecord', [
-            'testDbModel' => $testDbModel,
-            'testDb' => $testDb,
-        ]);
-    }
-    
     
 }

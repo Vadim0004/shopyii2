@@ -3,7 +3,6 @@
 use frontend\assets\MyShopAsset;
 use frontend\models\Product;
 use frontend\widgets\categoryList\CategoryList;
-use frontend\widgets\productList\ProductList;
 
 MyShopAsset::register($this);
 
@@ -12,10 +11,10 @@ $this->registerJsFile('@web/js/myFooter.js', ['depends' => [
 ]]);
 
 // @var $this yii\web\View
-$this->title = 'My Shop';
+$this->title = 'E-shopper';
 $this->registerMetaTag([
-    'name' => 'Main page',
-    'content' => 'description of the page',
+    'name' => 'E-shopper',
+    'content' => 'E-shopper main page',
 ]);
 ?>
 
@@ -35,24 +34,24 @@ $this->registerMetaTag([
                                 <div class="single-products">
                                     <div itemscope itemtype="http://schema.org/Offer" class="productinfo text-center">
 
-                                        <img src="<?php echo Product::getImage($product['id']); ?>" alt="" />
+                                        <img src="<?php echo Product::getImage($product->id); ?>" alt="" />
 
 
-                                        <span itemprop="price"><?php echo $product['price']; ?>$</span>
+                                        <span itemprop="price"><?php echo $product->price; ?>$</span>
                                         <span itemprop="name">
-                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $product['id']]); ?>">
-                                                ID:<?php echo '# ' . $product['id'] . ' '; ?><?php echo $product['name']; ?>
+                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $product->id]); ?>">
+                                                ID:<?php echo '# ' . $product->id . ' '; ?><?php echo $product->name; ?>
                                             </a>
                                         </span>
-                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['cart/addajax', 'id' => $product['id']]); ?>"
-                                           data-id ="<?php echo $product['id']; ?>"
+                                        <a href="<?php echo Yii::$app->urlManager->createUrl(['cart/addajax', 'id' => $product->id]); ?>"
+                                           data-id ="<?php echo $product->id; ?>"
                                            class="btn btn-default add-to-cart">
                                             <i class="fa fa-shopping-cart">        
                                             </i>
                                             В корзину
                                         </a>
                                     </div>
-                                    <?php if ($product['is_new']): ?>
+                                    <?php if ($product->is_new): ?>
                                         <img src="/images/home/new.png" class="new" alt="" />
                                     <?php endif; ?>
                                 </div>
@@ -85,22 +84,22 @@ $this->registerMetaTag([
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div itemscope itemtype="http://schema.org/Offer" class="productinfo text-center">
-                                            <img src="<?php echo Product::getImage($sliderItem['id']); ?>"/>
-                                            <span itemprop="price">$<?php echo $sliderItem['price']; ?></span>
+                                            <img src="<?php echo Product::getImage($sliderItem->id); ?>"/>
+                                            <span itemprop="price">$<?php echo $sliderItem->price; ?></span>
                                             <span itemprop="name">
-                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $sliderItem['id']]); ?>">
-                                                ID:<?php echo '# ' . $sliderItem['id'] . ' '; ?><?php echo $product['name']; ?>
+                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $sliderItem->id]); ?>">
+                                                ID:<?php echo '# ' . $sliderItem->id . ' '; ?><?php echo $sliderItem->name; ?>
                                             </a>
                                             </span>
                                             <br/><br/>
-                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['cart/addajax', 'id' => $sliderItem['id']]); ?>"
+                                            <a href="<?php echo Yii::$app->urlManager->createUrl(['cart/addajax', 'id' => $sliderItem->id]); ?>"
                                                class="btn btn-default add-to-cart" 
-                                               data-id="<?php echo $sliderItem['id']; ?>">
+                                               data-id="<?php echo $sliderItem->id; ?>">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 В корзину
                                             </a>
                                         </div>
-                                        <?php if ($sliderItem['is_new']): ?>
+                                        <?php if ($sliderItem->is_new): ?>
                                             <img src="/images/home/new.png" class="new" alt="" />
                                         <?php endif; ?>
                                     </div>

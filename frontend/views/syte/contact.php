@@ -23,13 +23,6 @@ $this->registerMetaTag([
                 <?php if ($result): ?>
                     <p>Сообщение отправлено! Мы ответим Вам на указанный email.</p>
                 <?php else: ?>
-                    <?php if (isset($errors) && is_array($errors)): ?>
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li> - <?php echo $error; ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
                     <div class="container">
                     <div class="col-sm-4"><!--sign up form-->
                         <h2>Обратная связь</h2>
@@ -42,7 +35,6 @@ $this->registerMetaTag([
                         <?php ActiveForm::end(); ?>
                     </div><!--/sign up form-->
                 <?php endif; ?>
-
 
                 <br/>
                 <br/>
