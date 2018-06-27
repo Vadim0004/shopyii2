@@ -23,10 +23,7 @@ $this->registerMetaTag([
     <div class="container">
         <div class="row">
 
-            <?php
-            // Список категорий
-            echo CategoryList::widget();
-            ?>
+            <?= /* Список категорий */ CategoryList::widget(); ?>
 
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->

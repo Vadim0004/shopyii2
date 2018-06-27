@@ -1,4 +1,12 @@
-<?php 
+<?php
+
+/* @var array categories frontend\models\activerecord\Category */
+
+use yii\helpers\Html;
+
+?>
+
+<?php
 $categoryServerId = end(explode('/', $_SERVER['REQUEST_URI']));
 ?>
 
@@ -11,9 +19,9 @@ $categoryServerId = end(explode('/', $_SERVER['REQUEST_URI']));
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a href="<?php echo Yii::$app->urlManager->createUrl(['syte/category', 'categoryId' => $categoryItem['id']]); ?>" 
-                               class="<?php if ($categoryServerId == $categoryItem['id']) echo 'active'; ?>"
+                               class="<?php if ($categoryServerId == $categoryItem->id) echo 'active'; ?>"
                                >
-                                <?php echo $categoryItem['name']; ?>
+                                <?php echo Html::encode($categoryItem->name); ?>
                             </a>
                         </h4>
                     </div>
