@@ -34,7 +34,11 @@ $this->registerMetaTag([
                         </div>
                         <div class="col-sm-7">
                             <div class="product-information"><!--/product-information-->
-                                <img src="/images/home/new.png" class="newarrival" alt="" />
+                                
+                                <?php if ($product->is_new): ?>
+                                        <img src="/images/home/new.png" class="new" alt="" />
+                                <?php endif; ?>
+                                        
                                 <h2><?php echo $product->name; ?></h2>
                                 <p>Код товара: <?php echo $product->code ;?></p>
                                 <span>
