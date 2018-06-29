@@ -2,24 +2,18 @@
 
 namespace frontend\controllers;
 
-use Yii;
 use yii\web\Controller;
-use frontend\models\Category;
-use frontend\models\Product;
+use frontend\models\repository\Productrepository;
 
 class ProductController extends Controller
 {
     public function actionIndex($id)
     {
         $id = intval($id);
-        
-        $categories = Category::getCategoriesList();
-        
-        $product = Product::getProductById($id);
+        $productRepository = new Productrepository();
+        $product = $productRepository->getProductById($id);
         
         return $this->render('index', [
-            'id' => $id,
-            'categories' => $categories,
             'product' => $product,
         ]);
     }

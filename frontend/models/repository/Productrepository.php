@@ -84,4 +84,19 @@ class Productrepository
         
         return $total;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return type array ActiveQuery
+     */
+    public function getProductById(int $id)
+    {
+        $product = Product::find()
+                ->where(['id' => $id])
+                ->andWhere(['status' => 1])
+                ->one();
+        
+        return $product;
+    }
 }
