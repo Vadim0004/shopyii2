@@ -56,6 +56,8 @@ $this->registerMetaTag([
                     <?php endforeach;?>
 
                 </div><!--features_items-->
+                <!-- Постраничная навигация -->
+                <?php echo $pagination->get(); ?>
 
 
             </div>

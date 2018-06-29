@@ -18,7 +18,7 @@ $categoryServerId = end(explode('/', $_SERVER['REQUEST_URI']));
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a href="<?php echo Yii::$app->urlManager->createUrl(['syte/category', 'categoryId' => $categoryItem['id']]); ?>" 
+                            <a href="<?php echo Yii::$app->urlManager->createUrl(['syte/category', 'categoryId' => $categoryItem['id'], 'page' => 1]); ?>" 
                                class="<?php if ($categoryServerId == $categoryItem->id) echo 'active'; ?>"
                                >
                                 <?php echo Html::encode($categoryItem->name); ?>

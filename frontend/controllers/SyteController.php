@@ -5,42 +5,27 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Contact;
 use yii\web\Controller;
-use frontend\models\Category;
 use frontend\components\Pagination;
 use frontend\models\activerecord\Product;
-use frontend\models\example\Testdb;
-use frontend\models\example\Testdbmodel;
+use frontend\models\repository\Productrepository;
 
 class SyteController extends Controller
 {
     public function actionIndex($page = 1)
     {   
         $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
+
+        $productRepository = new Productrepository();  
+        $latestProducts = $productRepository->getTotalProductsCategory($offset);
         
-        $latestProducts = Product::find()
-                ->where(['status' => 1])
-                ->orderBy(['id' => SORT_DESC])
-                ->limit(Yii::$app->params['showByDefailtProducts'])
-                ->offset($offset)
-                ->all();
-        
-        $total = Product::find()
-                ->where(['status' => 1])
-                ->orderBy(['id' => SORT_DESC])
-                ->count();
-        
+        $total = $productRepository->getCountProductsCategory();
         // Создаем объект Pagination - постраничная навигация
         $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
-        
-        $recomend = Product::find()
-                ->where(['is_recommended' => 1])
-                ->andWhere(['status' => 1])
-                ->orderBy(['id' => SORT_DESC])
-                ->all();
+
+        $recomend = $productRepository->getRecommendedProducts();
 
         return $this->render('index', [
             'latestProducts' => $latestProducts, 
-            'total' => $total,
             'recomend' => $recomend,
             'pagination' => $pagination,
         ]);
@@ -48,15 +33,19 @@ class SyteController extends Controller
     
     public function actionCategory($categoryId, $page = 1)
     {
-        $categoryProducts = Product::find()
-                ->where(['category_id' => $categoryId])
-                ->orderBy(['id' => SORT_DESC])
-                ->limit(Yii::$app->params['showByDefailtProducts'])
-                ->all();
+        $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
+
+        $productRepository = new Productrepository();
+        $categoryProducts = $productRepository->getProductsListByCategory($categoryId, $offset);
         
+        $total = $productRepository->getCountProductsByCategory($categoryId);
+        // Создаем объект Pagination - постраничная навигация
+        $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
+
         return $this->render('category', [
             'categoryId' => $categoryId,
             'categoryProducts' => $categoryProducts,
+            'pagination' => $pagination,
         ]);
     }
     
