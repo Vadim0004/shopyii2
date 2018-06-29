@@ -7,7 +7,8 @@ use yii\helpers\Html;
 ?>
 
 <?php
-$categoryServerId = end(explode('/', $_SERVER['REQUEST_URI']));
+$categoryServerId = explode('/', $_SERVER['REQUEST_URI']);
+$categoryServerId = $categoryServerId[2];
 ?>
 
 <div class="col-sm-3">
