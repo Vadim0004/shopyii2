@@ -6,7 +6,6 @@ use Yii;
 use frontend\models\Contact;
 use yii\web\Controller;
 use frontend\components\Pagination;
-use frontend\models\activerecord\Product;
 use frontend\models\repository\Productrepository;
 
 class SyteController extends Controller
