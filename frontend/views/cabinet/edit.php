@@ -1,7 +1,6 @@
 <?php
 use frontend\assets\MyShopAsset;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 MyShopAsset::register($this);
 
@@ -34,15 +33,15 @@ $this->registerMetaTag([
                     <?php endforeach; ?>
                 <?php endif; ?>
 
-                <?php $form = ActiveForm::begin(); ?>
+                <?= Html::beginForm(); ?>
 
                 <div class="col-sm-4 col-sm-offset-4 padding-right">
-                    <?php echo $form->field($user, 'name'); ?>
-                    <?php echo $form->field($user, 'password')->passwordInput(); ?>
-                    <?php echo Html::submitButton('submit', ['class' => 'btn btn-primary']); ?>
+                    <?= Html::input('text', 'name', $userData->name, ['class' => 'form-control']) . '<br>'; ?>
+                    <?= Html::input('password', 'password', $userData->password, ['class' => 'form-control']) . '<br>'; ?>
+                    <?= Html::submitButton('submit', ['class' => 'btn btn-primary']); ?>
                 </div>
 
-                <?php ActiveForm::end(); ?>
+                <?= Html::endForm(); ?>
 
             <?php endif; ?>
         </div>

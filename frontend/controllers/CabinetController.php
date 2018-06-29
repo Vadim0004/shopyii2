@@ -3,20 +3,21 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\User;
 use yii\web\Controller;
 use frontend\models\UserRegister;
 use frontend\models\Order;
-use frontend\models\Product;
+use frontend\models\repository\Userrepository;
+use frontend\models\activerecord\User;
 
 class CabinetController extends Controller
 {
     public function actionIndex()
     {
         // Получаем идентификатор пользователя из сессии
-        $userId = User::checkLogged();
+        $userId = \frontend\models\User::checkLogged();
+        $userRepository = new Userrepository();
         
-        $userData = User::getUserById($userId);
+        $userData = $userRepository->getUserById($userId);
         
         return $this->render('index', [
             'userData' => $userData,
@@ -27,11 +28,11 @@ class CabinetController extends Controller
     public function actionEdit()
     {
         // Получаем id пользователя из сессии
-        $userId = User::checkLogged();
+        $userId = \frontend\models\User::checkLogged();
+        $userRepository = new Userrepository();
+        $userActiveRecord = new User();
         
-        // Получаеи информацию о пользователе из БД
-        $userData = [];
-        $userData = User::getUserById($userId);
+        $userData = $userRepository->getUserById($userId);
         
         $name = $userData['name'];
         $password = $userData['password'];
@@ -44,15 +45,15 @@ class CabinetController extends Controller
         $result = false;
         
         if (Yii::$app->request->isPost) {
-            $user->attributes = $formData['UserRegister'];
+            $user->attributes = $formData;
             
             $errors = false;
             
-            $result = $user->edit($userId);
-            
-            if ($user->validate() && $result) {
-
+            if ($user->validate()) {
+                $result = $userActiveRecord->saveUserAfterEdite($userId, $user->name, $user->password);
+                
             } else {
+                $user->getErrors();
                 $errors[] = 'Ошибка!';
             }
         }

@@ -54,17 +54,4 @@ class User
         Yii::$app->response->redirect(['/']);
     }
     
-    /**
-     * Возвращает массив данных пользоватедя по его ID
-     * @param type $userId
-     * @return type array
-     */
-    public static function getUserById($id)
-    {
-        $id = intval($id);
-        if ($id) {
-            $sql = 'SELECT * FROM user WHERE id = :id';
-            return Yii::$app->db->createCommand($sql)->bindParam('id', $id)->queryOne();
-        }
-    }
 }

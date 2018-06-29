@@ -36,4 +36,18 @@ class Userrepository
         return $checkUser['id'];
     }
     
+    /**
+     * 
+     * @param int $id
+     * @return array ActiveQuery
+     */
+    public function getUserById(int $id)
+    {
+        $user = User::find()
+                ->where(['id' => $id])
+                ->one();
+        
+        return $user;
+    }
+    
 }

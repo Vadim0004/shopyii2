@@ -45,12 +45,4 @@ class UserRegister extends Model
         ];
     }
     
-    public function edit($id)
-    {
-        $id = intval($id);
-        if ($id) {
-            $sql = "UPDATE user SET name = '{$this->name}', password = '{$this->password}' WHERE id = :id";
-            return Yii::$app->db->createCommand($sql)->bindParam('id', $id)->execute();
-        }
-    }
 }

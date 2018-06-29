@@ -36,7 +36,16 @@ class User extends \yii\db\ActiveRecord
         $this->email = $email;
         $this->password = $password;
         
-        return $this->save(); 
+        return $this->save();
+    }
+    
+    public function saveUserAfterEdite(int $id, string $name, string $password)
+    {
+        $this->findOne($id);
+        $this->name = $name;
+        $this->password = $password;
+        
+        return $this->update();
     }
     
 }
