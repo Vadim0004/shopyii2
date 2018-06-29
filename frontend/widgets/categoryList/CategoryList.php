@@ -2,19 +2,15 @@
 
 namespace frontend\widgets\categoryList;
 
-use frontend\models\activerecord\Category;
+use frontend\models\repository\Categoryrepository;
 use yii\base\Widget;
 
 class CategoryList extends Widget
 {
     public function run()
     {
-        /*
-        $categories = [];
-        $categories = Category::getCategoriesList();
-         * 
-         */
-        $categories = Category::find()->orderBy(['sort_order' => SORT_ASC])->all();
+        $categoryRepository = new Categoryrepository();
+        $categories = $categoryRepository->getCategoryList();
         
         return $this->render('category', [
             'categories' => $categories, 
