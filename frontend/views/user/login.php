@@ -1,6 +1,5 @@
 <?php
 use frontend\assets\MyShopAsset;
-use frontend\models\Product;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

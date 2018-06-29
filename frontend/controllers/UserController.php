@@ -5,7 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
-use frontend\models\User;
+use frontend\models\repository\Userrepository;
+use frontend\models\activerecord\User;
 
 class UserController extends Controller
 {
@@ -14,29 +15,34 @@ class UserController extends Controller
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_REGISTER;
         
+        $userRepository = new Userrepository();
+        $userActiveRecord = new User();
+        
         $formData = Yii::$app->request->post();
          
         if(Yii::$app->request->isPost) {
             
             $user->attributes = $formData['UserRegister'];
-            
             $errors = false;
             $errors = [];
             
-            $userInDbIsset = $user->checkExistEmailInDb();
+            $userInDbIsset = $userRepository->checkExistEmailInDb($user->email);
 
-            if (!$userInDbIsset) {
+            if ($userInDbIsset) {
                 $errors[] = 'Данный email существет, повторите попытку с другим email';
             }
             
             if ($errors == false) {
-                if ($user->validate() && $create = $user->saveUserAfterRegister()) {
+                if ($user->validate()) {
+                    $create = $userActiveRecord->saveUserAfterRegister($user->name, $user->email, $user->password);
                     Yii::$app->session->setFlash('success', 'Registered!');
+                    
+                    return $this->redirect(Yii::$app->urlManager->createUrl(['user/login']));
                 }
-            } else {
-                // echo 'FATAL ERROR';
             }
+            
         }
+        
         return $this->render('register', [
             'user' => $user,
             'formData' => $formData,
@@ -50,6 +56,8 @@ class UserController extends Controller
     {
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_LOGIN;
+        
+        $userRepository = new Userrepository();
 
         $formData = Yii::$app->request->post();
 
@@ -59,12 +67,12 @@ class UserController extends Controller
 
             $errors = false;
             
-            $userId = $user->checkUserData();
+            $userId = $userRepository->checkUserData($user->email, $user->password);
             
             if ($user->validate() && $userId) {
                 // Если данные правильные, запоминаем пользователя (сессия)
                 Yii::$app->session['user'] = $userId;
-
+                
                 // Перенаправляем пользователя в закрытую часть - кабинет
                 Yii::$app->response->redirect(['cabinet/index']);
             } else {
@@ -75,12 +83,11 @@ class UserController extends Controller
         return $this->render('login', [
             'errors' => $errors,
             'user' => $user,
-            'userId' => $userId,
         ]);
     }
     
     public function actionLogout()
     {
-        User::checkLogout();
+        \frontend\models\User::checkLogout();
     }
 }

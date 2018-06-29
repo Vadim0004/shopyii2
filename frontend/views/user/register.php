@@ -1,6 +1,5 @@
 <?php
 use frontend\assets\MyShopAsset;
-use frontend\models\Product;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +13,7 @@ $this->registerJsFile('@web/js/myFooter.js', ['depends' => [
 $this->title = 'User Register';
 $this->registerMetaTag([
     'name' => 'User Register',
-    'content' => 'description of the page',
+    'content' => 'User description',
 ]);
 ?>
 

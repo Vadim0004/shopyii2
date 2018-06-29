@@ -108,7 +108,9 @@ AppAsset::register($this);
                                     <li><a href="<?php echo Yii::$app->urlManager->createUrl('blog/index'); ?>">Блог</a></li> 
                                     <li><a href="<?php echo Yii::$app->urlManager->createUrl('site/about'); ?>">О магазине</a></li>
                                     <li><a href="<?php echo Yii::$app->urlManager->createUrl('syte/contact'); ?>">Контакты</a></li>
+                                    <?php if (!User::isGuest()): ?>
                                     <li><a href="<?php echo Yii::$app->urlManager->createUrl('user/register'); ?>">Регистрация в магазине</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </div>

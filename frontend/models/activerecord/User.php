@@ -20,32 +20,23 @@ class User extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'user';
+        return '{{user}}';
     }
-
+    
     /**
-     * {@inheritdoc}
+     * 
+     * @param type $name
+     * @param type $email
+     * @param type $password
+     * @return true|false
      */
-    public function rules()
+    public function saveUserAfterRegister(string $name, string $email, string $password)
     {
-        return [
-            [['name', 'email', 'password', 'role'], 'required'],
-            [['name', 'email', 'password'], 'string', 'max' => 255],
-            [['role'], 'string', 'max' => 50],
-        ];
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        
+        return $this->save(); 
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'email' => 'Email',
-            'password' => 'Password',
-            'role' => 'Role',
-        ];
-    }
+    
 }
