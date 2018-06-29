@@ -108,7 +108,6 @@ class Productrepository
     {
         $product = Product::find()
                 ->where(['status' => 1])
-                ->limit(Yii::$app->params['showByDefailtProducts'])
                 ->orderBy(['id' => SORT_DESC])
                 ->all();
         
