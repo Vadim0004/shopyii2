@@ -3,25 +3,18 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
-use frontend\models\Category;
-use frontend\models\Product;
+use frontend\models\repository\Productrepository;
 
 class CatalogController extends Controller
 {
     public function actionIndex()
     {
-        $categories = [];
-        $categories = Category::getCategoriesList();
-
+        $productRepository = new Productrepository();
+        $latestProducts = $productRepository->getLatestProducts();
         
-        $latestProducts = [];
-        $latestProducts = Product::getProducts(6);
-        
-        $recomend = [];
-        $recomend = Product::getRecommendedProducts();
+        $recomend = $productRepository->getRecommendedProducts();
         
         return $this->render('index', [
-            'categories' => $categories,
             'latestProducts' => $latestProducts,
             'recomend' => $recomend,
         ]);
