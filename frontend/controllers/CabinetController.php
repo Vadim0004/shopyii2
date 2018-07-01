@@ -51,7 +51,6 @@ class CabinetController extends Controller
             
             if ($user->validate()) {
                 $result = $userActiveRecord->saveUserAfterEdite($userId, $user->name, $user->password);
-                
             } else {
                 $user->getErrors();
                 $errors[] = 'Ошибка!';

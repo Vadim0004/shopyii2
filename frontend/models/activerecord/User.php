@@ -41,11 +41,12 @@ class User extends \yii\db\ActiveRecord
     
     public function saveUserAfterEdite(int $id, string $name, string $password)
     {
-        $this->findOne($id);
+        $this->setOldAttribute('id', $id);
         $this->name = $name;
         $this->password = $password;
+        $result = $this->update();
         
-        return $this->update();
+        return $this;
     }
     
 }

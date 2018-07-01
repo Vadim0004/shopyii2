@@ -38,7 +38,7 @@ $this->registerMetaTag([
                 <div class="col-sm-4 col-sm-offset-4 padding-right">
                     <?= Html::input('text', 'name', $userData->name, ['class' => 'form-control']) . '<br>'; ?>
                     <?= Html::input('password', 'password', $userData->password, ['class' => 'form-control']) . '<br>'; ?>
-                    <?= Html::submitButton('submit', ['class' => 'btn btn-primary']); ?>
+                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
                 </div>
 
                 <?= Html::endForm(); ?>
