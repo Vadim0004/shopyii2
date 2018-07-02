@@ -1,7 +1,7 @@
 <?php
 
 use frontend\assets\MyShopAsset;
-use frontend\models\Product;
+use frontend\models\repository\Productrepository;
 use frontend\widgets\categoryList;
 
 MyShopAsset::register($this);
@@ -33,7 +33,7 @@ $this->registerMetaTag([
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="<?php echo Product::getImage($product->id) ;?>" alt="" />
+                                        <img src="<?php echo Productrepository::getImage($product->id) ;?>" alt="" />
                                         <h2><?php echo $product->price ;?>$</h2>
                                         <p>
                                             <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $product->id]) ;?>">
