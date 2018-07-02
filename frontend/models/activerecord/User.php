@@ -28,7 +28,7 @@ class User extends \yii\db\ActiveRecord
      * @param type $name
      * @param type $email
      * @param type $password
-     * @return true|false
+     * @return true|false ActiveQuery
      */
     public function saveUserAfterRegister(string $name, string $email, string $password)
     {
@@ -39,6 +39,13 @@ class User extends \yii\db\ActiveRecord
         return $this->save();
     }
     
+    /**
+     * 
+     * @param int $id
+     * @param string $name
+     * @param string $password
+     * @return true|false ActiveQuery
+     */
     public function saveUserAfterEdite(int $id, string $name, string $password)
     {
         $this->setOldAttribute('id', $id);
@@ -46,7 +53,7 @@ class User extends \yii\db\ActiveRecord
         $this->password = $password;
         $result = $this->update();
         
-        return $this;
+        return $result;
     }
     
 }

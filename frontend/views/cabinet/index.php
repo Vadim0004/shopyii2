@@ -1,5 +1,6 @@
 <?php
 use frontend\assets\MyShopAsset;
+use yii\helpers\Html;
 
 MyShopAsset::register($this);
 
@@ -15,11 +16,11 @@ $this->registerMetaTag([
     <div class="container">
         <div class="row">
 
-            <h1>Cabinet Customer</h1>
-            <h3><?php echo 'Hello ' . $userData['name'];?></h3>
+            <?= Html::tag('h3', 'Личный кабинет');?>
+            <?= Html::tag('h4', 'Привет ' . $userData->name);?>
             <ul>
-                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/edit');?>">Edit Data</a></li>
-                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/history');?>">List of purchase</a></li>
+                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/edit');?>">Отредактировать Данные</a></li>
+                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/history');?>">Список покупок</a></li>
             </ul>
 
         </div>

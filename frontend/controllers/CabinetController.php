@@ -5,9 +5,10 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
-use frontend\models\Order;
 use frontend\models\repository\Userrepository;
 use frontend\models\activerecord\User;
+use frontend\models\repository\Productorderrepository;
+use frontend\models\repository\Productrepository;
 
 class CabinetController extends Controller
 {
@@ -33,9 +34,6 @@ class CabinetController extends Controller
         $userActiveRecord = new User();
         
         $userData = $userRepository->getUserById($userId);
-        
-        $name = $userData['name'];
-        $password = $userData['password'];
         
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_EDIT;
@@ -66,15 +64,25 @@ class CabinetController extends Controller
     
     public function actionHistory()
     {
-        // Проверяем залогинен ли пользователь и получаем из сесси его id
-        $userId = User::checkLogged();
+        // Получаем идентификатор пользователя из сессии
+        $userId = \frontend\models\User::checkLogged();
         
-        // Из таблицы заказов берем все его заказы по user_id
-        $orders = Order::getOrdersByAuthorId($userId);
+        $productOrdersRepository = new Productorderrepository();
+        $orders = $productOrdersRepository->getOrdersByAuthorId($userId);
+
+        $products = [];
+        $arrayProductsFromOrder = [];
+        foreach ($orders as $ordersItem) {
+            $arrayProductsFromOrder[$ordersItem['id']] = json_decode($ordersItem['products'], true);
+            $arrayKeysProduct = array_keys($arrayProductsFromOrder[$ordersItem['id']]);
+            $productRepository = new Productrepository();
+            $products[$ordersItem['id']] = $productRepository->getAllProductById($arrayKeysProduct);
+        }
         
         return $this->render('history', [
-            'userId' => $userId,
             'orders' => $orders,
+            'products' => $products,
+            'arrayProductsFromOrder' => $arrayProductsFromOrder,
         ]);
     }
 }

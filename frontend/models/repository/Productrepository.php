@@ -113,4 +113,19 @@ class Productrepository
         
         return $product;
     }
+    
+    /**
+     * 
+     * @param type array $ids
+     * @return array ActiveQuery
+     */
+    public function getAllProductById(array $ids)
+    {
+        $string = implode(',', $ids);
+        $products = Product::find()
+                ->andWhere('id IN(' . $string . ')')
+                ->all();
+        
+        return $products;
+    }
 }
