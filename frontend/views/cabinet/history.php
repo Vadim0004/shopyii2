@@ -1,7 +1,7 @@
 <?php
 
 use frontend\models\repository\Productrepository;
-use frontend\models\Order;
+use frontend\models\repository\Productorderrepository;
 use frontend\assets\MyShopAsset;
 
 MyShopAsset::register($this);
@@ -31,7 +31,7 @@ $this->registerMetaTag([
                 <td><?php echo $orderArray->user_phone; ?></td>
                 <td><?php echo $orderArray->user_comment; ?></td>
                 <td><?php echo $orderArray->date;?></td>
-                <td><?php echo Order::getNameStatusOrder($orderArray['status']); ?></td>
+                <td><?php echo Productorderrepository::getNameStatusOrder($orderArray['status']); ?></td>
             <?php endforeach; ?>
             </tr>    
         </table>
