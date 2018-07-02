@@ -1,6 +1,6 @@
 <?php
 use frontend\assets\MyShopAsset;
-use frontend\models\Product;
+use frontend\models\repository\Productrepository;
 use frontend\widgets\categoryList\CategoryList;
 
 MyShopAsset::register($this);
@@ -28,8 +28,7 @@ $this->registerMetaTag([
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="view-product">
-                                <img src="<?php echo Product::getImage($product->id) ;?>" alt="" />
-                                <?php //var_dump(Product::getImage($product['id']));die;?>
+                                <img src="<?php echo Productrepository::getImage($product->id) ;?>" alt="" />
                             </div>
                         </div>
                         <div class="col-sm-7">
