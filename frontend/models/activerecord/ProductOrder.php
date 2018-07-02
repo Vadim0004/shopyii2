@@ -56,4 +56,17 @@ class ProductOrder extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+    
+    public function orderSave(int $userId, array $productsInCart, string $user_name, $user_phone, string $user_comment)
+    {
+        $productsInCart = json_encode($productsInCart);
+        $this->user_id = $userId;
+        $this->user_name = $user_name;
+        $this->user_phone = $user_phone;
+        $this->user_comment = $user_comment;
+        $this->products = $productsInCart;
+        $result = $this->save();
+        
+        return $result;
+    }
 }

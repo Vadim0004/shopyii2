@@ -5,27 +5,26 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Checkout;
 use frontend\models\User;
-use frontend\models\Product;
 use frontend\models\Cart;
-use frontend\models\Category;
 use yii\web\Controller;
+use frontend\models\repository\Productrepository;
+use frontend\models\activerecord\ProductOrder;
 
 class CartController extends Controller
 {
     public function actionIndex()
     {
-        $categories = [];
-        $categories = Category::getCategoriesList();
         
         $productsInCart = false;
         // Получим данные из корзины
         $productsInCart = Cart::getProducts();
+        $productsRepository = new Productrepository();
         
         if ($productsInCart) {
             // Получкаем полную информацию о товарах для списка
             $productIds = array_keys($productsInCart);
 
-            $products = Product::getProdustsByIds($productIds);
+            $products = $productsRepository->getAllProductById($productIds);
             
             // Получаем общую стоимость
             $totalPrice = Cart::getTotalPrice($products);
@@ -33,7 +32,6 @@ class CartController extends Controller
         
         return $this->render('index', [
             'productsInCart' => $productsInCart,
-            'categories' => $categories,
             'productIds' => $productIds,
             'products' => $products,
             'totalPrice' => $totalPrice
@@ -46,14 +44,14 @@ class CartController extends Controller
         
         $id = intval($id);
         echo Cart::addProduct($id);
-        
+        die;
     }
     
     public function actionDelete($id)
     {
         $id = intval($id);
         if ($id) {
-           Cart::deleteProduct($id);
+            Cart::deleteProduct($id);
             Yii::$app->response->redirect(['cart/index']); 
         }
     }
@@ -68,12 +66,14 @@ class CartController extends Controller
             Yii::$app->response->redirect(['/']);
         }
 
-        // Список категорий для левого меню
-        $categories = Category::getCategoriesList();
-
         // Находим общую стоимость
         $productsIds = array_keys($productsInCart);
-        $products = Product::getProdustsByIds($productsIds);
+        
+        $productsInCart = Cart::getProducts();
+        $productsInCartRevert = array_flip($productsInCart);
+        $productsRepository = new Productrepository();
+        $products = Productrepository::getAllProductById($productsInCartRevert);
+
         $totalPrice = Cart::getTotalPrice($products);
 
         // Количество товаров
@@ -108,7 +108,9 @@ class CartController extends Controller
                 // Если ошибок нет
                 if ($chekout->validate()) {
                     // Сохраняем заказ в базе данных
-                    $result = $chekout->save($userId, $productsInCart);
+                    $productActiveRecord = new ProductOrder();
+                    $result = $productActiveRecord->orderSave($userId, $productsInCart, $chekout->userName, $chekout->userPhone, $chekout->userComment);
+                    
                     if ($result) {
                         // Если заказ успешно сохранен
                         // Оповещаем администратора о новом заказе по почте                
@@ -126,7 +128,6 @@ class CartController extends Controller
         
         return $this->render('checkout',[
             'chekout' => $chekout,
-            'categories' => $categories,
             'totalQuantity' => $totalQuantity,
             'totalPrice' => $totalPrice,
             'result' => $result,

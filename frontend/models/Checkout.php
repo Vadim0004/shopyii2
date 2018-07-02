@@ -30,16 +30,13 @@ class Checkout extends Model
         ];
     }
     
-    public function save($userId, $productsInCart)
+    public function attributeLabels() 
     {
-        $userId = intval($userId);
-
-        if ($userId) {
-            
-            $productsInCart = json_encode($productsInCart);
-
-            $sql = "INSERT INTO product_order (user_name, user_phone, user_comment, user_id, products) VALUES ('{$this->userName}', '{$this->userPhone}', '{$this->userComment}', '{$userId}', '{$productsInCart}')";
-            return Yii::$app->db->createCommand($sql)->execute();
-        }
+        return [
+            'userName' => 'Имя пользователя',
+            'userPhone' => 'Телефон',
+            'userComment' => 'Комментарий',
+        ];
     }
+
 }
