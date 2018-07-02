@@ -121,10 +121,7 @@ class Productrepository
      */
     public function getAllProductById(array $ids)
     {
-        $string = implode(',', $ids);
-        $products = Product::find()
-                ->andWhere('id IN(' . $string . ')')
-                ->all();
+        $products = Product::findAll($ids);
         
         return $products;
     }
