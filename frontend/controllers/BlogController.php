@@ -2,16 +2,16 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Blog;
+use Yii;
 use yii\web\Controller;
+use frontend\models\repository\Blogrepository;
 
 class BlogController extends Controller
-{
+{   
     public function actionIndex()
     {
-        
-        $blogList = [];
-        $blogList = Blog::getBlogList(4);
+        $blogRepository = new Blogrepository();
+        $blogList = $blogRepository->getBlogList(Yii::$app->params['showByDefailtNews']);
 
         return $this->render('index', [
             'blogList' => $blogList,
@@ -20,11 +20,8 @@ class BlogController extends Controller
     
     public function actionView($id)
     {
-        $id = intval($id);
-        
-        if ($id) {
-            $oneNewsList = Blog::getBlogItemById($id);
-        }
+        $blogRepository = new Blogrepository();
+        $oneNewsList = $blogRepository->getOneItemBlog($id);
         
         return $this->render('view', [
             'oneNewsList' => $oneNewsList,
