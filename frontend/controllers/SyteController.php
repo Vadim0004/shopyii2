@@ -21,11 +21,8 @@ class SyteController extends Controller
         // Создаем объект Pagination - постраничная навигация
         $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
 
-        $recomend = $productRepository->getRecommendedProducts();
-
         return $this->render('index', [
             'latestProducts' => $latestProducts, 
-            'recomend' => $recomend,
             'pagination' => $pagination,
         ]);
     }
