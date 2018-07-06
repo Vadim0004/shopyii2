@@ -57,11 +57,13 @@ class SyteController extends Controller
         if (Yii::$app->request->isPost) {
             $contact->attributes = $formData['Contact'];
             if ($contact->validate()) {
-                if ((new SyteService(Yii::$app->params['adminEmail'], $contact, $letterTheme))->sendLetter()) {
+                try {
+                    (new SyteService(Yii::$app->params['adminEmail'], $contact, $letterTheme))->sendLetter();
                     Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
                     return $this->redirect(['syte/index']);
-                } else {
-                    throw new RuntimeException("Don't send email");
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
                 }
             }
         }

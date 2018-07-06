@@ -21,6 +21,9 @@ class SyteService
     {
         $message = "Tекст: {$this->contact->userText} . от {$this->contact->userEmail}";
         $result = mail($this->adminEmail, $this->letterTheme, $message);
+        if (!$result) {
+            throw new \RuntimeException("Don't send email");
+        }
         return $result;
     }
 }
