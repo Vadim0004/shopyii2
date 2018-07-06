@@ -7,6 +7,7 @@ use frontend\models\Contact;
 use yii\web\Controller;
 use frontend\components\Pagination;
 use frontend\models\repository\Productrepository;
+use frontend\services\syte\SyteService;
 
 class SyteController extends Controller
 {
@@ -51,23 +52,22 @@ class SyteController extends Controller
         $contact->scenario = Contact::SCENARIO_USER_CONTACT;
         
         $formData = Yii::$app->request->post();
-        
-        $result = false;
+        $letterTheme = 'Hi admin';
         
         if (Yii::$app->request->isPost) {
             $contact->attributes = $formData['Contact'];
             if ($contact->validate()) {
-                $adminEmail = Yii::$app->params['adminEmail'];
-                    $message = "Tекст: {$contact->userText} . от {$contact->userEmail}";
-                    $subject = 'Тема письма';
-                    $result = mail($adminEmail, $subject, $message);
-                    $result = true;
+                if ((new SyteService(Yii::$app->params['adminEmail'], $contact, $letterTheme))->sendLetter()) {
+                    Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
+                    return $this->redirect(['syte/index']);
+                } else {
+                    throw new RuntimeException("Don't send email");
+                }
             }
         }
 
         return $this->render('contact', [
             'contact' => $contact,
-            'result' => $result,
         ]);
     }
     

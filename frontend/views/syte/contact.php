@@ -19,23 +19,17 @@ $this->registerMetaTag([
         <div class="row">
 
             <div class="col-sm-4 col-sm-offset-4 padding-right">
-
-                <?php if ($result): ?>
-                    <p>Сообщение отправлено! Мы ответим Вам на указанный email.</p>
-                <?php else: ?>
                     <div class="container">
                     <div class="col-sm-4"><!--sign up form-->
                         <h2>Обратная связь</h2>
                         <h5>Есть вопрос? Напишите нам</h5>
                         <br/>
                         <?php $form = ActiveForm::begin(); ?>
-                            <?php echo $form->field($contact, 'userEmail'); ?>
-                            <?php echo $form->field($contact, 'userText'); ?>
-                            <?php echo Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
+                            <?= $form->field($contact, 'userEmail'); ?>
+                            <?= $form->field($contact, 'userText'); ?>
+                            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
                         <?php ActiveForm::end(); ?>
                     </div><!--/sign up form-->
-                <?php endif; ?>
-
                 <br/>
                 <br/>
                 </div>
