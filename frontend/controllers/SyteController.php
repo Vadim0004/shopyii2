@@ -59,13 +59,12 @@ class SyteController extends Controller
         $contact->scenario = Contact::SCENARIO_USER_CONTACT;
         
         $formData = Yii::$app->request->post();
-        $letterTheme = 'Hi admin';
         
         if (Yii::$app->request->isPost) {
             $contact->attributes = $formData['Contact'];
             if ($contact->validate()) {
                 try {
-                    (new SyteService(Yii::$app->params['adminEmail'], $contact, $letterTheme))->sendLetter();
+                    (new SyteService(Yii::$app->params['adminEmail'], $contact, Yii::$app->params['letterTheme']))->sendLetter();
                     Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
                     return $this->redirect(['syte/index']);
                 } catch (\DomainException $e) {
