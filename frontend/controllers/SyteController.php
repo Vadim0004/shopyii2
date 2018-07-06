@@ -11,14 +11,23 @@ use frontend\services\syte\SyteService;
 
 class SyteController extends Controller
 {
+    private $productRep;
+    private $syteService;
+
+
+    public function __construct($id, $module, $config = [], Productrepository $productRep, SyteService $syteService)
+    {   
+        $this->productRep = $productRep;
+        $this->syteService = $syteService;
+        parent::__construct($id, $module, $config);
+    }
+
     public function actionIndex($page = 1)
     {   
         $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
-
-        $productRepository = new Productrepository();  
-        $latestProducts = $productRepository->getTotalProductsCategory($offset);
         
-        $total = $productRepository->getCountProductsCategory();
+        $latestProducts = $this->productRep->getTotalProductsCategory($offset);
+        $total = $this->productRep->getCountProductsCategory();
         // Создаем объект Pagination - постраничная навигация
         $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
 
@@ -32,10 +41,8 @@ class SyteController extends Controller
     {
         $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
 
-        $productRepository = new Productrepository();
-        $categoryProducts = $productRepository->getProductsListByCategory($categoryId, $offset);
-        
-        $total = $productRepository->getCountProductsByCategory($categoryId);
+        $categoryProducts = $this->productRep->getProductsListByCategory($categoryId, $offset);
+        $total = $this->productRep->getCountProductsByCategory($categoryId);
         // Создаем объект Pagination - постраничная навигация
         $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
 

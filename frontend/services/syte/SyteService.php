@@ -10,7 +10,7 @@ class SyteService
     private $adminEmail;
     private $contact = [];
     
-    public function __construct($adminEmail, Contact $contact, $letterTheme) 
+    public function __construct($adminEmail  = false, Contact $contact, $letterTheme  = false)
     {
         $this->adminEmail = $adminEmail;
         $this->contact = $contact;
