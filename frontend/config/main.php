@@ -90,6 +90,6 @@ return [
     ],
     'params' => $params,
     'aliases' => [
-        '@images' => '/upload/images/products',
+        '@images' => '/frontend/web/upload/images/products',
     ] 
 ];
