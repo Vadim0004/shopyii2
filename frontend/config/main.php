@@ -12,8 +12,10 @@ return [
     'bootstrap' => ['log'],
     'language' => 'ru',
     'controllerNamespace' => 'frontend\controllers',
+    'homeUrl' => '/',
     'components' => [
         'request' => [
+            'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
             //'enableCsrfValidation' => false,
         ],
