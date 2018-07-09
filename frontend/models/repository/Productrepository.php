@@ -141,12 +141,8 @@ class Productrepository
         
         $noImagePath = "$alias/no-image.jpg";
 
-        // Путь к папке с товарами
-        $path = Yii::getAlias('@images');
-
         // Путь к изображению товара
-        $pathToProductImage = $path . "/$id" . '.jpg';
-
+        $pathToProductImage = $alias . "/$id" . '.jpg';
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . $pathToProductImage)) {
             // Если изображение для товара существует
             // Возвращаем путь изображения товара
