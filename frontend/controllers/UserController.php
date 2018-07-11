@@ -5,83 +5,67 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
-use frontend\models\repository\Userrepository;
-use frontend\models\activerecord\User;
+use frontend\services\user\Userservice;
+
 
 class UserController extends Controller
 {
+    private $userServices;
+    
+    public function __construct($id, $module, Userservice $userServices, $config = []) 
+    {
+        $this->userServices = $userServices;
+        parent::__construct($id, $module, $config);
+    }
+
     public function actionRegister()
     {        
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_REGISTER;
         
-        $userRepository = new Userrepository();
-        $userActiveRecord = new User();
-        
         $formData = Yii::$app->request->post();
          
-        if(Yii::$app->request->isPost) {
-            
+        if (Yii::$app->request->isPost) {
             $user->attributes = $formData['UserRegister'];
-            $errors = false;
-            $errors = [];
-            
-            $userInDbIsset = $userRepository->checkExistEmailInDb($user->email);
-
-            if ($userInDbIsset) {
-                $errors[] = 'Данный email существет, повторите попытку с другим email';
-            }
-            
-            if ($errors == false) {
-                if ($user->validate()) {
-                    $create = $userActiveRecord->saveUserAfterRegister($user->name, $user->email, $user->password);
+            if ($user->validate()) {
+                try {
+                    $this->userServices->registerCustomer($user);
                     Yii::$app->session->setFlash('success', 'Registered!');
-                    
-                    return $this->redirect(Yii::$app->urlManager->createUrl(['user/login']));
+                    return $this->redirect(['user/login']);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
                 }
             }
-            
         }
-        
+
         return $this->render('register', [
             'user' => $user,
             'formData' => $formData,
-            'errors' => $errors,
-            'create' => $create,
         ]);
         
     }
-    
+
     public function actionLogin()
     {
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_LOGIN;
-        
-        $userRepository = new Userrepository();
-
         $formData = Yii::$app->request->post();
 
         if (Yii::$app->request->isPost) {
-
             $user->attributes = $formData['UserRegister'];
-
-            $errors = false;
-            
-            $userId = $userRepository->checkUserData($user->email, $user->password);
-            
-            if ($user->validate() && $userId) {
-                // Если данные правильные, запоминаем пользователя (сессия)
-                Yii::$app->session['user'] = $userId;
-                
-                // Перенаправляем пользователя в закрытую часть - кабинет
-                Yii::$app->response->redirect(['cabinet/index']);
-            } else {
-                $errors[] = 'Неправильные данные для входа на сайт';
+            if ($user->validate()) {
+                try {
+                    $this->userServices->loginCustomer($user);
+                    Yii::$app->response->redirect(['cabinet/index']);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
             }
         }
 
         return $this->render('login', [
-            'errors' => $errors,
             'user' => $user,
         ]);
     }
