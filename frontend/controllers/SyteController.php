@@ -15,7 +15,12 @@ class SyteController extends Controller
     private $syteService;
 
 
-    public function __construct($id, $module, $config = [], Productrepository $productRep, SyteService $syteService)
+    public function __construct(
+            $id, 
+            $module, 
+            Productrepository $productRep, 
+            SyteService $syteService, 
+            $config = [])
     {   
         $this->productRep = $productRep;
         $this->syteService = $syteService;
@@ -64,7 +69,7 @@ class SyteController extends Controller
             $contact->attributes = $formData['Contact'];
             if ($contact->validate()) {
                 try {
-                    (new SyteService(Yii::$app->params['adminEmail'], $contact, Yii::$app->params['letterTheme']))->sendLetter();
+                    $this->syteService->sendLetter();
                     Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
                     return $this->redirect(['syte/index']);
                 } catch (\DomainException $e) {
