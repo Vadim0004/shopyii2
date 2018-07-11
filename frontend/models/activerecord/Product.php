@@ -18,6 +18,7 @@ use Yii;
  * @property int $is_new
  * @property int $is_recommended
  * @property int $status
+ * @property int $quantity
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -26,23 +27,8 @@ class Product extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'product';
+        return '{{product}}';
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'category_id', 'code', 'price', 'availability', 'brand', 'description'], 'required'],
-            [['category_id', 'code', 'availability', 'is_new', 'is_recommended', 'status'], 'integer'],
-            [['price'], 'number'],
-            [['description'], 'string'],
-            [['name', 'brand'], 'string', 'max' => 255],
-        ];
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -60,6 +46,7 @@ class Product extends \yii\db\ActiveRecord
             'is_new' => 'Is New',
             'is_recommended' => 'Is Recommended',
             'status' => 'Status',
+            'quantity' => 'Количество',
         ];
     }
 }
