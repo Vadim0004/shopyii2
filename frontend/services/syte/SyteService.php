@@ -9,21 +9,18 @@ class SyteService
 {
     private $letterTheme;
     private $adminEmail;
-    private $contact;
     
-    public function __construct($adminEmail, Contact $contact, $letterTheme)
+    public function __construct($adminEmail, $letterTheme)
     {
         $this->adminEmail = $adminEmail;
-        $this->contact = $contact;
         $this->letterTheme = $letterTheme;
     }
 
-    public function sendLetter()
+    public function sendLetter(Contact $contact)
     {
-        $message = "Tекст: {$this->contact->userText} . от {$this->contact->userEmail}";
-        //$result = mail($this->adminEmail, $this->letterTheme, $message);
+        $message = "Tекст: {$contact->userText} . от {$contact->userEmail}";
         $result = Yii::$app->mailer->compose()
-                ->setFrom($this->contact->userEmail)
+                ->setFrom($contact->userEmail)
                 ->setTo($this->adminEmail)
                 ->setTextBody($message)
                 ->send();

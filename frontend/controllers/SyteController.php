@@ -69,7 +69,7 @@ class SyteController extends Controller
             $contact->attributes = $formData['Contact'];
             if ($contact->validate()) {
                 try {
-                    $this->syteService->sendLetter();
+                    $this->syteService->sendLetter($contact);
                     Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
                     return $this->redirect(['syte/index']);
                 } catch (\DomainException $e) {
