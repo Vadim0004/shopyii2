@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\models\activerecord;
+namespace common\models\activerecord;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "product_order".
@@ -16,7 +16,7 @@ use Yii;
  * @property string $products
  * @property int $status
  */
-class ProductOrder extends \yii\db\ActiveRecord
+class ProductOrder extends ActiveRecord
 {
     /**
      * {@inheritdoc}

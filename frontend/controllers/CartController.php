@@ -8,14 +8,13 @@ use frontend\models\User;
 use frontend\models\Cart;
 use yii\web\Controller;
 use frontend\models\repository\Productrepository;
-use frontend\models\activerecord\ProductOrder;
+use common\models\activerecord\ProductOrder;
 
 class CartController extends Controller
 {
     public function actionIndex()
     {
-        
-        $productsInCart = false;
+
         // Получим данные из корзины
         $productsInCart = Cart::getProducts();
         $productsRepository = new Productrepository();
@@ -72,7 +71,7 @@ class CartController extends Controller
         $productsInCart = Cart::getProducts();
         $productsInCartRevert = array_flip($productsInCart);
         $productsRepository = new Productrepository();
-        $products = Productrepository::getAllProductById($productsInCartRevert);
+	    $products = $productsRepository->getAllProductById($productsInCartRevert);
 
         $totalPrice = Cart::getTotalPrice($products);
 

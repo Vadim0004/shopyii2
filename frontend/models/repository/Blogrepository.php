@@ -2,7 +2,7 @@
 
 namespace frontend\models\repository;
 
-use frontend\models\activerecord\Blog;
+use common\models\activerecord\Blog;
 
 class Blogrepository
 {

@@ -2,7 +2,7 @@
 
 namespace frontend\models\repository;
 
-use frontend\models\activerecord\Category;
+use common\models\activerecord\Category;
 
 class Categoryrepository
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\models\activerecord;
+namespace common\models\activerecord;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user".
@@ -13,7 +13,7 @@ use Yii;
  * @property string $password
  * @property string $role
  */
-class User extends \yii\db\ActiveRecord
+class User extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -25,9 +25,9 @@ class User extends \yii\db\ActiveRecord
     
     /**
      * 
-     * @param type $name
-     * @param type $email
-     * @param type $password
+     * @param string $name
+     * @param string $email
+     * @param string $password
      * @return true|false ActiveQuery
      */
     public function saveUserAfterRegister(string $name, string $email, string $password)
@@ -44,7 +44,7 @@ class User extends \yii\db\ActiveRecord
      * @param int $id
      * @param string $name
      * @param string $password
-     * @return true|false ActiveQuery
+     * @return array ActiveQuery
      */
     public function saveUserAfterEdite(int $id, string $name, string $password)
     {

@@ -1,7 +1,7 @@
 <?php
 namespace frontend\models\repository;
 
-use frontend\models\activerecord\Product;
+use common\models\activerecord\Product;
 use Yii;
 
 class Productrepository
@@ -88,7 +88,7 @@ class Productrepository
     /**
      * 
      * @param int $id
-     * @return type array ActiveQuery
+     * @return array ActiveQuery
      */
     public function getProductById(int $id)
     {
@@ -116,7 +116,7 @@ class Productrepository
     
     /**
      * 
-     * @param type array $ids
+     * @param array $ids
      * @return array ActiveQuery
      */
     public function getAllProductById(array $ids)
@@ -128,10 +128,10 @@ class Productrepository
     
     /**
      * Возвращает путь к продукту
-     * @param type $id <p>id продукта</p>
+     * @param int $id <p>id продукта</p>
      * @return string
      */
-    public static function getImage($id)
+    public static function getImage(int $id)
     {
         $id = intval($id);
         // Название изображения-пустышки
@@ -139,7 +139,7 @@ class Productrepository
 
         $alias = Yii::getAlias('@images');
         
-        $noImagePath = "$alias/no-image.jpg";
+        $noImagePath = "$alias/$noImage";
 
         // Путь к изображению товара
         $pathToProductImage = $alias . "/$id" . '.jpg';
@@ -154,11 +154,11 @@ class Productrepository
     
     /**
      * Возвращает общую цену продуктов
-     * @param type $quantity <p>Число продуктов</p>
-     * @param type $price <p>Цена продута</p>
-     * @return type
+     * @param int $quantity <p>Число продуктов</p>
+     * @param int $price <p>Цена продута</p>
+     * @return float|int
      */
-    public static function totalPriceProducts($quantity, $price)
+    public static function totalPriceProducts(int $quantity, int $price)
     {
         $result = $quantity * $price;
         return $result;

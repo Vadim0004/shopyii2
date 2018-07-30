@@ -2,7 +2,7 @@
 
 namespace frontend\models\repository;
 
-use frontend\models\activerecord\ProductOrder;
+use common\models\activerecord\ProductOrder;
 
 class Productorderrepository
 {
@@ -23,9 +23,9 @@ class Productorderrepository
     
     /**
      * Возвращает по номеру статуса заказ в каком он состоянии
-     * @param type $name <p>Номер стаутса из БД щрдеров</p>
+     * @param int $name <p>Номер стаутса из БД щрдеров</p>
      */
-    public static function getNameStatusOrder($name)
+    public static function getNameStatusOrder(int $name)
     {
         switch ($name) {
             case "1":

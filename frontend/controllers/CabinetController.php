@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
 use frontend\models\repository\Userrepository;
-use frontend\models\activerecord\User;
+use common\models\activerecord\User;
 use frontend\models\repository\Productorderrepository;
 use frontend\models\repository\Productrepository;
 

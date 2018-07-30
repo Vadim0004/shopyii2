@@ -4,7 +4,7 @@ namespace frontend\services\user;
 
 use frontend\models\UserRegister;
 use frontend\models\repository\Userrepository;
-use frontend\models\activerecord\User;
+use common\models\activerecord\User;
 use Yii;
 
 class Userservice

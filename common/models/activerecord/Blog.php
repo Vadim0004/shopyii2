@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\models\activerecord;
+namespace common\models\activerecord;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "blog".
@@ -13,7 +13,7 @@ use Yii;
  * @property string $short_content
  * @property string $content
  */
-class Blog extends \yii\db\ActiveRecord
+class Blog extends ActiveRecord
 {
     /**
      * {@inheritdoc}

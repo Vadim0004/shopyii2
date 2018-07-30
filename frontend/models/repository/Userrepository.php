@@ -2,15 +2,15 @@
 
 namespace frontend\models\repository;
 
-use frontend\models\activerecord\User;
+use common\models\activerecord\User;
 
 class Userrepository
 {
     
     /**
      * 
-     * @param type $email
-     * @return true|false ActiveQuery
+     * @param string $email
+     * @return array ActiveQuery
      */
     public function checkExistEmailInDb(string $email)
     {
@@ -24,6 +24,7 @@ class Userrepository
     /**
      * 
      * @param string $email
+     * @param string $password
      * @return true|false ActiveQuery
      */
     public function checkUserData(string $email, string $password)

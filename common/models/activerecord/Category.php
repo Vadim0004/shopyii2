@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\models\activerecord;
+namespace common\models\activerecord;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "category".
@@ -12,7 +12,7 @@ use Yii;
  * @property int $sort_order
  * @property int $status
  */
-class Category extends \yii\db\ActiveRecord
+class Category extends ActiveRecord
 {
     /**
      * {@inheritdoc}
