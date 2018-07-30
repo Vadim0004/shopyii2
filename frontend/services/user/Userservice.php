@@ -23,9 +23,10 @@ class Userservice
     {
         $userInDbIsset = $this->userRepository->checkExistEmailInDb($user->email);
         if (!$userInDbIsset) {
-            $this->userActiveRecord->saveUserAfterRegister($user->name, $user->email, $user->password);
+            $user = $this->userActiveRecord->saveUserAfterRegister($user->name, $user->email, $user->password);
+            $this->userRepository->save($user);
         } else {
-            throw new \DomainException('Error saving user.');
+            throw new \DomainException('This user already exist, please try another email');
         }     
     }
     
@@ -37,5 +38,24 @@ class Userservice
         } else {
             throw new \DomainException('Acess denided? wrong data.');
         }
+    }
+
+    public function getUserBySession()
+    {
+	    $userId = \frontend\models\User::checkLogged();
+	    $userData = $this->userRepository->getUserById($userId);
+
+	    if ($userData) {
+	    	return $userData;
+	    } else {
+		    throw new \DomainException('Acess denided? dont find user.');
+	    }
+    }
+
+    public function editeUserAndSave(int $userId, UserRegister $user)
+    {
+	    $userResult = $this->userActiveRecord->saveUserAfterEdite($userId, $user->name, $user->password);
+
+	    return $userResult;
     }
 }

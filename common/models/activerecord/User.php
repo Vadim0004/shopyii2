@@ -22,37 +22,24 @@ class User extends ActiveRecord
     {
         return '{{user}}';
     }
-    
-    /**
-     * 
-     * @param string $name
-     * @param string $email
-     * @param string $password
-     * @return true|false ActiveQuery
-     */
+
     public function saveUserAfterRegister(string $name, string $email, string $password)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
+    	$user = new Static();
+	    $user->name = $name;
+	    $user->email = $email;
+	    $user->password = $password;
         
-        return $this->save();
+        return $user;
     }
-    
-    /**
-     * 
-     * @param int $id
-     * @param string $name
-     * @param string $password
-     * @return array ActiveQuery
-     */
+
     public function saveUserAfterEdite(int $id, string $name, string $password)
     {
         $this->setOldAttribute('id', $id);
         $this->name = $name;
         $this->password = $password;
         $result = $this->update();
-        
+
         return $result;
     }
     

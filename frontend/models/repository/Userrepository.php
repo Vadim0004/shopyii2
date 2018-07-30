@@ -50,5 +50,12 @@ class Userrepository
         
         return $user;
     }
-    
+
+    public function save(User $user)
+    {
+		if (!$user->save()) {
+			throw new \RuntimeException('Saving error.');
+		}
+    }
+
 }
