@@ -108,7 +108,7 @@ class CartController extends Controller
                 if ($chekout->validate()) {
                     // Сохраняем заказ в базе данных
                     $productActiveRecord = new ProductOrder();
-                    $result = $productActiveRecord->orderSave($userId, $productsInCart, $chekout->userName, $chekout->userPhone, $chekout->userComment);
+                    $result = $productActiveRecord->orderSave($userId, $productsInCart, $chekout->userName, $chekout->userPhone, $chekout->userComment, $totalPrice);
                     
                     if ($result) {
                         // Если заказ успешно сохранен

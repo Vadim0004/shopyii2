@@ -121,7 +121,7 @@ class Productrepository
      */
     public function getAllProductById(array $ids)
     {
-        $products = Product::findAll($ids);
+        $products = Product::find()->where(['id' => $ids])->asArray()->all();
         
         return $products;
     }

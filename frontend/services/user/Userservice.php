@@ -5,16 +5,19 @@ namespace frontend\services\user;
 use frontend\models\UserRegister;
 use frontend\models\repository\Userrepository;
 use common\models\activerecord\User;
+use frontend\models\repository\Productrepository;
 use Yii;
 
 class Userservice
 {
     private $userRepository;
     private $userActiveRecord;
+    private $productRepository;
 
 
-    public function __construct(User $userActiveRecord, Userrepository $userRepository) 
+    public function __construct(User $userActiveRecord, Userrepository $userRepository, Productrepository $productRepository)
     {
+    	$this->productRepository = $productRepository;
         $this->userActiveRecord = $userActiveRecord;
         $this->userRepository = $userRepository;
     }
@@ -57,5 +60,39 @@ class Userservice
 	    $userResult = $this->userActiveRecord->saveUserAfterEdite($userId, $user->name, $user->password);
 
 	    return $userResult;
+    }
+
+    public function getOrders(int $orderId)
+    {
+    	$result = $this->userRepository->getOrdersById($orderId);
+
+    	return $result;
+    }
+
+    public function getProductsJsDecode(array $products)
+    {
+		$productArray = [];
+
+	    foreach ($products as $item) {
+		    foreach ($item['productOrdersById'] as $value) {
+			    $decode = json_decode($value['products'] , true);
+			    $product = array_keys($decode);
+			    $productArray[$value['id']] = $this->productRepository->getAllProductById($product);
+		    }
+	    }
+
+	    return $productArray;
+    }
+
+    public function getDecodeProducts(array $products)
+    {
+    	$decode = [];
+	    foreach ($products as $item) {
+		    foreach ($item['productOrdersById'] as $value) {
+			    $decode[$value['id']] = json_decode($value['products'] , true);
+		    }
+	    }
+
+	    return $decode;
     }
 }

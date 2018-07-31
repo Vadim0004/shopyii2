@@ -7,21 +7,6 @@ use common\models\activerecord\ProductOrder;
 class Productorderrepository
 {
     /**
-     * 
-     * @param int $id
-     * @return array ActiveQuery
-     */
-    
-    public function getOrdersByAuthorId($id)
-    {
-        $orderList = ProductOrder::find()
-                ->where(['user_id' => $id])
-                ->all();
-        
-        return $orderList;
-    }
-    
-    /**
      * Возвращает по номеру статуса заказ в каком он состоянии
      * @param int $name <p>Номер стаутса из БД щрдеров</p>
      */

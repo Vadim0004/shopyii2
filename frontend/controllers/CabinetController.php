@@ -5,8 +5,6 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
-use frontend\models\repository\Productorderrepository;
-use frontend\models\repository\Productrepository;
 use frontend\services\user\Userservice;
 
 class CabinetController extends Controller
@@ -63,24 +61,15 @@ class CabinetController extends Controller
     public function actionHistory()
     {
         // Получаем идентификатор пользователя из сессии
-        $userId = \frontend\models\User::checkLogged();
-        
-        $productOrdersRepository = new Productorderrepository();
-        $orders = $productOrdersRepository->getOrdersByAuthorId($userId);
+        $userId = $this->userService->getUserBySession();
+	    $orders = $this->userService->getOrders($userId->id);
+	    $products = $this->userService->getProductsJsDecode($orders);
+	    $productsDecode = $this->userService->getDecodeProducts($orders);
 
-        $products = [];
-        $arrayProductsFromOrder = [];
-        foreach ($orders as $ordersItem) {
-            $arrayProductsFromOrder[$ordersItem['id']] = json_decode($ordersItem['products'], true);
-            $arrayKeysProduct = array_keys($arrayProductsFromOrder[$ordersItem['id']]);
-            $productRepository = new Productrepository();
-            $products[$ordersItem['id']] = $productRepository->getAllProductById($arrayKeysProduct);
-        }
-        
         return $this->render('history', [
             'orders' => $orders,
-            'products' => $products,
-            'arrayProductsFromOrder' => $arrayProductsFromOrder,
+	        'products' => $products,
+	        'productsDecode' => $productsDecode
         ]);
     }
 }
