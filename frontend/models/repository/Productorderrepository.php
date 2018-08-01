@@ -24,4 +24,13 @@ class Productorderrepository
                 break;
         }
     }
+
+    public function save(ProductOrder $checkout)
+    {
+        if ($checkout->save()) {
+            return true;
+        } else {
+            throw new \RuntimeException('Saving checkout error.');
+        }
+    }
 }

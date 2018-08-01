@@ -2,36 +2,31 @@
 
 namespace frontend\controllers;
 
+use frontend\services\cart\CartService;
 use Yii;
 use frontend\models\Checkout;
 use frontend\models\User;
 use frontend\models\Cart;
 use yii\web\Controller;
-use frontend\models\repository\Productrepository;
-use common\models\activerecord\ProductOrder;
 
 class CartController extends Controller
 {
-    public function actionIndex()
+	private $cartService;
+
+	public function __construct($id, $module, CartService $cartService, array $config = [])
+	{
+		$this->cartService = $cartService;
+		parent::__construct($id, $module, $config);
+	}
+
+	public function actionIndex()
     {
-
-        // Получим данные из корзины
-        $productsInCart = Cart::getProducts();
-        $productsRepository = new Productrepository();
-        
-        if ($productsInCart) {
-            // Получкаем полную информацию о товарах для списка
-            $productIds = array_keys($productsInCart);
-
-            $products = $productsRepository->getAllProductById($productIds);
-            
-            // Получаем общую стоимость
-            $totalPrice = Cart::getTotalPrice($products);
-        }
+	    $productsInCart = Cart::getProducts();
+    	$products = $this->cartService->indexCart($productsInCart);
+	    $totalPrice = Cart::getTotalPrice($products);
         
         return $this->render('index', [
             'productsInCart' => $productsInCart,
-            'productIds' => $productIds,
             'products' => $products,
             'totalPrice' => $totalPrice
         ]);
@@ -59,68 +54,39 @@ class CartController extends Controller
     {
         // Получием данные из корзины      
         $productsInCart = Cart::getProducts();
-
         // Если товаров нет, отправляем пользователи искать товары на главную
         if ($productsInCart == false) {
             Yii::$app->response->redirect(['/']);
         }
-
+        $products = $this->cartService->indexCart($productsInCart);
         // Находим общую стоимость
-        $productsIds = array_keys($productsInCart);
-        
-        $productsInCart = Cart::getProducts();
-        $productsInCartRevert = array_flip($productsInCart);
-        $productsRepository = new Productrepository();
-	    $products = $productsRepository->getAllProductById($productsInCartRevert);
-
         $totalPrice = Cart::getTotalPrice($products);
 
         // Количество товаров
         $totalQuantity = Cart::countItems();
-        
+
         $chekout = new Checkout();
         $chekout->scenario = Checkout::SCENARIO_CHECKOUT_SEND;
         $formData = Yii::$app->request->post();
-        
+
         // Статус успешного оформления заказа
         $result = false;
-
         // Проверяем является ли пользователь гостем
         if (!User::isGuest()) {
             // Если пользователь не гость
             // Получаем информацию о пользователе из БД
             $userId = User::checkLogged();
         } else {
-            // Если гость, поля формы останутся пустыми
-            $userId = false;
+            $userId = User::checkLogged();
         }
 
-        // Обработка формы
         if (Yii::$app->request->isPost) {
             $chekout->attributes = $formData['Checkout'];
-            
-            $userId = User::checkLogged();
             // Флаг ошибок
             $errors = false;
-            
             if ($errors == false) {
-                // Если ошибок нет
                 if ($chekout->validate()) {
-                    // Сохраняем заказ в базе данных
-                    $productActiveRecord = new ProductOrder();
-                    $result = $productActiveRecord->orderSave($userId, $productsInCart, $chekout->userName, $chekout->userPhone, $chekout->userComment, $totalPrice);
-                    
-                    if ($result) {
-                        // Если заказ успешно сохранен
-                        // Оповещаем администратора о новом заказе по почте                
-                        $adminEmail = 'shop@gmail.com';
-                        $message = '<a href="http://localhost/admin/orders">Список заказов</a>';
-                        $subject = 'Новый заказ!';
-                        mail($adminEmail, $subject, $message);
-
-                        // Очищаем корзину
-                        Cart::clear();
-                    }
+                    $result = $this->cartService->saveCheckout($userId, $productsInCart, $chekout, $totalPrice);
                 }
             }
         }
