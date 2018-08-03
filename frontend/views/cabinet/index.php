@@ -19,8 +19,9 @@ $this->registerMetaTag([
             <?= Html::tag('h3', 'Личный кабинет');?>
             <?= Html::tag('h4', 'Привет ' . $userData->name);?>
             <ul>
-                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/edit');?>">Отредактировать Данные</a></li>
-                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/history');?>">Список покупок</a></li>
+                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/edit'); ?>">Отредактировать Данные</a></li>
+                <li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/history'); ?>">Список покупок</a></li>
+				<li><a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/addAddressBook'); ?>">Добавить личные данные</a></li>
             </ul>
 
         </div>

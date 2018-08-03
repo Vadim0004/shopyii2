@@ -28,6 +28,11 @@ class User extends ActiveRecord
     	return $this->hasMany(ProductOrder::class, ['user_id' => 'id']);
     }
 
+    public function getAddressBookById()
+    {
+        return $this->hasOne(AddressBook::class, ['customer_id' => 'id']);
+    }
+
     public function saveUserAfterRegister(string $name, string $email, string $password)
     {
     	$user = new Static();

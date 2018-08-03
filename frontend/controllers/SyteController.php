@@ -6,7 +6,7 @@ use Yii;
 use frontend\models\Contact;
 use yii\web\Controller;
 use frontend\components\Pagination;
-use frontend\models\repository\Productrepository;
+use frontend\models\repository\ProductRepository;
 use frontend\services\syte\SyteService;
 
 class SyteController extends Controller
@@ -16,11 +16,11 @@ class SyteController extends Controller
 
 
 	public function __construct(
-		$id,
-		$module,
-		Productrepository $productRep,
-		SyteService $syteService,
-		$config = [])
+        $id,
+        $module,
+        ProductRepository $productRep,
+        SyteService $syteService,
+        $config = [])
 	{
         $this->productRep = $productRep;
         $this->syteService = $syteService;

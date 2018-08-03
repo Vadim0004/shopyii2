@@ -4,17 +4,17 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use frontend\models\repository\Blogrepository;
+use frontend\models\repository\BlogRepository;
 
 class BlogController extends Controller
 {
     private $repository;
     
     public function __construct(
-            $id, 
-            $module, 
-            Blogrepository $repository, 
-            $config = []) 
+        $id,
+        $module,
+        BlogRepository $repository,
+        $config = [])
     {
         $this->repository = $repository;
         parent::__construct($id, $module, $config);

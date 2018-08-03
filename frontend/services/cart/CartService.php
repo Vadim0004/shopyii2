@@ -3,9 +3,9 @@
 namespace frontend\services\cart;
 
 use frontend\models\Checkout;
-use frontend\models\repository\Productrepository;
+use frontend\models\repository\ProductRepository;
 use common\models\activerecord\ProductOrder;
-use frontend\models\repository\Productorderrepository;
+use frontend\models\repository\ProductOrderRepository;
 use frontend\models\Cart;
 use yii\helpers\Url;
 use Yii;
@@ -18,10 +18,10 @@ class CartService
 	private $productOrderRepository;
 
 	public function __construct(
-	    $adminEmail,
-        Productrepository $productRepository,
+        $adminEmail,
+        ProductRepository $productRepository,
         ProductOrder $productOrder,
-        Productorderrepository $productOrderRepository)
+        ProductOrderRepository $productOrderRepository)
 	{
 	    $this->adminEmail = $adminEmail;
 		$this->productRepository = $productRepository;

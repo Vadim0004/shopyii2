@@ -1,6 +1,6 @@
 <?php
 
-use frontend\models\repository\Productorderrepository;
+use frontend\models\repository\ProductOrderRepository;
 use frontend\assets\MyShopAsset;
 
 MyShopAsset::register($this);
@@ -33,7 +33,7 @@ $this->registerMetaTag([
 						<td><?php echo $item['user_phone']; ?></td>
 						<td><?php echo $item['user_comment']; ?></td>
 						<td><?php echo $item['date']; ?></td>
-						<td><?php echo Productorderrepository::getNameStatusOrder($item['status']); ?></td>
+						<td><?php echo ProductOrderRepository::getNameStatusOrder($item['status']); ?></td>
 						<td>
 							<?php foreach ($products[$item['id']] as $product): ?>
 								<?php echo 'Имя продукта' . ' - ' . '<b>' . $product['name'] . '</b>' . '<br>'; ?>

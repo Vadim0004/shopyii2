@@ -3,9 +3,9 @@
 namespace frontend\services\user;
 
 use frontend\models\UserRegister;
-use frontend\models\repository\Userrepository;
+use frontend\models\repository\UserRepository;
 use common\models\activerecord\User;
-use frontend\models\repository\Productrepository;
+use frontend\models\repository\ProductRepository;
 use Yii;
 
 class Userservice
@@ -15,7 +15,7 @@ class Userservice
     private $productRepository;
 
 
-    public function __construct(User $userActiveRecord, Userrepository $userRepository, Productrepository $productRepository)
+    public function __construct(User $userActiveRecord, UserRepository $userRepository, ProductRepository $productRepository)
     {
     	$this->productRepository = $productRepository;
         $this->userActiveRecord = $userActiveRecord;
@@ -43,6 +43,9 @@ class Userservice
         }
     }
 
+    /**
+     * @return array activeRecord
+     */
     public function getUserBySession()
     {
 	    $userId = \frontend\models\User::checkLogged();

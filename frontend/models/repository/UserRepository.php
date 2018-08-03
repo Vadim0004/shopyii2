@@ -4,7 +4,7 @@ namespace frontend\models\repository;
 
 use common\models\activerecord\User;
 
-class Userrepository
+class UserRepository
 {
     
     /**
