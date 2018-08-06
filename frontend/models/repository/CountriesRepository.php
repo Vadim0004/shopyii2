@@ -12,7 +12,6 @@ class CountriesRepository
     public function getAllCountries()
     {
         $countries = Countries::find()->asArray()->all();
-
         return $countries;
     }
 }

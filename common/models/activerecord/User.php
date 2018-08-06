@@ -2,6 +2,7 @@
 
 namespace common\models\activerecord;
 
+use frontend\models\UserRegister;
 use yii\db\ActiveRecord;
 
 /**
@@ -39,18 +40,16 @@ class User extends ActiveRecord
 	    $user->name = $name;
 	    $user->email = $email;
 	    $user->password = $password;
-        
+
         return $user;
     }
 
-    public function saveUserAfterEdite(int $id, string $name, string $password)
+    public function saveUserAfterEdite(User $user, UserRegister $userRep)
     {
-        $this->setOldAttribute('id', $id);
-        $this->name = $name;
-        $this->password = $password;
-        $result = $this->update();
+        $user->name = $userRep->name;
+        $user->password = $userRep->password;
 
-        return $result;
+        return $user;
     }
     
 }

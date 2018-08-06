@@ -13,4 +13,14 @@ class AddressBookRepository
             return true;
         }
     }
+
+    /**
+     * @param int $userId
+     * @return array|\yii\db\ActiveQuery[]
+     */
+    public function getAddressBook(int $userId)
+    {
+        $addressBook = AddressBook::find()->where(['customer_id' => $userId])->one();
+        return $addressBook;
+    }
 }

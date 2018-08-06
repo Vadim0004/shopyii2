@@ -23,7 +23,7 @@ class AddressBook extends Model
     public function rules()
     {
         return [
-            [['country_id'], 'integer'],
+            [['country_id', 'customer_id'], 'integer'],
             [['_api_time_modified'], 'safe'],
             [['lastname', 'gender'], 'string', 'min' => 1],
             [['company', 'city', 'state'], 'string', 'max' => 32],

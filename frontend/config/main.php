@@ -77,7 +77,8 @@ return [
                 'user/register' => 'user/register', // actionRegister в UserController
                 'user/login' => 'user/login', // actionLogin в UserController
                 'user/logout' => 'user/logout', // actionLogout в UserController
-                'cabinet/addAddressBook' => 'cabinet/addaddressbook', // actionHistory in CabinetController
+                'cabinet/editAddress' => 'cabinet/editaddressbook', // actionEditeAddressbook in CabinetController
+                'cabinet/book' => 'cabinet/addaddressbook', // actionФddaddressbook in CabinetController
                 'cabinet/history' => 'cabinet/history', // actionHistory in CabinetController
                 'cabinet/edit' => 'cabinet/edit', // actionEdit в CabinetController
                 'cabinet' => 'cabinet/index', // actionIndex в CabinetController

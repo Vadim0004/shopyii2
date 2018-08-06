@@ -60,9 +60,11 @@ class Userservice
 
     public function editeUserAndSave(int $userId, UserRegister $user)
     {
-	    $userResult = $this->userActiveRecord->saveUserAfterEdite($userId, $user->name, $user->password);
+        $customer = $this->userRepository->getUserById($userId);
+	    $userResult = $this->userActiveRecord->saveUserAfterEdite($customer, $user);
+	    $userSave = $this->userRepository->save($userResult);
 
-	    return $userResult;
+	    return $userSave;
     }
 
     public function getOrders(int $orderId)

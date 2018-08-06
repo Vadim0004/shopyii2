@@ -55,7 +55,9 @@ class UserRepository
     {
 		if (!$user->save()) {
 			throw new \RuntimeException('Saving error.');
-		}
+		} else {
+		    return true;
+        }
     }
 
     public function getOrdersById(int $orderId)

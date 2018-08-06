@@ -7,7 +7,6 @@ use yii\web\Controller;
 use frontend\models\UserRegister;
 use frontend\services\user\Userservice;
 use frontend\models\AddressBook;
-use frontend\models\repository\CountriesRepository;
 use frontend\services\cabinet\CabinetService;
 
 class CabinetController extends Controller
@@ -41,8 +40,7 @@ class CabinetController extends Controller
         $userData = $this->userService->getUserBySession();
         $form = new AddressBook();
         $formAttrLable = $form->attributeLabels();
-        $countries = new CountriesRepository();
-        $countriesList = $countries->getAllCountries();
+        $countriesList = $this->cabinetService->countriesListAll();
         $formData = Yii::$app->request->post();
 
         if (Yii::$app->request->isPost && $form->validate()) {
@@ -51,14 +49,36 @@ class CabinetController extends Controller
             return $this->redirect('/cabinet/index');
         }
 
-        return $this->render('addAddressBook', [
+        return $this->render('addaddressbook', [
             'userData' => $userData,
             'form' => $form,
             'countriesList' => $countriesList,
             'formAttrLable' => $formAttrLable,
         ]);
     }
-    
+
+    public function actionEditaddressbook()
+    {
+        $userData = $this->userService->getUserBySession();
+        $addressBook = $this->cabinetService->getListAddressBook($userData->id);
+        $formData = Yii::$app->request->post();
+        $form = new AddressBook();
+        $formAttrLable = $form->attributeLabels();
+        $countriesList = $this->cabinetService->countriesListAll();
+
+        if (Yii::$app->request->isPost) {
+            $form->attributes = $formData;
+            if ($form->validate()) {
+                $formEdit = $this->cabinetService->editCustomerDetails($userData->id, $form);
+                return $this->redirect('/cabinet/index');
+            }
+        }
+        return $this->render('editaddressbook', [
+            'addressBook' => $addressBook,
+            'countriesList' => $countriesList,
+            'formAttrLable' => $formAttrLable
+        ]);
+    }
     public function actionEdit()
     {
 	    $userData = $this->userService->getUserBySession();

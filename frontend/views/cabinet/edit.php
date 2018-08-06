@@ -37,7 +37,13 @@ $this->registerMetaTag([
 
                 <div class="col-sm-4 col-sm-offset-4 padding-right">
                     <?= Html::input('text', 'name', $userData->name, ['class' => 'form-control']) . '<br>'; ?>
+                    <?php if ($user->hasErrors()): ?>
+                        <?= Html::error($user, 'name', ['class' => 'alert alert-danger']) ?>
+                    <?php endif; ?>
                     <?= Html::input('password', 'password', $userData->password, ['class' => 'form-control']) . '<br>'; ?>
+                    <?php if ($user->hasErrors()): ?>
+                    <?= Html::error($user, 'password', ['class' => 'alert alert-danger']) ?>
+					<?php endif; ?>
                     <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
                 </div>
 

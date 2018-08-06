@@ -49,4 +49,18 @@ class AddressBook extends \yii\db\ActiveRecord
 
         return $saveAddressBook;
     }
+
+    public function saveAddressBookAfterEdite(AddressBook $addressBook, AddressBookModel $addressBookModel):self
+    {
+        $addressBook->lastname = $addressBookModel->lastname;
+        $addressBook->gender = $addressBookModel->gender;
+        $addressBook->company = $addressBookModel->company;
+        $addressBook->street_address = $addressBookModel->street_address;
+        $addressBook->postcode = $addressBookModel->postcode;
+        $addressBook->city = $addressBookModel->city;
+        $addressBook->state = $addressBookModel->state;
+        $addressBook->country_id = $addressBookModel->country_id;
+
+        return $addressBook;
+    }
 }
