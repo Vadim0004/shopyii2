@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
-use frontend\services\user\Userservice;
+use frontend\services\user\UserService;
 use frontend\models\AddressBook;
 use frontend\services\cabinet\CabinetService;
 
@@ -15,11 +15,11 @@ class CabinetController extends Controller
 	private $cabinetService;
 
 	public function __construct(
-		$id,
-		$module,
-		Userservice $userService,
-		CabinetService $cabinetService,
-		array $config = [])
+        $id,
+        $module,
+        UserService $userService,
+        CabinetService $cabinetService,
+        array $config = [])
 	{
 		$this->userService = $userService;
 		$this->cabinetService = $cabinetService;

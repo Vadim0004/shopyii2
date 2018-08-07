@@ -9,7 +9,7 @@ use frontend\models\repository\ProductRepository;
 use frontend\models\repository\AddressBookRepository;
 use Yii;
 
-class Userservice
+class UserService
 {
     private $userRepository;
     private $userActiveRecord;

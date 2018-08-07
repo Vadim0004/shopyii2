@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\UserRegister;
-use frontend\services\user\Userservice;
+use frontend\services\user\UserService;
 
 
 class UserController extends Controller
 {
     private $userServices;
     
-    public function __construct($id, $module, Userservice $userServices, $config = []) 
+    public function __construct($id, $module, UserService $userServices, $config = [])
     {
         $this->userServices = $userServices;
         parent::__construct($id, $module, $config);
