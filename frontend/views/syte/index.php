@@ -4,6 +4,7 @@ use frontend\assets\MyShopAsset;
 use frontend\models\repository\ProductRepository;
 use frontend\widgets\categoryList\CategoryList;
 use frontend\widgets\recommendProductsList\RecommendProductsList;
+use frontend\widgets\galleryImages\GalleryImages;
 
 MyShopAsset::register($this);
 
@@ -22,7 +23,7 @@ $this->registerMetaTag([
 <section>
     <div class="container">
         <div class="row">
-
+            <?= /* Список категорий */ GalleryImages::widget(); ?>
             <?= /* Список категорий */ CategoryList::widget(); ?>
 
             <div class="col-sm-9 padding-right">

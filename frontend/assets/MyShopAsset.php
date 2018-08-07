@@ -17,19 +17,21 @@ class MyShopAsset extends AssetBundle
         'css/animate.css',
         'css/main.css',
         'css/responsive.css',
+        'css/jcarousel.basic.css',
     ];
     
     public $js = [
         // Слайдер
         'js/jquery.cycle2.min.js',
         // Главное
+        'js/jquery.jcarousel.min.js',
+        'js/jcarousel.basic.js',
         'js/jquery.cycle2.carousel.min.js',
         'js/bootstrap.min.js',
         'js/jquery.scrollUp.min.js',
         'js/price-range.js',
         'js/jquery.prettyPhoto.js',
         'js/main.js',
-
     ];
     
     public $depends = [

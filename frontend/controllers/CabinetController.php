@@ -29,6 +29,12 @@ class CabinetController extends Controller
 	public function actionIndex()
     {
 	    $userData = $this->userService->getUserBySession();
+        try {
+            $userData = $this->userService->getUserBySession();
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
         $addressBook = $this->userService->getAddressBook($userData);
 
         return $this->render('index', [
