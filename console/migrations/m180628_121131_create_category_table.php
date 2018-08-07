@@ -58,6 +58,6 @@ class m180628_121131_create_category_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('blog');
+        $this->dropTable('category');
     }
 }
