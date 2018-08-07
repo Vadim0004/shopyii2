@@ -13,43 +13,24 @@ $this->registerMetaTag([
 ?>
 
 <section>
-    <div class="container">
-        <div class="row">
-            <h4 class="col-sm-4 col-sm-offset-4 padding-right">Редактирование данных</h4>
-            <?php if (!$result == false): ?>
+	<div class="container">
+		<div class="row">
+			<h4 class="col-sm-4 col-sm-offset-4 padding-right">Редактирование данных</h4>
+            <?= Html::beginForm(); ?>
 
-                <h4 class="col-sm-4 col-sm-offset-4 padding-right">
-                    <?php echo ' - Вы поменяли свои данные' . '<br>'; ?>
-                    <a href="<?php echo Yii::$app->urlManager->createUrl('cabinet/index'); ?>"class="btn btn-primary">В личный кабинет</a>
-                </h4>
-
-            <?php else: ?>
-
-                <?php if (isset($errors) && is_array($errors)): ?>
-                    <?php foreach ($errors as $error): ?>
-                        <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li> - <?php echo $error; ?></li>
-                        </ul>
-                    <?php endforeach; ?>
+			<div class="col-sm-4 col-sm-offset-4 padding-right">
+                <?= Html::input('text', 'name', $userData->name, ['class' => 'form-control']) . '<br>'; ?>
+                <?php if ($user->hasErrors()): ?>
+                    <?= Html::error($user, 'name', ['class' => 'alert alert-danger']) ?>
                 <?php endif; ?>
-
-                <?= Html::beginForm(); ?>
-
-                <div class="col-sm-4 col-sm-offset-4 padding-right">
-                    <?= Html::input('text', 'name', $userData->name, ['class' => 'form-control']) . '<br>'; ?>
-                    <?php if ($user->hasErrors()): ?>
-                        <?= Html::error($user, 'name', ['class' => 'alert alert-danger']) ?>
-                    <?php endif; ?>
-                    <?= Html::input('password', 'password', $userData->password, ['class' => 'form-control']) . '<br>'; ?>
-                    <?php if ($user->hasErrors()): ?>
+                <?= Html::input('password', 'password', $userData->password, ['class' => 'form-control']) . '<br>'; ?>
+                <?php if ($user->hasErrors()): ?>
                     <?= Html::error($user, 'password', ['class' => 'alert alert-danger']) ?>
-					<?php endif; ?>
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
-                </div>
+                <?php endif; ?>
+                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
+			</div>
 
-                <?= Html::endForm(); ?>
-
-            <?php endif; ?>
-        </div>
-    </div>
+            <?= Html::endForm(); ?>
+		</div>
+	</div>
 </section>

@@ -29,12 +29,15 @@ $this->registerMetaTag([
 						<a href="<?php echo Url::to(['cabinet/history']); ?>">
 							<li class="btn btn-primary">Список покупок</li>
 						</a><br>
-						<a href="<?php echo Url::to(['cabinet/editaddressbook']); ?>">
-							<li class="btn btn-primary">Редактировать личные данные</li>
-						</a><br>
-						<a href="<?php echo Url::to(['cabinet/addaddressbook']); ?>">
-							<li class="btn btn-primary">Добавить личные данные</li>
-						</a><br>
+                        <?php if ($addressBook): ?>
+							<a href="<?php echo Url::to(['cabinet/editaddressbook']); ?>">
+								<li class="btn btn-primary">Редактировать личные данные</li>
+							</a><br>
+                        <?php else: ?>
+							<a href="<?php echo Url::to(['cabinet/addaddressbook']); ?>">
+								<li class="btn btn-primary">Добавить личные данные</li>
+							</a><br>
+                        <?php endif; ?>
 					</ul>
 				</div>
 			</div>

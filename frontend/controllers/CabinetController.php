@@ -29,9 +29,11 @@ class CabinetController extends Controller
 	public function actionIndex()
     {
 	    $userData = $this->userService->getUserBySession();
+        $addressBook = $this->userService->getAddressBook($userData);
 
         return $this->render('index', [
             'userData' => $userData,
+            'addressBook' => $addressBook,
         ]);
     }
 
@@ -46,7 +48,7 @@ class CabinetController extends Controller
         if (Yii::$app->request->isPost && $form->validate()) {
             $form->attributes = $formData['AddressBook'];
             $formSave = $this->cabinetService->addCustomerDetails($userData->id, $form);
-            return $this->redirect('/cabinet/index');
+            return $this->redirect(['cabinet/index']);
         }
 
         return $this->render('addaddressbook', [
@@ -70,7 +72,7 @@ class CabinetController extends Controller
             $form->attributes = $formData;
             if ($form->validate()) {
                 $formEdit = $this->cabinetService->editCustomerDetails($userData->id, $form);
-                return $this->redirect('/cabinet/index');
+                return $this->redirect(['cabinet/index']);
             }
         }
         return $this->render('editaddressbook', [
@@ -93,6 +95,8 @@ class CabinetController extends Controller
             $errors = false;
             if ($user->validate()) {
                 $result = $this->userService->editeUserAndSave($userData->id, $user);
+                Yii::$app->getSession()->setFlash('success', 'Данные успешно изменены');
+                return $this->redirect(['cabinet/index']);
             } else {
                 $user->getErrors();
                 $errors[] = 'Ошибка!';

@@ -6,6 +6,7 @@ use frontend\models\UserRegister;
 use frontend\models\repository\UserRepository;
 use common\models\activerecord\User;
 use frontend\models\repository\ProductRepository;
+use frontend\models\repository\AddressBookRepository;
 use Yii;
 
 class Userservice
@@ -13,13 +14,17 @@ class Userservice
     private $userRepository;
     private $userActiveRecord;
     private $productRepository;
+    private $addressBookRepository;
 
-
-    public function __construct(User $userActiveRecord, UserRepository $userRepository, ProductRepository $productRepository)
+    public function __construct(User $userActiveRecord,
+                                UserRepository $userRepository,
+                                ProductRepository $productRepository,
+                                AddressBookRepository $addressBookRepository)
     {
     	$this->productRepository = $productRepository;
         $this->userActiveRecord = $userActiveRecord;
         $this->userRepository = $userRepository;
+        $this->addressBookRepository = $addressBookRepository;
     }
 
     public function registerCustomer(UserRegister $user)
@@ -99,5 +104,11 @@ class Userservice
 	    }
 
 	    return $decode;
+    }
+
+    public function getAddressBook(User $user)
+    {
+        $addressBook = $this->addressBookRepository->getAddressBook($user->id);
+        return $addressBook;
     }
 }
