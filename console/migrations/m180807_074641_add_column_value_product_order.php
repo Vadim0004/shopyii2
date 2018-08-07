@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m180731_121030_add_column_value_product_order
+ * Class m180807_074641_add_column_value_product_order
  */
-class m180731_121030_add_column_value_product_order extends Migration
+class m180807_074641_add_column_value_product_order extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-	    $this->addColumn('product_order', 'value', $this->float()->notNull());
+        $this->addColumn('product_order', 'value', $this->float()->notNull());
     }
 
     /**
