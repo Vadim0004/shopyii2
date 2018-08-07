@@ -3,18 +3,16 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
-use frontend\models\repository\Productrepository;
-use frontend\models\Product;
-use Yii;
+use frontend\models\repository\ProductRepository;
 
 class ProductController extends Controller
 {
     private $repository;
 
-    public function __construct($id, 
-            $module, 
-            Productrepository $repository, 
-            $config = []) 
+    public function __construct($id,
+                                $module,
+                                ProductRepository $repository,
+                                $config = [])
     {
         $this->repository = $repository;
         parent::__construct($id, $module, $config);
@@ -22,9 +20,7 @@ class ProductController extends Controller
 
     public function actionIndex($id)
     {
-        $id = intval($id);
-        $productRepository = new Productrepository();
-        $product = $productRepository->getProductById($id);
+        $product = $this->repository->getProductById($id);
         
         return $this->render('index', [
             'product' => $product,

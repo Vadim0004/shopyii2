@@ -6,7 +6,7 @@ class RecommendProductsList extends \yii\base\Widget
 {
     public function run()
     {
-        $productRepository = new \frontend\models\repository\Productrepository();
+        $productRepository = new \frontend\models\repository\ProductRepository();
         $recomend = $productRepository->getRecommendedProducts();
         
         return $this->render('recommendProducts', [

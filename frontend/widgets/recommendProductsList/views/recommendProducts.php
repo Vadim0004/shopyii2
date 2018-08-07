@@ -1,6 +1,6 @@
 <?php 
 
-use frontend\models\repository\Productrepository;
+use frontend\models\repository\ProductRepository;
 
 ?>
 
@@ -22,7 +22,7 @@ use frontend\models\repository\Productrepository;
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div itemscope itemtype="http://schema.org/Offer" class="productinfo text-center">
-                            <img src="<?php echo Productrepository::getImage($sliderItem->id); ?>"/>
+                            <img src="<?php echo ProductRepository::getImage($sliderItem->id); ?>"/>
                             <span itemprop="price">$<?php echo $sliderItem->price; ?></span>
                             <span itemprop="name">
                                 <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $sliderItem->id]); ?>">

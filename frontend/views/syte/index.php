@@ -1,7 +1,7 @@
 <?php
 
 use frontend\assets\MyShopAsset;
-use frontend\models\repository\Productrepository;
+use frontend\models\repository\ProductRepository;
 use frontend\widgets\categoryList\CategoryList;
 use frontend\widgets\recommendProductsList\RecommendProductsList;
 
@@ -35,7 +35,7 @@ $this->registerMetaTag([
                                 <div class="single-products">
                                     <div itemscope itemtype="http://schema.org/Offer" class="productinfo text-center">
 
-                                        <img src="<?php echo Productrepository::getImage($product->id); ?>" alt="" />
+                                        <img src="<?php echo ProductRepository::getImage($product->id); ?>" alt="" />
 
 
                                         <span itemprop="price"><?php echo $product->price; ?>$</span>

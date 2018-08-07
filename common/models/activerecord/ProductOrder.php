@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $date
  * @property string $products
  * @property int $status
+ * @property float $value
  */
 class ProductOrder extends ActiveRecord
 {
@@ -57,16 +58,17 @@ class ProductOrder extends ActiveRecord
         ];
     }
     
-    public function orderSave(int $userId, array $productsInCart, string $user_name, $user_phone, string $user_comment)
+    public function orderSave(int $userId, array $productsInCart, string $user_name, $user_phone, string $user_comment, float $totalPrice)
     {
+        $chekout = new Static();
         $productsInCart = json_encode($productsInCart);
-        $this->user_id = $userId;
-        $this->user_name = $user_name;
-        $this->user_phone = $user_phone;
-        $this->user_comment = $user_comment;
-        $this->products = $productsInCart;
-        $result = $this->save();
-        
-        return $result;
+        $chekout->user_id = $userId;
+        $chekout->user_name = $user_name;
+        $chekout->user_phone = $user_phone;
+        $chekout->user_comment = $user_comment;
+        $chekout->products = $productsInCart;
+        $chekout->value = $totalPrice;
+
+        return $chekout;
     }
 }

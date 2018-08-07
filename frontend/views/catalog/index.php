@@ -1,5 +1,5 @@
 <?php
-use frontend\models\repository\Productrepository;
+use frontend\models\repository\ProductRepository;
 use frontend\widgets\categoryList\CategoryList;
 
 // @var $this yii\web\View
@@ -26,7 +26,7 @@ $this->registerMetaTag([
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         
-                                        <img src="<?php echo Productrepository::getImage($product['id']);?>" alt="" />
+                                        <img src="<?php echo ProductRepository::getImage($product['id']);?>" alt="" />
                                        
                                         
                                         <h2><?php echo $product->price; ?>$</h2>
@@ -75,7 +75,7 @@ $this->registerMetaTag([
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="<?php echo Productrepository::getImage($sliderItem['id']);?>"/>
+                                            <img src="<?php echo ProductRepository::getImage($sliderItem['id']);?>"/>
                                             <h2>$<?php echo $sliderItem->price; ?></h2>
                                             <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $sliderItem->id]); ?>">
                                                 ID:<?php echo '# ' . $sliderItem->id . ' ';?><?php echo $product->name; ?>
