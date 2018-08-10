@@ -43,12 +43,12 @@ class ProductController extends \yii\web\Controller
     {
         $product = $this->productRepository->getProductsById($id);
         $category = $this->categoryRepository->getCategoryList();
+        $formData = yii::$app->request->post();
         $model = new UploadForm();
 
         if (yii::$app->request->isPost) {
             $model->image = UploadedFile::getInstance($model, 'image');
-            $model->validate();
-            $formData = yii::$app->request->post();
+            $model->upload();
         }
 
         return $this->render('update', [
