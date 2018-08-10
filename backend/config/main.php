@@ -28,7 +28,7 @@ return [
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'advanced-frontend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -46,8 +46,18 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // Админ товары :
+                '/product/delete/<id:\d+>' => 'product/delete',
+                '/product/update/<id:\d+>' => 'product/update',
+                '/product/create' => 'product/create',
+                '/product' => 'product/index',
+                // Админ панель:
+                '/' => 'site/index',
             ],
         ],
     ],
     'params' => $params,
+    'aliases' => [
+        '@images' => '/frontend/web/upload/images/products',
+    ]
 ];
