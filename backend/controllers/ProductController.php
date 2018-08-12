@@ -51,18 +51,18 @@ class ProductController extends \yii\web\Controller
             $model->image = UploadedFile::getInstance($model, 'image');
             $modelProduct->attributes = $formData;
             if ($modelProduct->validate()) {
-				$this->productService->productEdit($modelProduct, $product);
-				$model->upload($product);
-				Yii::$app->getSession()->setFlash('success', 'Продукт отредактирован успешно');
-				$this->redirect(['product/index']);
-			}
+                $this->productService->productEdit($modelProduct, $product);
+                $model->upload($product);
+                Yii::$app->getSession()->setFlash('success', 'Продукт отредактирован успешно');
+                $this->redirect(['product/index']);
+            }
         }
 
         return $this->render('update', [
             'product' => $product,
             'category' => $category,
             'model' => $model,
-			'modelProduct' => $modelProduct,
+            'modelProduct' => $modelProduct,
         ]);
     }
 
