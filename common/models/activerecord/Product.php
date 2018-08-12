@@ -31,24 +31,24 @@ class Product extends ActiveRecord
         return '{{product}}';
     }
 
-	/**
-	 * @param Product $product
-	 * @param ProductModel $productForm
-	 * @return Product Active Record
-	 */
+    /**
+     * @param Product $product
+     * @param ProductModel $productForm
+     * @return Product Active Record
+     */
     public function saveProduct(Product $product, ProductModel $productForm)
-	{
-		$product->name = $productForm['name'];
-		$product->category_id = $productForm['category'];
-		$product->code = $productForm['code'];
-		$product->price = $productForm['price'];
-		$product->availability = $productForm['availability'];
-		$product->brand = $productForm['brand'];
-		$product->description = $productForm['description'];
-		$product->is_new = $productForm['is_new'];
-		$product->is_recommended = $productForm['is_recommended'];
-		$product->status = $productForm['status'];
+    {
+        $product->name = $productForm['name'];
+        $product->category_id = $productForm['category'];
+        $product->code = $productForm['code'];
+        $product->price = $productForm['price'];
+        $product->availability = $productForm['availability'];
+        $product->brand = $productForm['brand'];
+        $product->description = $productForm['description'];
+        $product->is_new = $productForm['is_new'];
+        $product->is_recommended = $productForm['is_recommended'];
+        $product->status = $productForm['status'];
 
-		return $product;
-	}
+        return $product;
+    }
 }

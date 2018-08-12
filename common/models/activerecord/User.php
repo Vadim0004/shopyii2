@@ -26,7 +26,7 @@ class User extends ActiveRecord
 
     public function getProductOrdersById()
     {
-    	return $this->hasMany(ProductOrder::class, ['user_id' => 'id']);
+        return $this->hasMany(ProductOrder::class, ['user_id' => 'id']);
     }
 
     public function getAddressBookById()
@@ -36,10 +36,10 @@ class User extends ActiveRecord
 
     public function saveUserAfterRegister(string $name, string $email, string $password)
     {
-    	$user = new Static();
-	    $user->name = $name;
-	    $user->email = $email;
-	    $user->password = $password;
+        $user = new Static();
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = $password;
 
         return $user;
     }
@@ -51,5 +51,5 @@ class User extends ActiveRecord
 
         return $user;
     }
-    
+
 }

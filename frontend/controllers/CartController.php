@@ -11,45 +11,45 @@ use yii\web\Controller;
 
 class CartController extends Controller
 {
-	private $cartService;
+    private $cartService;
 
-	public function __construct($id, $module, CartService $cartService, array $config = [])
-	{
-		$this->cartService = $cartService;
-		parent::__construct($id, $module, $config);
-	}
-
-	public function actionIndex()
+    public function __construct($id, $module, CartService $cartService, array $config = [])
     {
-	    $productsInCart = Cart::getProducts();
-    	$products = $this->cartService->indexCart($productsInCart);
-	    $totalPrice = Cart::getTotalPrice($products);
-        
+        $this->cartService = $cartService;
+        parent::__construct($id, $module, $config);
+    }
+
+    public function actionIndex()
+    {
+        $productsInCart = Cart::getProducts();
+        $products = $this->cartService->indexCart($productsInCart);
+        $totalPrice = Cart::getTotalPrice($products);
+
         return $this->render('index', [
             'productsInCart' => $productsInCart,
             'products' => $products,
             'totalPrice' => $totalPrice
         ]);
     }
-    
+
     public function actionAddajax($id)
     {
         // добавляем товар в корзину
-        
+
         $id = intval($id);
         echo Cart::addProduct($id);
         die;
     }
-    
+
     public function actionDelete($id)
     {
         $id = intval($id);
         if ($id) {
             Cart::deleteProduct($id);
-            Yii::$app->response->redirect(['cart/index']); 
+            Yii::$app->response->redirect(['cart/index']);
         }
     }
-    
+
     public function actionCheckout()
     {
         // Получием данные из корзины      
@@ -90,8 +90,8 @@ class CartController extends Controller
                 }
             }
         }
-        
-        return $this->render('checkout',[
+
+        return $this->render('checkout', [
             'chekout' => $chekout,
             'totalQuantity' => $totalQuantity,
             'totalPrice' => $totalPrice,

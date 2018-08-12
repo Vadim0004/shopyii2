@@ -11,24 +11,24 @@ use frontend\services\cabinet\CabinetService;
 
 class CabinetController extends Controller
 {
-	private $userService;
-	private $cabinetService;
+    private $userService;
+    private $cabinetService;
 
-	public function __construct(
+    public function __construct(
         $id,
         $module,
         UserService $userService,
         CabinetService $cabinetService,
         array $config = [])
-	{
-		$this->userService = $userService;
-		$this->cabinetService = $cabinetService;
-		parent::__construct($id, $module, $config);
-	}
-
-	public function actionIndex()
     {
-	    $userData = $this->userService->getUserBySession();
+        $this->userService = $userService;
+        $this->cabinetService = $cabinetService;
+        parent::__construct($id, $module, $config);
+    }
+
+    public function actionIndex()
+    {
+        $userData = $this->userService->getUserBySession();
         try {
             $userData = $this->userService->getUserBySession();
         } catch (\DomainException $e) {
@@ -87,15 +87,16 @@ class CabinetController extends Controller
             'formAttrLable' => $formAttrLable
         ]);
     }
+
     public function actionEdit()
     {
-	    $userData = $this->userService->getUserBySession();
-        
+        $userData = $this->userService->getUserBySession();
+
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_EDIT;
         $formData = Yii::$app->request->post();
         $result = false;
-        
+
         if (Yii::$app->request->isPost) {
             $user->attributes = $formData;
             $errors = false;
@@ -108,26 +109,26 @@ class CabinetController extends Controller
                 $errors[] = 'Ошибка!';
             }
         }
-        
+
         return $this->render('edit', [
             'user' => $user,
             'userData' => $userData,
             'result' => $result,
         ]);
     }
-    
+
     public function actionHistory()
     {
         // Получаем идентификатор пользователя из сессии
         $userId = $this->userService->getUserBySession();
-	    $orders = $this->userService->getOrders($userId->id);
-	    $products = $this->userService->getProductsJsDecode($orders);
-	    $productsDecode = $this->userService->getDecodeProducts($orders);
+        $orders = $this->userService->getOrders($userId->id);
+        $products = $this->userService->getProductsJsDecode($orders);
+        $productsDecode = $this->userService->getDecodeProducts($orders);
 
         return $this->render('history', [
             'orders' => $orders,
-	        'products' => $products,
-	        'productsDecode' => $productsDecode
+            'products' => $products,
+            'productsDecode' => $productsDecode
         ]);
     }
 }

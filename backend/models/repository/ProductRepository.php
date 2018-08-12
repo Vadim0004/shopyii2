@@ -29,16 +29,16 @@ class ProductRepository
         return $product;
     }
 
-	/**
-	 * @param Product $product
-	 * @return bool
-	 */
-	public function save(Product $product)
-	{
-		if ($product->save()) {
-			return true;
-		} else {
-			throw new \RuntimeException('Saving error. AddressBook');
-		}
-	}
+    /**
+     * @param Product $product
+     * @return bool
+     */
+    public function save(Product $product)
+    {
+        if ($product->save()) {
+            return true;
+        } else {
+            throw new \RuntimeException('Saving error. AddressBook');
+        }
+    }
 }

@@ -12,7 +12,7 @@ use backend\models\Product;
 class ProductController extends \yii\web\Controller
 {
     private $categoryRepository;
-	private $productService;
+    private $productService;
 
     public function __construct($id,
                                 $module,
@@ -44,7 +44,7 @@ class ProductController extends \yii\web\Controller
     {
         $product = $this->productService->getProductsById($id);
         $category = $this->categoryRepository->getCategoryList();
-		$formData = yii::$app->request->post();
+        $formData = yii::$app->request->post();
         $model = new UploadForm();
         $modelProduct = new Product();
         if (yii::$app->request->isPost) {

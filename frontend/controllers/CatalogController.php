@@ -7,23 +7,23 @@ use frontend\models\repository\ProductRepository;
 
 class CatalogController extends Controller
 {
-	private $productRepository;
+    private $productRepository;
 
-	public function __construct($id, $module, ProductRepository $productRepository, array $config = [])
-	{
-		$this->productRepository = $productRepository;
-		parent::__construct($id, $module, $config);
-	}
+    public function __construct($id, $module, ProductRepository $productRepository, array $config = [])
+    {
+        $this->productRepository = $productRepository;
+        parent::__construct($id, $module, $config);
+    }
 
-	public function actionIndex()
+    public function actionIndex()
     {
         $latestProducts = $this->productRepository->getLatestProducts();
         $recomend = $this->productRepository->getRecommendedProducts();
-        
+
         return $this->render('index', [
             'latestProducts' => $latestProducts,
             'recomend' => $recomend,
         ]);
     }
-    
+
 }
