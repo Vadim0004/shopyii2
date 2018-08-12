@@ -14,6 +14,7 @@ return [
         'log',
         'common\bootstrap\Setup',
         ],
+	'language' => 'ru',
     'modules' => [],
     'homeUrl' => '/admin',
     'components' => [

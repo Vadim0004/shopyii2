@@ -31,9 +31,7 @@ $this->registerMetaTag([
 				</ol>
 			</div>
 
-
 			<h4>Редактировать товар #<?php echo $product->id; ?></h4>
-
 			<br/>
 
 			<div class="col-lg-6">
@@ -41,21 +39,35 @@ $this->registerMetaTag([
                     <?= Html::beginForm(['product/update', 'id' => $product->id], 'post', ['enctype' => 'multipart/form-data']); ?>
 						<p>Название товара</p>
 							<?= Html::input('text', 'name', $product->name, ['class' => 'form-control']) . '<br>'; ?>
+								<?php if ($modelProduct->hasErrors()): ?>
+									<?= Html::error($modelProduct, 'name', ['class' => 'alert alert-danger']) ?>
+								<?php endif; ?>
 						<p>Артикул</p>
                     		<?= Html::input('text', 'code', $product->code, ['class' => 'form-control']) . '<br>'; ?>
+								<?php if ($modelProduct->hasErrors()): ?>
+									<?= Html::error($modelProduct, 'code', ['class' => 'alert alert-danger']) ?>
+								<?php endif; ?>
 						<p>Стоимость, $</p>
                     		<?= Html::input('text', 'price', $product->price, ['class' => 'form-control']) . '<br>'; ?>
+								<?php if ($modelProduct->hasErrors()): ?>
+									<?= Html::error($modelProduct, 'price', ['class' => 'alert alert-danger']) ?>
+								<?php endif; ?>
 						<p>Категория</p>
                     		<?= Html::DropDownList('category', $product->category_id, ArrayHelper::map($category, 'id', 'name')) . '<br>' ?>
 						<br/><br/>
 						<p>Производитель</p>
                     		<?= Html::input('text', 'brand', $product->brand, ['class' => 'form-control']) . '<br>'; ?>
+								<?php if ($modelProduct->hasErrors()): ?>
+									<?= Html::error($modelProduct, 'brand', ['class' => 'alert alert-danger']) ?>
+								<?php endif; ?>
 						<p>Изображение товара</p>
 						<img src="<?php echo productRepository::getImage($product->id) ?>" width="200" alt="" />
 							<?= Html::activeFileInput($model, 'image'); ?>
-							<input type="file" name="image" placeholder="" value="<?php //echo $product['image']; ?>">
 						<p>Детальное описание</p>
                     		<?= Html::textArea('description', $product->description, ['class' => 'form-control']) . '<br>'; ?>
+								<?php if ($modelProduct->hasErrors()): ?>
+									<?= Html::error($modelProduct, 'description', ['class' => 'alert alert-danger']) ?>
+								<?php endif; ?>
 						<br/><br/>
 						<p>Наличие на складе</p>
                     		<?= Html::dropDownList('availability', $product->availability, [0 => 'Нет', 1 => 'Да']) . '<br>'; ?>
@@ -74,7 +86,6 @@ $this->registerMetaTag([
                     <?= Html::endForm(); ?>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </section>
