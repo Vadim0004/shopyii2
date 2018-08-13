@@ -167,4 +167,34 @@ class ProductRepository
         $result = $quantity * $price;
         return $result;
     }
+
+    /**
+     * @param int $new
+     */
+    public static function getNameProductNew(int $new)
+    {
+        switch ($new) {
+            case "0":
+                echo 'На складе';
+                break;
+            case "1":
+                echo "Новый";
+                break;
+        }
+    }
+
+    /**
+     * @param int $availability
+     */
+    public static function getNameProductAvailability(int $availability)
+    {
+        switch ($availability) {
+            case "0":
+                echo "Нет на складе";
+                break;
+            case "1":
+                echo "Есть на складе";
+                break;
+        }
+    }
 }

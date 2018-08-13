@@ -51,9 +51,11 @@ $this->registerMetaTag([
                                         В корзину
                                     </a>
                                 </span>
-                                <p><b>Наличие:</b> На складе</p>
-                                <p><b>Состояние:</b> Новое</p>
-                                <p><b>Производитель:</b> D&amp;G</p>
+                                <p><b>Наличие: </b><?php echo ProductRepository::getNameProductAvailability($product->availability); ?></p>
+                                <?php if ($product->is_new): ?>
+                                <p><b>Состояние: </b><?php echo ProductRepository::getNameProductNew($product->is_new); ?></p>
+                                <?php endif; ?>
+                                <p><b>Производитель: </b><?php echo $product->brand; ?></p>
                             </div><!--/product-information-->
                         </div>
                     </div>
