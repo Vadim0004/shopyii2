@@ -34,16 +34,16 @@ class Product extends Model
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'category' => 'Category',
-            'code' => 'Code',
-            'price' => 'Price',
-            'availability' => 'Availability',
-            'brand' => 'Brand',
-            'description' => 'Description',
-            'is_new' => 'Is New',
-            'is_recommended' => 'Is Recommended',
-            'status' => 'Status',
+            'name' => 'Имя',
+            'category' => 'Категория',
+            'code' => 'Артикул',
+            'price' => 'Цена',
+            'availability' => 'наличие',
+            'brand' => 'бренд',
+            'description' => 'Описние',
+            'is_new' => 'Новинка',
+            'is_recommended' => 'Рекомендуемый',
+            'status' => 'Отображение',
             'quantity' => 'Количество',
         ];
     }

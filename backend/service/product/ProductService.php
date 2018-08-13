@@ -26,6 +26,12 @@ class ProductService
         return $productSave;
     }
 
+    public function productSave(ProductModel $productModel)
+    {
+        $productToSave = $this->productActiveRecord->saveNewProduct($productModel);
+        $productSave = $this->productRepository->save($productToSave);
+        return $productSave;
+    }
     public function getProductsById(int $id)
     {
         $product = $this->productRepository->getProductsById($id);
@@ -36,5 +42,18 @@ class ProductService
     {
         $products = $this->productRepository->getAllProducts();
         return $products;
+    }
+
+    public function productDelete(int $id)
+    {
+        $product = $this->productRepository->getProductsById($id);
+        $delete = $this->productRepository->delete($product);
+        return $delete;
+    }
+
+    public function getAddLatestProduct()
+    {
+        $product = $this->productRepository->getLatestAddProduct();
+        return $product;
     }
 }

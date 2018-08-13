@@ -35,8 +35,33 @@ class ProductController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        return $this->render('create', [
+        $category = $this->categoryRepository->getCategoryList();
+        $formData = yii::$app->request->post();
+        $model = new UploadForm();
+        $modelProduct = new Product();
+        $formAttrLable = $modelProduct->attributeLabels();
+        if (Yii::$app->request->isPost) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            $modelProduct->attributes = $formData['Product'];
+            if ($modelProduct->validate()) {
+                try {
+                    $this->productService->productSave($modelProduct);
+                    $product = $this->productService->getAddLatestProduct();
+                    $model->upload($product);
+                    Yii::$app->getSession()->setFlash('success', 'Продукт отредактирован успешно');
+                    $this->redirect(['product/index']);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+        }
 
+        return $this->render('create', [
+            'category' => $category,
+            'modelProduct' => $modelProduct,
+            'formAttrLable' => $formAttrLable,
+            'model' => $model,
         ]);
     }
 
@@ -47,6 +72,7 @@ class ProductController extends \yii\web\Controller
         $formData = yii::$app->request->post();
         $model = new UploadForm();
         $modelProduct = new Product();
+        $formAttrLable = $modelProduct->attributeLabels();
         if (yii::$app->request->isPost) {
             $model->image = UploadedFile::getInstance($model, 'image');
             $modelProduct->attributes = $formData;
@@ -63,13 +89,19 @@ class ProductController extends \yii\web\Controller
             'category' => $category,
             'model' => $model,
             'modelProduct' => $modelProduct,
+            'formAttrLable' => $formAttrLable,
         ]);
     }
 
     public function actionDelete($id)
     {
-        return $this->render('delete', [
-
-        ]);
+        try {
+            $this->productService->productDelete($id);
+            Yii::$app->getSession()->setFlash('success', 'Продукт удален успешно');
+            $this->redirect(['product/index']);
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
     }
 }

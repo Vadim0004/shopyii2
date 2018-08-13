@@ -38,7 +38,33 @@ class ProductRepository
         if ($product->save()) {
             return true;
         } else {
-            throw new \RuntimeException('Saving error. AddressBook');
+            throw new \RuntimeException('Saving error. product');
         }
+    }
+
+    /**
+     * @param Product $product
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function delete(Product $product)
+    {
+        if ($product->delete()) {
+            return true;
+        } else {
+            throw new \RuntimeException('Delete error. product');
+        }
+    }
+
+    /**
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public function getLatestAddProduct()
+    {
+        $Product = Product::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->one();
+        return $Product;
     }
 }
