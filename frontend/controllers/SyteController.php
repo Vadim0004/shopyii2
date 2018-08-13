@@ -15,33 +15,33 @@ class SyteController extends Controller
     private $syteService;
 
 
-	public function __construct(
+    public function __construct(
         $id,
         $module,
         ProductRepository $productRep,
         SyteService $syteService,
         $config = [])
-	{
+    {
         $this->productRep = $productRep;
         $this->syteService = $syteService;
         parent::__construct($id, $module, $config);
     }
 
     public function actionIndex($page = 1)
-    {   
+    {
         $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
-        
+
         $latestProducts = $this->productRep->getTotalProductsCategory($offset);
         $total = $this->productRep->getCountProductsCategory();
         // Создаем объект Pagination - постраничная навигация
         $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
 
         return $this->render('index', [
-            'latestProducts' => $latestProducts, 
+            'latestProducts' => $latestProducts,
             'pagination' => $pagination,
         ]);
     }
-    
+
     public function actionCategory($categoryId, $page = 1)
     {
         $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
@@ -57,14 +57,14 @@ class SyteController extends Controller
             'pagination' => $pagination,
         ]);
     }
-    
+
     public function actionContact()
     {
         $contact = new Contact();
         $contact->scenario = Contact::SCENARIO_USER_CONTACT;
-        
+
         $formData = Yii::$app->request->post();
-        
+
         if (Yii::$app->request->isPost) {
             $contact->attributes = $formData['Contact'];
             if ($contact->validate()) {
@@ -83,5 +83,5 @@ class SyteController extends Controller
             'contact' => $contact,
         ]);
     }
-    
+
 }

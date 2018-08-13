@@ -13,30 +13,30 @@ use Yii;
 class CartService
 {
     private $adminEmail;
-	private $productRepository;
-	private $productOrder;
-	private $productOrderRepository;
+    private $productRepository;
+    private $productOrder;
+    private $productOrderRepository;
 
-	public function __construct(
+    public function __construct(
         $adminEmail,
         ProductRepository $productRepository,
         ProductOrder $productOrder,
         ProductOrderRepository $productOrderRepository)
-	{
-	    $this->adminEmail = $adminEmail;
-		$this->productRepository = $productRepository;
-		$this->productOrder = $productOrder;
-		$this->productOrderRepository = $productOrderRepository;
-	}
+    {
+        $this->adminEmail = $adminEmail;
+        $this->productRepository = $productRepository;
+        $this->productOrder = $productOrder;
+        $this->productOrderRepository = $productOrderRepository;
+    }
 
-	public function indexCart($productsInCart)
-	{
-		if ($productsInCart) {
-			$productIds = array_keys($productsInCart);
-			$products = $this->productRepository->getAllProductById($productIds);
-			return $products;
-		}
-	}
+    public function indexCart($productsInCart)
+    {
+        if ($productsInCart) {
+            $productIds = array_keys($productsInCart);
+            $products = $this->productRepository->getAllProductById($productIds);
+            return $products;
+        }
+    }
 
     public function sendLetterCart(Checkout $chekout)
     {

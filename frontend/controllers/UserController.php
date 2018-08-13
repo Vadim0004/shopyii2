@@ -11,7 +11,7 @@ use frontend\services\user\UserService;
 class UserController extends Controller
 {
     private $userServices;
-    
+
     public function __construct($id, $module, UserService $userServices, $config = [])
     {
         $this->userServices = $userServices;
@@ -19,12 +19,12 @@ class UserController extends Controller
     }
 
     public function actionRegister()
-    {        
+    {
         $user = new UserRegister();
         $user->scenario = UserRegister::SCENARIO_USER_REGISTER;
-        
+
         $formData = Yii::$app->request->post();
-         
+
         if (Yii::$app->request->isPost) {
             $user->attributes = $formData['UserRegister'];
             if ($user->validate()) {
@@ -43,7 +43,7 @@ class UserController extends Controller
             'user' => $user,
             'formData' => $formData,
         ]);
-        
+
     }
 
     public function actionLogin()
@@ -69,7 +69,7 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
-    
+
     public function actionLogout()
     {
         \frontend\models\User::checkLogout();

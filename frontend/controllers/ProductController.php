@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function actionIndex($id)
     {
         $product = $this->repository->getProductById($id);
-        
+
         return $this->render('index', [
             'product' => $product,
         ]);

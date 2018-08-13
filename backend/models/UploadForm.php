@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\models\activerecord\Product;
 use yii\base\Model;
 use Yii;
 
@@ -12,18 +13,17 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['image'], 'file', 'extensions' => 'png, jpg'],
         ];
     }
 
-    public function upload()
+    public function upload(Product $product)
     {
-        $alias = $_SERVER['DOCUMENT_ROOT'] . Yii::getAlias('@images');
-        if ($this->validate()) {
-            $this->image->saveAs("$alias/" . $this->image->baseName . '.' . $this->image->extension);
+        $pathFile = $_SERVER['DOCUMENT_ROOT'] . Yii::getAlias('@images') . "/$product->id" . '.jpg';
+        if ($this->validate() && !file_exists($pathFile)) {
+            $path = $_SERVER['DOCUMENT_ROOT'] . Yii::getAlias('@images');
+            $this->image->saveAs("$path/{$product->id}.{$this->image->extension}");
             return true;
-        } else {
-            return false;
         }
     }
 }

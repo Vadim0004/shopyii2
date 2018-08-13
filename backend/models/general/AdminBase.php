@@ -4,7 +4,6 @@ namespace backend\models\general;
 
 use frontend\models\User;
 use frontend\models\repository\UserRepository;
-use Yii;
 
 trait AdminBase
 {

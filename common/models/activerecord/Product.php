@@ -3,6 +3,7 @@
 namespace common\models\activerecord;
 
 use yii\db\ActiveRecord;
+use backend\models\Product as ProductModel;
 
 /**
  * This is the model class for table "product".
@@ -29,24 +30,25 @@ class Product extends ActiveRecord
     {
         return '{{product}}';
     }
+
     /**
-     * {@inheritdoc}
+     * @param Product $product
+     * @param ProductModel $productForm
+     * @return Product Active Record
      */
-    public function attributeLabels()
+    public function saveProduct(Product $product, ProductModel $productForm)
     {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'category_id' => 'Category ID',
-            'code' => 'Code',
-            'price' => 'Price',
-            'availability' => 'Availability',
-            'brand' => 'Brand',
-            'description' => 'Description',
-            'is_new' => 'Is New',
-            'is_recommended' => 'Is Recommended',
-            'status' => 'Status',
-            'quantity' => 'Количество',
-        ];
+        $product->name = $productForm['name'];
+        $product->category_id = $productForm['category'];
+        $product->code = $productForm['code'];
+        $product->price = $productForm['price'];
+        $product->availability = $productForm['availability'];
+        $product->brand = $productForm['brand'];
+        $product->description = $productForm['description'];
+        $product->is_new = $productForm['is_new'];
+        $product->is_recommended = $productForm['is_recommended'];
+        $product->status = $productForm['status'];
+
+        return $product;
     }
 }

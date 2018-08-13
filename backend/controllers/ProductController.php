@@ -3,30 +3,31 @@
 namespace backend\controllers;
 
 use backend\models\repository\CategoryRepository;
-use backend\models\repository\ProductRepository;
+use backend\service\product\ProductService;
 use Yii;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
+use backend\models\Product;
 
 class ProductController extends \yii\web\Controller
 {
-    private $productRepository;
     private $categoryRepository;
+    private $productService;
 
     public function __construct($id,
                                 $module,
-                                ProductRepository $productRepository,
                                 CategoryRepository $categoryRepository,
+                                ProductService $productService,
                                 array $config = [])
     {
-        $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->productService = $productService;
         parent::__construct($id, $module, $config);
     }
 
     public function actionIndex()
     {
-        $products = $this->productRepository->getAllProducts();
+        $products = $this->productService->getAllProducts();
         return $this->render('index', [
             'products' => $products,
         ]);
@@ -41,20 +42,27 @@ class ProductController extends \yii\web\Controller
 
     public function actionUpdate($id)
     {
-        $product = $this->productRepository->getProductsById($id);
+        $product = $this->productService->getProductsById($id);
         $category = $this->categoryRepository->getCategoryList();
         $formData = yii::$app->request->post();
         $model = new UploadForm();
-
+        $modelProduct = new Product();
         if (yii::$app->request->isPost) {
             $model->image = UploadedFile::getInstance($model, 'image');
-            $model->upload();
+            $modelProduct->attributes = $formData;
+            if ($modelProduct->validate()) {
+                $this->productService->productEdit($modelProduct, $product);
+                $model->upload($product);
+                Yii::$app->getSession()->setFlash('success', 'Продукт отредактирован успешно');
+                $this->redirect(['product/index']);
+            }
         }
 
         return $this->render('update', [
             'product' => $product,
             'category' => $category,
             'model' => $model,
+            'modelProduct' => $modelProduct,
         ]);
     }
 

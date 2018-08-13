@@ -15,20 +15,26 @@ $this->registerMetaTag([
 ?>
 
 <section>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4">
-				<br/>
-				<h4>Добрый день, администратор!</h4>
-				<br/>
-				<p>Вам доступны такие возможности:</p>
-				<br/>
-				<ul class="list-group">
-					<a href="<?php echo Url::to(['product/index']); ?>"><li class="list-group-item">Управление товарами</li></a>
-					<a href="<?php echo Url::to(['category/index']); ?>"><li class="list-group-item">Управление категориями</li></a>
-					<a href="<?php echo Url::to(['order/index']); ?>"><li class="list-group-item">Управление заказами</li></a>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <br/>
+                <h4>Добрый день, администратор!</h4>
+                <br/>
+                <p>Вам доступны такие возможности:</p>
+                <br/>
+                <ul class="list-group">
+                    <a href="<?php echo Url::to(['product/index']); ?>">
+                        <li class="list-group-item">Управление товарами</li>
+                    </a>
+                    <a href="<?php echo Url::to(['category/index']); ?>">
+                        <li class="list-group-item">Управление категориями</li>
+                    </a>
+                    <a href="<?php echo Url::to(['order/index']); ?>">
+                        <li class="list-group-item">Управление заказами</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
