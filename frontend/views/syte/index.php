@@ -39,7 +39,7 @@ $this->registerMetaTag([
                                         <img src="<?php echo ProductRepository::getImage($product->id); ?>" alt="" />
 
 
-                                        <span itemprop="price"><?php echo $product->price; ?>$</span>
+                                        <h2 itemprop="price"><?php echo $product->price; ?>$</h2>
                                         <span itemprop="name">
                                             <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $product->id]); ?>">
                                                 ID:<?php echo '# ' . $product->id . ' '; ?><?php echo $product->name; ?>

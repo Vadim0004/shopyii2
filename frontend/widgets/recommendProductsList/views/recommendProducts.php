@@ -23,7 +23,7 @@ use frontend\models\repository\ProductRepository;
                     <div class="single-products">
                         <div itemscope itemtype="http://schema.org/Offer" class="productinfo text-center">
                             <img src="<?php echo ProductRepository::getImage($sliderItem->id); ?>"/>
-                            <span itemprop="price">$<?php echo $sliderItem->price; ?></span>
+                            <h2 itemprop="price">$<?php echo $sliderItem->price; ?></h2>
                             <span itemprop="name">
                                 <a href="<?php echo Yii::$app->urlManager->createUrl(['product/index', 'id' => $sliderItem->id]); ?>">
                                     ID:<?php echo '# ' . $sliderItem->id . ' '; ?><?php echo $sliderItem->name; ?>
