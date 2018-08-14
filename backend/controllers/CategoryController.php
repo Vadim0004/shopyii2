@@ -21,7 +21,7 @@ class CategoryController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        $categorys= $this->categoryService->getAllCategorys();
+        $categorys = $this->categoryService->getAllCategorys();
 
         return $this->render('index', [
             'categorys' => $categorys,
@@ -56,9 +56,29 @@ class CategoryController extends \yii\web\Controller
 
     public function actionUpdate($id)
     {
+        $category = $this->categoryService->getCategoryById($id);
+        $modelCategory = new Category();
+        $formLabel = $modelCategory->attributeLabels();
+        $formData = yii::$app->request->post();
+
+        if (Yii::$app->request->post()) {
+            $modelCategory->attributes = $formData;
+            if ($modelCategory->validate()) {
+                try {
+                    $this->categoryService->editCategory($category, $modelCategory);
+                    Yii::$app->getSession()->setFlash('success', 'Категория откорректирована успешно');
+                    $this->redirect(['category/index']);
+                } catch (\DomainException $e) {
+                    Yii::$app->errorHandler->logException($e);
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                }
+            }
+        }
 
         return $this->render('update', [
-
+            'category' => $category,
+            'modelCategory' => $modelCategory,
+            'formLabel' => $formLabel,
         ]);
     }
 

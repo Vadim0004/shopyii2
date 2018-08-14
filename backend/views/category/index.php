@@ -20,7 +20,7 @@ $this->registerMetaTag([
 
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="<?php echo Url::to(['/'])?>">Админпанель</a></li>
+                    <li><a href="<?php echo Url::to(['/']); ?>">Админпанель</a></li>
                     <li class="active">Управление категориями</li>
                 </ol>
             </div>

@@ -37,4 +37,18 @@ class Category extends ActiveRecord
 
         return $category;
     }
+
+    /**
+     * @param Category $category
+     * @param CategoryModel $modelCategory
+     * @return Category Active Record
+     */
+    public function editCategory(Category $category, CategoryModel $modelCategory)
+    {
+        $category->name = $modelCategory->name;
+        $category->sort_order = $modelCategory->sort_order;
+        $category->status = $modelCategory->status;
+
+        return $category;
+    }
 }

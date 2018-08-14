@@ -31,7 +31,7 @@ $this->registerMetaTag([
 
             <h4>Добавить новую категорию</h4>
 
-            <div class="col-lg-4">
+            <div class="col-sm-6">
                 <div class="login-form">
                     <?= Html::beginForm(); ?>
                         <p><?= $formLabel['name']; ?></p>

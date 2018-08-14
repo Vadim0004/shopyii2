@@ -13,6 +13,7 @@ class CategoryRepository
     public function getCategoryList()
     {
         $categoryList = Category::find()
+                ->where(['status' => 1])
                 ->orderBy(['sort_order' => SORT_ASC])
                 ->all();
         

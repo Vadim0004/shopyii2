@@ -36,4 +36,17 @@ class CategoryService
         $delete = $this->categoryRepository->delete($category);
         return $delete;
     }
+
+    public function getCategoryById(int $id)
+    {
+        $category = $this->categoryRepository->getCategoryById($id);
+        return $category;
+    }
+
+    public function editCategory(Category $category, CategoryModel $modelCategory)
+    {
+        $category = $this->categoryActive->editCategory($category, $modelCategory);
+        $categorySave = $this->categoryRepository->save($category);
+        return $categorySave;
+    }
 }
