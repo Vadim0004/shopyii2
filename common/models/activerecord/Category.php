@@ -3,6 +3,7 @@
 namespace common\models\activerecord;
 
 use yii\db\ActiveRecord;
+use backend\models\Category as CategoryModel;
 
 /**
  * This is the model class for table "category".
@@ -19,31 +20,21 @@ class Category extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'category';
+        return '{{category}}';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name'], 'required'],
-            [['sort_order', 'status'], 'integer'],
-            [['name'], 'string', 'max' => 255],
-        ];
-    }
 
     /**
-     * {@inheritdoc}
+     * @param CategoryModel $modelCategory
+     * @return $category Active Record
      */
-    public function attributeLabels()
+    public function saveCategory(CategoryModel $modelCategory)
     {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'sort_order' => 'Sort Order',
-            'status' => 'Status',
-        ];
+        $category = new Static();
+        $category->name = $modelCategory->name;
+        $category->sort_order = $modelCategory->sort_order;
+        $category->status = $modelCategory->status;
+
+        return $category;
     }
 }

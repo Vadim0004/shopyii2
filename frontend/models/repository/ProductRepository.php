@@ -197,4 +197,19 @@ class ProductRepository
                 break;
         }
     }
+
+    /**
+     * @param int $status
+     */
+    public static function getNameProductStatus(int $status)
+    {
+        switch ($status) {
+            case "0":
+                echo "Не Отображается";
+                break;
+            case "1":
+                echo "Отображется";
+                break;
+        }
+    }
 }

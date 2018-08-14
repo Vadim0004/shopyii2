@@ -47,6 +47,11 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // Админ категории :
+                '/category/delete/<id:\d+>' => 'category/delete',
+                '/category/update/<id:\d+>' => 'category/update',
+                '/category/create' => 'category/create',
+                '/category' => 'category/index',
                 // Админ товары :
                 '/product/delete/<id:\d+>' => 'product/delete',
                 '/product/update/<id:\d+>' => 'product/update',
