@@ -9,7 +9,7 @@ class ProductRepository
     /**
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function getAllProducts()
+    public function getAllProducts(): array
     {
         $products = Product::find()
             ->orderBy(['id' => SORT_DESC])
@@ -26,33 +26,30 @@ class ProductRepository
         $product = Product::find()
             ->where(['id' => $id])
             ->one();
+        if (!$product) {
+            throw new \NotFoundException('Product is not found.');
+        }
         return $product;
     }
 
     /**
      * @param Product $product
-     * @return bool
      */
     public function save(Product $product)
     {
-        if ($product->save()) {
-            return true;
-        } else {
+        if (!$product->save()) {
             throw new \RuntimeException('Saving error. product');
         }
     }
 
     /**
      * @param Product $product
-     * @return bool
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
     public function delete(Product $product)
     {
-        if ($product->delete()) {
-            return true;
-        } else {
+        if (!$product->delete()) {
             throw new \RuntimeException('Delete error. product');
         }
     }

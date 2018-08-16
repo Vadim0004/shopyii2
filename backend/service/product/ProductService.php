@@ -9,33 +9,35 @@ use backend\models\Product as ProductModel;
 class ProductService
 {
     private $productRepository;
-    private $productActiveRecord;
 
-    public function __construct(
-        ProductRepository $productRepository,
-        Product $productActiveRecord)
+    public function __construct(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
-        $this->productActiveRecord = $productActiveRecord;
     }
 
-    public function productEdit(ProductModel $productModel, Product $product)
+    public function productEdit(ProductModel $productModel, Product $product): Product
     {
-        $productToSave = $this->productActiveRecord->saveProduct($product, $productModel);
-        $productSave = $this->productRepository->save($productToSave);
+        $productEdit = Product::saveProduct($product, $productModel);
+        $this->productRepository->save($productEdit);
+        return $productEdit;
+    }
+
+    public function productSave(ProductModel $productModel): Product
+    {
+        $productSave = Product::saveNewProduct($productModel);
+        $this->productRepository->save($productSave);
         return $productSave;
     }
 
-    public function productSave(ProductModel $productModel)
+    public function getProductsById(int $id): Product
     {
-        $productToSave = $this->productActiveRecord->saveNewProduct($productModel);
-        $productSave = $this->productRepository->save($productToSave);
-        return $productSave;
-    }
-    public function getProductsById(int $id)
-    {
-        $product = $this->productRepository->getProductsById($id);
-        return $product;
+        $id = intval($id);
+        if ($id) {
+            $product = $this->productRepository->getProductsById($id);
+            return $product;
+        } else {
+            throw new \RuntimeException('Please. add integer!!!!!');
+        }
     }
 
     public function getAllProducts()
@@ -47,8 +49,8 @@ class ProductService
     public function productDelete(int $id)
     {
         $product = $this->productRepository->getProductsById($id);
-        $delete = $this->productRepository->delete($product);
-        return $delete;
+        $this->productRepository->delete($product);
+        return $product;
     }
 
     public function getAddLatestProduct()

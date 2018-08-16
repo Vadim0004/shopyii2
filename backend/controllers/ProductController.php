@@ -48,7 +48,7 @@ class ProductController extends \yii\web\Controller
                     $this->productService->productSave($modelProduct);
                     $product = $this->productService->getAddLatestProduct();
                     $model->upload($product);
-                    Yii::$app->getSession()->setFlash('success', 'Продукт отредактирован успешно');
+                    Yii::$app->getSession()->setFlash('success', 'Продукт успешно сохранен');
                     $this->redirect(['product/index']);
                 } catch (\DomainException $e) {
                     Yii::$app->errorHandler->logException($e);
