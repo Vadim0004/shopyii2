@@ -17,14 +17,16 @@ class CategoryRepository
 
     /**
      * @param int $id
-     * @return array|null|\yii\db\ActiveRecord\
+     * @return array|null|\yii\db\ActiveRecord
      */
     public function getCategoryById(int $id)
     {
         $category = Category::find()
             ->where(['id' => $id])
             ->one();
-
+        if (!$category) {
+            throw new \NotFoundException('Category is not found.');
+        }
         return $category;
     }
 

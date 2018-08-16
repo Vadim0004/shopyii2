@@ -26,9 +26,9 @@ class Category extends ActiveRecord
 
     /**
      * @param CategoryModel $modelCategory
-     * @return $category Active Record
+     * @return Category
      */
-    public function saveCategory(CategoryModel $modelCategory)
+    public static function saveCategory(CategoryModel $modelCategory): self
     {
         $category = new Static();
         $category->name = $modelCategory->name;
@@ -41,9 +41,9 @@ class Category extends ActiveRecord
     /**
      * @param Category $category
      * @param CategoryModel $modelCategory
-     * @return Category Active Record
+     * @return Category
      */
-    public function editCategory(Category $category, CategoryModel $modelCategory)
+    public static function editCategory(Category $category, CategoryModel $modelCategory): self
     {
         $category->name = $modelCategory->name;
         $category->sort_order = $modelCategory->sort_order;

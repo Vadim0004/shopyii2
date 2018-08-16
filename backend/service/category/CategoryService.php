@@ -9,11 +9,9 @@ use common\models\activerecord\Category;
 class CategoryService
 {
     private $categoryRepository;
-    private $categoryActive;
 
-    public function __construct(CategoryRepository $categoryRepository, Category $categoryActive)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->categoryActive = $categoryActive;
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -23,30 +21,41 @@ class CategoryService
         return $category;
     }
 
-    public function saveCategory(CategoryModel $modelCategory)
+    public function saveCategory(CategoryModel $modelCategory): Category
     {
-        $category = $this->categoryActive->saveCategory($modelCategory);
-        $categorySave = $this->categoryRepository->save($category);
-        return $categorySave;
+        $category = Category::saveCategory($modelCategory);
+        $this->categoryRepository->save($category);
+        return $category;
     }
 
     public function deleteCategory(int $id)
     {
-        $category = $this->categoryRepository->getCategoryById($id);
-        $delete = $this->categoryRepository->delete($category);
-        return $delete;
+        $id = intval($id);
+        if ($id) {
+            $category = $this->categoryRepository->getCategoryById($id);
+            $delete = $this->categoryRepository->delete($category);
+            return $delete;
+        } else {
+            throw new \RuntimeException('Please. add integer!!!!!');
+        }
     }
 
-    public function getCategoryById(int $id)
+    public function getCategoryById(int $id): Category
     {
-        $category = $this->categoryRepository->getCategoryById($id);
-        return $category;
+        $id = intval($id);
+        if ($id) {
+            $category = $this->categoryRepository->getCategoryById($id);
+            return $category;
+        } else {
+            throw new \RuntimeException('Please. add integer!!!!!');
+        }
+
     }
 
-    public function editCategory(Category $category, CategoryModel $modelCategory)
+    public function editCategory(Category $category, CategoryModel $modelCategory): Category
     {
-        $category = $this->categoryActive->editCategory($category, $modelCategory);
-        $categorySave = $this->categoryRepository->save($category);
+        $categorySave = Category::editCategory($category, $modelCategory);
+        $this->categoryRepository->save($categorySave);
         return $categorySave;
     }
 }

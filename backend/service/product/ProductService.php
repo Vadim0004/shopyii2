@@ -48,9 +48,14 @@ class ProductService
 
     public function productDelete(int $id)
     {
-        $product = $this->productRepository->getProductsById($id);
-        $this->productRepository->delete($product);
-        return $product;
+        $id = intval($id);
+        if ($id) {
+            $product = $this->productRepository->getProductsById($id);
+            $this->productRepository->delete($product);
+            return $product;
+        } else {
+            throw new \RuntimeException('Please. add integer!!!!!');
+        }
     }
 
     public function getAddLatestProduct()
