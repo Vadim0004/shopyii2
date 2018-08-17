@@ -1,11 +1,12 @@
 <?php
+
 use frontend\assets\MyShopAsset;
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model frontend\models\UserRegister */
 
 MyShopAsset::register($this);
 
-// @var $this yii\web\View
 $this->title = 'User Login';
 $this->registerMetaTag([
     'name' => 'User Login',
@@ -13,12 +14,10 @@ $this->registerMetaTag([
 ]);
 ?>
 
-<div class="col-sm-4 col-sm-offset-4 padding-right">
-<?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($user, 'email'); ?>
-    <?= $form->field($user, 'password')->passwordInput(); ?>
-    <?= Html::submitButton('Войти', ['class' => 'btn btn-primary']); ?>
-    
-<?php ActiveForm::end(); ?>
+<div class="row">
+    <h5 class="text-center">Введите Ваши данные для входа в личный кабинет</h5><br>
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]);
+    ?>
 </div>

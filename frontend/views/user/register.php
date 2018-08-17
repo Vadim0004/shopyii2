@@ -1,12 +1,14 @@
 <?php
+
 use frontend\assets\MyShopAsset;
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model frontend\models\UserRegister */
 
 MyShopAsset::register($this);
 
 $this->registerJsFile('@web/js/myFooter.js', ['depends' => [
-        MyShopAsset::className()
+    MyShopAsset::className()
 ]]);
 
 // @var $this yii\web\View
@@ -17,13 +19,9 @@ $this->registerMetaTag([
 ]);
 ?>
 
-    <?php $form = ActiveForm::begin(); ?>
-    <div class="col-sm-4 col-sm-offset-4 padding-right">
+<div class="row">
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]); ?>
 
-        <?php echo $form->field($user, 'name'); ?>
-        <?php echo $form->field($user, 'email'); ?>
-        <?php echo $form->field($user, 'password')->passwordInput(); ?>
-        <?php echo Html::submitButton('Подтвердить', ['class' => 'btn btn-primary']); ?>
-
-    </div>
-    <?php ActiveForm::end(); ?>
+</div>

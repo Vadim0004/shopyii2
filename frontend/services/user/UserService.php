@@ -27,22 +27,17 @@ class UserService
         $this->addressBookRepository = $addressBookRepository;
     }
 
-    public function registerCustomer(UserRegister $user)
+    public function registerCustomer(UserRegister $form)
     {
-        $userInDbIsset = $this->userRepository->checkExistEmailInDb($user->email);
-        if (!$userInDbIsset) {
-            $user = $this->userActiveRecord->saveUserAfterRegister($user->name, $user->email, $user->password);
-            $this->userRepository->save($user);
-        } else {
-            throw new \DomainException('This user already exist, please try another email');
-        }
+        $user = User::saveUserAfterRegister($form);
+        $this->userRepository->save($user);
     }
 
-    public function loginCustomer(UserRegister $user)
+    public function loginCustomer(UserRegister $form)
     {
-        $userId = $this->userRepository->checkUserData($user->email, $user->password);
-        if ($userId) {
-            Yii::$app->session['user'] = $userId;
+        $user = $this->userRepository->checkUserData($form);
+        if ($user) {
+            Yii::$app->session['user'] = $user->id;
         } else {
             throw new \DomainException('Acess denided? wrong data.');
         }

@@ -3,38 +3,22 @@
 namespace frontend\models\repository;
 
 use common\models\activerecord\User;
+use frontend\models\UserRegister;
 
 class UserRepository
 {
-
     /**
-     *
-     * @param string $email
-     * @return array ActiveQuery
+     * @param UserRegister $form
+     * @return array|null|\yii\db\ActiveRecord
      */
-    public function checkExistEmailInDb(string $email)
+    public function checkUserData(UserRegister $form)
     {
-        $emailUser = User::find()
-            ->where(['email' => $email])
-            ->count();
-
-        return $emailUser;
-    }
-
-    /**
-     *
-     * @param string $email
-     * @param string $password
-     * @return true|false ActiveQuery
-     */
-    public function checkUserData(string $email, string $password)
-    {
-        $checkUser = User::find()
-            ->where(['email' => $email])
-            ->andWhere(['password' => $password])
+        $user = User::find()
+            ->where(['email' => $form->email])
+            ->andWhere(['password' => $form->password])
             ->one();
 
-        return $checkUser['id'];
+        return $user;
     }
 
     /**

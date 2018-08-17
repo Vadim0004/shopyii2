@@ -20,53 +20,43 @@ class UserController extends Controller
 
     public function actionRegister()
     {
-        $user = new UserRegister();
-        $user->scenario = UserRegister::SCENARIO_USER_REGISTER;
+        $form = new UserRegister();
+        $form->scenario = UserRegister::SCENARIO_USER_REGISTER;
 
-        $formData = Yii::$app->request->post();
-
-        if (Yii::$app->request->isPost) {
-            $user->attributes = $formData['UserRegister'];
-            if ($user->validate()) {
-                try {
-                    $this->userServices->registerCustomer($user);
-                    Yii::$app->session->setFlash('success', 'Registered!');
-                    return $this->redirect(['user/login']);
-                } catch (\DomainException $e) {
-                    Yii::$app->errorHandler->logException($e);
-                    Yii::$app->session->setFlash('error', $e->getMessage());
-                }
+        if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->userServices->registerCustomer($form);
+                Yii::$app->session->setFlash('success', 'Thanks for Register!');
+                return $this->redirect(['user/login']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
 
         return $this->render('register', [
-            'user' => $user,
-            'formData' => $formData,
+            'model' => $form,
         ]);
 
     }
 
     public function actionLogin()
     {
-        $user = new UserRegister();
-        $user->scenario = UserRegister::SCENARIO_USER_LOGIN;
-        $formData = Yii::$app->request->post();
+        $form = new UserRegister();
+        $form->scenario = UserRegister::SCENARIO_USER_LOGIN;
 
-        if (Yii::$app->request->isPost) {
-            $user->attributes = $formData['UserRegister'];
-            if ($user->validate()) {
-                try {
-                    $this->userServices->loginCustomer($user);
-                    Yii::$app->response->redirect(['cabinet/index']);
-                } catch (\DomainException $e) {
-                    Yii::$app->errorHandler->logException($e);
-                    Yii::$app->session->setFlash('error', $e->getMessage());
-                }
+        if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->userServices->loginCustomer($form);
+                Yii::$app->response->redirect(['cabinet/index']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
 
         return $this->render('login', [
-            'user' => $user,
+            'model' => $form,
         ]);
     }
 

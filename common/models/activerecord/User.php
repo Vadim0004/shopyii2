@@ -34,12 +34,16 @@ class User extends ActiveRecord
         return $this->hasOne(AddressBook::class, ['customer_id' => 'id']);
     }
 
-    public function saveUserAfterRegister(string $name, string $email, string $password)
+    /**
+     * @param UserRegister $userRegister
+     * @return User
+     */
+    public static function saveUserAfterRegister(UserRegister $userRegister): self
     {
         $user = new Static();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = $password;
+        $user->name = $userRegister->name;
+        $user->email = $userRegister->email;
+        $user->password = $userRegister->password;
 
         return $user;
     }
