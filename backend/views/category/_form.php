@@ -23,7 +23,7 @@ use yii\helpers\Html;
     <p><?= $formLabel['status']; ?></p>
     <?= Html::activeDropDownList($model, 'status', [0 => 'Скрыт', 1 => 'Отображается'], ['class' => 'form-control']) . '<br>' ?>
 
-    <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-default']); ?>
+    <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>
 
     <?= Html::endForm(); ?>
 </div>

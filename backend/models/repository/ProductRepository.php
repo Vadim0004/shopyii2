@@ -19,7 +19,7 @@ class ProductRepository
 
     /**
      * @param int $id
-     * @return array|null|\yii\db\ActiveRecord
+     * @return null|\yii\db\ActiveRecord
      */
     public function getProductsById(int $id)
     {

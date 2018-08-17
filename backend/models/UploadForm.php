@@ -19,10 +19,11 @@ class UploadForm extends Model
 
     public function upload(Product $product)
     {
-        $pathFile = $_SERVER['DOCUMENT_ROOT'] . Yii::getAlias('@images') . "/$product->id" . '.jpg';
-        if ($this->validate() && !file_exists($pathFile)) {
+        if ($this->validate() && $this->image->extension) {
             $path = $_SERVER['DOCUMENT_ROOT'] . Yii::getAlias('@images');
             $this->image->saveAs("$path/{$product->id}.{$this->image->extension}");
+            return true;
+        } else {
             return true;
         }
     }

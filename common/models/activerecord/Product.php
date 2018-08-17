@@ -39,7 +39,7 @@ class Product extends ActiveRecord
     public static function saveProduct(Product $product, ProductModel $productForm): Product
     {
         $product->name = $productForm->name;
-        $product->category_id = $productForm->category;
+        $product->category_id = $productForm->category_id;
         $product->code = $productForm->code;
         $product->price = $productForm->price;
         $product->availability = $productForm->availability;
@@ -60,7 +60,7 @@ class Product extends ActiveRecord
     {
         $product = new Static();
         $product->name = $productForm->name;
-        $product->category_id = $productForm->category;
+        $product->category_id = $productForm->category_id;
         $product->code = $productForm->code;
         $product->price = $productForm->price;
         $product->availability = $productForm->availability;

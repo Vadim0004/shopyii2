@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use backend\service\order\OrderService;
 use yii\web\Controller;
+use backend\models\general\AdminBase;
 
 class OrderController extends Controller
 {
+    use AdminBase;
     private $orderService;
 
     public function __construct($id,
@@ -20,6 +22,7 @@ class OrderController extends Controller
 
     public function actionIndex()
     {
+        self::checkAdmin();
         $userByOrder = $this->orderService->getAllOrdersByIdUser();
 
         return $this->render('index', [

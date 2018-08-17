@@ -12,12 +12,15 @@ class Category extends Model
     public $sort_order;
     public $status;
 
-    public function __construct(CategoryActive $category = null, $config = [])
+    private $_category;
+
+    public function __construct(CategoryActive $_category = null, $config = [])
     {
-        if ($category) {
-            $this->name = $category->name;
-            $this->sort_order = $category->sort_order;
-            $this->status = $category->status;
+        if ($_category) {
+            $this->name = $_category->name;
+            $this->sort_order = $_category->sort_order;
+            $this->status = $_category->status;
+            $this->_category = $_category;
         }
         parent::__construct($config);
     }

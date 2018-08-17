@@ -5,11 +5,12 @@ namespace backend\controllers;
 use Yii;
 use backend\service\category\CategoryService;
 use backend\models\Category;
+use backend\models\general\AdminBase;
 
 class CategoryController extends \yii\web\Controller
 {
+    use AdminBase;
     private $categoryService;
-
     public function __construct($id,
                                 $module,
                                 CategoryService $categoryService,
@@ -21,6 +22,7 @@ class CategoryController extends \yii\web\Controller
 
     public function actionIndex()
     {
+        self::checkAdmin();
         $categorys = $this->categoryService->getAllCategorys();
 
         return $this->render('index', [
@@ -30,6 +32,7 @@ class CategoryController extends \yii\web\Controller
 
     public function actionCreate()
     {
+        self::checkAdmin();
         $form = new Category();
         $formLabel = $form->attributeLabels();
 
@@ -53,6 +56,7 @@ class CategoryController extends \yii\web\Controller
 
     public function actionUpdate($id)
     {
+        self::checkAdmin();
         $category = $this->categoryService->getCategoryById($id);
         $form = new Category($category);
         $formLabel = $form->attributeLabels();
@@ -76,6 +80,7 @@ class CategoryController extends \yii\web\Controller
 
     public function actionDelete($id)
     {
+        self::checkAdmin();
         try {
             $this->categoryService->deleteCategory($id);
             Yii::$app->getSession()->setFlash('success', 'Категория удалена успешно');

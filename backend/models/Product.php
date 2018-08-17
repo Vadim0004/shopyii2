@@ -3,12 +3,13 @@
 namespace backend\models;
 
 use yii\base\Model;
+use common\models\activerecord\Product as ProductActive;
 
 class Product extends Model
 {
     public $id;
     public $name;
-    public $category;
+    public $category_id;
     public $code;
     public $price;
     public $availability;
@@ -19,11 +20,32 @@ class Product extends Model
     public $status;
     public $quantity;
 
+    private $_product;
+
+    public function __construct(ProductActive $_product = null, $config = [])
+    {
+        if ($_product) {
+            $this->name = $_product->name;
+            $this->category_id = $_product->category_id;
+            $this->code = $_product->code;
+            $this->price = $_product->price;
+            $this->availability = $_product->availability;
+            $this->brand = $_product->brand;
+            $this->description = $_product->description;
+            $this->is_new = $_product->is_new;
+            $this->is_recommended = $_product->is_recommended;
+            $this->status = $_product->status;
+            $this->quantity = $_product->quantity;
+            $this->_product = $_product;
+        }
+        parent::__construct($config);
+    }
+
     public function rules()
     {
         return [
-            [['name', 'category', 'code', 'price', 'availability', 'brand', 'description'], 'required'],
-            [['category', 'code', 'availability', 'is_new', 'is_recommended', 'status', 'quantity'], 'integer'],
+            [['name', 'category_id', 'code', 'price', 'availability', 'brand', 'description'], 'required'],
+            [['category_id', 'code', 'availability', 'is_new', 'is_recommended', 'status', 'quantity'], 'integer'],
             [['price'], 'number'],
             [['description'], 'string'],
             [['name', 'brand'], 'string', 'max' => 255],
@@ -35,7 +57,7 @@ class Product extends Model
         return [
             'id' => 'ID',
             'name' => 'Имя',
-            'category' => 'Категория',
+            'category_id' => 'Категория',
             'code' => 'Артикул',
             'price' => 'Цена',
             'availability' => 'наличие',

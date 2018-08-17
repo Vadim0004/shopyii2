@@ -23,6 +23,7 @@ class UserRegister extends Model
             $this->name = $_user->name;
             $this->email = $_user->email;
             $this->password = $_user->password;
+            $this->_user = $_user;
         }
         parent::__construct($config);
     }
