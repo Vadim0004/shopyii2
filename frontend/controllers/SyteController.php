@@ -63,19 +63,14 @@ class SyteController extends Controller
         $contact = new Contact();
         $contact->scenario = Contact::SCENARIO_USER_CONTACT;
 
-        $formData = Yii::$app->request->post();
-
-        if (Yii::$app->request->isPost) {
-            $contact->attributes = $formData['Contact'];
-            if ($contact->validate()) {
-                try {
-                    $this->syteService->sendLetter($contact);
-                    Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
-                    return $this->redirect(['syte/index']);
-                } catch (\DomainException $e) {
-                    Yii::$app->errorHandler->logException($e);
-                    Yii::$app->session->setFlash('error', $e->getMessage());
-                }
+        if (Yii::$app->request->isPost && $contact->load(Yii::$app->request->post()) && $contact->validate()) {
+            try {
+                $this->syteService->sendLetter($contact);
+                Yii::$app->getSession()->setFlash('success', 'Письмо отправлено успешно');
+                return $this->redirect(['syte/index']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
 
