@@ -7,7 +7,9 @@ AdminAsset::register($this);
 use yii\helpers\Url;
 use frontend\models\repository\ProductRepository;
 
-// @var $this yii\web\View
+/* @var $this yii\web\View */
+/* @var $categorys backend\controllers\CategoryController ActiveRecord*/
+
 $this->title = 'E-shopper';
 $this->registerMetaTag([
     'name' => 'E-shopper',

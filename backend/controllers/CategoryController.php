@@ -30,26 +30,23 @@ class CategoryController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        $modelCategory = new Category();
-        $formLabel = $modelCategory->attributeLabels();
-        $formData = yii::$app->request->post();
+        $form = new Category();
+        $formLabel = $form->attributeLabels();
 
-        if (Yii::$app->request->isPost) {
-            $modelCategory->attributes = $formData['Category'];
-            if ($modelCategory->validate()) {
-                try {
-                    $this->categoryService->saveCategory($modelCategory);
-                    Yii::$app->getSession()->setFlash('success', 'Категория успешно сохранена');
-                    return $this->redirect(['category/index']);
-                } catch (\DomainException $e) {
-                    Yii::$app->errorHandler->logException($e);
-                    Yii::$app->session->setFlash('error', $e->getMessage());
-                }
+        if (Yii::$app->request->post() && $form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->categoryService->saveCategory($form);
+                Yii::$app->getSession()->setFlash('success', 'Категория успешно сохранена');
+                return $this->redirect(['category/index']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
             }
+
         }
 
         return $this->render('create', [
-            'modelCategory' => $modelCategory,
+            'model' => $form,
             'formLabel' => $formLabel,
         ]);
     }
@@ -57,27 +54,22 @@ class CategoryController extends \yii\web\Controller
     public function actionUpdate($id)
     {
         $category = $this->categoryService->getCategoryById($id);
-        $modelCategory = new Category();
-        $formLabel = $modelCategory->attributeLabels();
-        $formData = yii::$app->request->post();
+        $form = new Category($category);
+        $formLabel = $form->attributeLabels();
 
-        if (Yii::$app->request->post()) {
-            $modelCategory->attributes = $formData;
-            if ($modelCategory->validate()) {
-                try {
-                    $this->categoryService->editCategory($category, $modelCategory);
-                    Yii::$app->getSession()->setFlash('success', 'Категория откорректирована успешно');
-                    $this->redirect(['category/index']);
-                } catch (\DomainException $e) {
-                    Yii::$app->errorHandler->logException($e);
-                    Yii::$app->session->setFlash('error', $e->getMessage());
-                }
+        if (Yii::$app->request->post() && $form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->categoryService->editCategory($category, $form);
+                Yii::$app->getSession()->setFlash('success', 'Категория откорректирована успешно');
+                $this->redirect(['category/index']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
 
         return $this->render('update', [
-            'category' => $category,
-            'modelCategory' => $modelCategory,
+            'model' => $form,
             'formLabel' => $formLabel,
         ]);
     }

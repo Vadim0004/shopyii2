@@ -32,9 +32,8 @@ class CategoryService
     {
         $id = intval($id);
         if ($id) {
-            $category = $this->categoryRepository->getCategoryById($id);
-            $delete = $this->categoryRepository->delete($category);
-            return $delete;
+            $category = self::getCategoryById($id);
+            $this->categoryRepository->delete($category);
         } else {
             throw new \RuntimeException('Please. add integer!!!!!');
         }

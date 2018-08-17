@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use yii\base\Model;
+use common\models\activerecord\Category as CategoryActive;
 
 class Category extends Model
 {
@@ -10,6 +11,16 @@ class Category extends Model
     public $name;
     public $sort_order;
     public $status;
+
+    public function __construct(CategoryActive $category = null, $config = [])
+    {
+        if ($category) {
+            $this->name = $category->name;
+            $this->sort_order = $category->sort_order;
+            $this->status = $category->status;
+        }
+        parent::__construct($config);
+    }
 
     /**
      * {@inheritdoc}

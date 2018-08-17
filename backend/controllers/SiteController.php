@@ -3,7 +3,6 @@ namespace backend\controllers;
 
 use backend\models\general\AdminBase;
 use yii\web\Controller;
-use Yii;
 
 /**
  * Site controller
@@ -14,8 +13,6 @@ class SiteController extends Controller
     public function actionIndex()
     {
         self::checkAdmin();
-        return $this->render('index', [
-
-        ]);
+        return $this->render('index');
     }
 }
