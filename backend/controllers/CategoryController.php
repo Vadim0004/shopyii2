@@ -6,6 +6,7 @@ use Yii;
 use backend\service\category\CategoryService;
 use backend\models\Category;
 use backend\models\general\AdminBase;
+use yii\web\Response;
 
 class CategoryController extends \yii\web\Controller
 {
@@ -85,6 +86,21 @@ class CategoryController extends \yii\web\Controller
             $this->categoryService->deleteCategory($id);
             Yii::$app->getSession()->setFlash('success', 'Категория удалена успешно');
             $this->redirect(['category/index']);
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+    }
+
+    public function actionDeleteAjax()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $categoryId = Yii::$app->request->post('category_id');
+        try {
+            $category = $this->categoryService->deleteCategoryAjax($categoryId);
+            return $this->renderAjax('deleteAjax', [
+                'categorys' => $category,
+            ]);
         } catch (\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());

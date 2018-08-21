@@ -57,4 +57,15 @@ class CategoryService
         $this->categoryRepository->save($categorySave);
         return $categorySave;
     }
+
+    public function deleteCategoryAjax(array $categoryId): array
+    {
+        $categoryArray = $this->categoryRepository->getCategoryListByArray($categoryId);
+        foreach ($categoryArray as $categoryItem) {
+            $this->categoryRepository->delete($categoryItem);
+        }
+
+        $category = $this->categoryRepository->getCategoryList();
+        return $category;
+    }
 }

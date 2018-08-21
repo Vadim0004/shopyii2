@@ -31,6 +31,16 @@ class CategoryRepository
     }
 
     /**
+     * @param array $categoryId
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getCategoryListByArray(array $categoryId)
+    {
+        $categoryArray = Category::find()->where(['id' => $categoryId])->all();
+        return $categoryArray;
+    }
+
+    /**
      * @param Category $category
      * @return bool
      */

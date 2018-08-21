@@ -53,6 +53,7 @@ return [
                 '/order/create' => 'order/create',
                 '/order' => 'order/index',
                 // Админ категории :
+                '/category/deleteAjax' => 'category/delete-ajax',
                 '/category/delete/<id:\d+>' => 'category/delete',
                 '/category/update/<id:\d+>' => 'category/update',
                 '/category/create' => 'category/create',
