@@ -30,9 +30,12 @@ class ProductController extends \yii\web\Controller
     public function actionIndex()
     {
         self::checkAdmin();
-        $products = $this->productService->getAllProducts();
+        $pages = $this->productService->getPagination();
+        $products = $this->productService->getProductsPagination($pages->offset, $pages->limit);
+
         return $this->render('index', [
             'products' => $products,
+            'pages' => $pages,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace backend\service\product;
 use common\models\activerecord\Product;
 use backend\models\repository\ProductRepository;
 use backend\models\Product as ProductModel;
+use yii\data\Pagination;
 
 class ProductService
 {
@@ -62,5 +63,19 @@ class ProductService
     {
         $product = $this->productRepository->getLatestAddProduct();
         return $product;
+    }
+
+    public function getPagination()
+    {
+        $query = $this->productRepository->getQueryProductsPagination();
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 5]);
+
+        return $pages;
+    }
+
+    public function getProductsPagination(int $offset, int $limit)
+    {
+        $products = $this->productRepository->getProductPagination($offset, $limit);
+        return $products;
     }
 }

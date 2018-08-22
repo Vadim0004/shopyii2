@@ -62,6 +62,7 @@ return [
                 '/product/delete/<id:\d+>' => 'product/delete',
                 '/product/update/<id:\d+>' => 'product/update',
                 '/product/create' => 'product/create',
+                '/product/page/<page:\d+>' => 'product/index',
                 '/product' => 'product/index',
                 // Админ панель:
                 '/' => 'site/index',

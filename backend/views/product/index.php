@@ -1,6 +1,7 @@
 <?php
 
 use backend\assets\AdminAsset;
+use yii\widgets\LinkPager;
 
 AdminAsset::register($this);
 
@@ -52,7 +53,7 @@ $this->registerMetaTag([
                     </tr>
                 <?php endforeach; ?>
             </table>
-
+            <?= LinkPager::widget(['pagination' => $pages,]); ?>
         </div>
     </div>
 </section>
