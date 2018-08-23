@@ -9,6 +9,8 @@ use backend\models\UploadForm;
 use yii\web\UploadedFile;
 use backend\models\Product;
 use backend\models\general\AdminBase;
+use yii\web\Response;
+use yii\helpers\Url;
 
 class ProductController extends \yii\web\Controller
 {
@@ -30,12 +32,14 @@ class ProductController extends \yii\web\Controller
     public function actionIndex()
     {
         self::checkAdmin();
+        $url = Url::to(['product/delete-ajax']);
         $pages = $this->productService->getPagination();
         $products = $this->productService->getProductsPagination($pages->offset, $pages->limit);
 
         return $this->render('index', [
             'products' => $products,
             'pages' => $pages,
+            'url' => $url,
         ]);
     }
 
@@ -106,6 +110,22 @@ class ProductController extends \yii\web\Controller
             $this->productService->productDelete($id);
             Yii::$app->getSession()->setFlash('success', 'Продукт удален успешно');
             $this->redirect(['product/index']);
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+    }
+
+    public function actionDeleteAjax()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $productId = Yii::$app->request->post('product_id');
+        try {
+            $pages = $this->productService->getPagination();
+            $products = $this->productService->deleteProductAjax($productId, $pages->offset, $pages->limit);
+            return $this->renderAjax('deleteAjax', [
+                'products' => $products,
+            ]);
         } catch (\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());

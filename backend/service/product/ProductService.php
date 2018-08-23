@@ -6,6 +6,7 @@ use common\models\activerecord\Product;
 use backend\models\repository\ProductRepository;
 use backend\models\Product as ProductModel;
 use yii\data\Pagination;
+use Yii;
 
 class ProductService
 {
@@ -68,7 +69,7 @@ class ProductService
     public function getPagination()
     {
         $query = $this->productRepository->getQueryProductsPagination();
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 5]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'defaultPageSize' => Yii::$app->params['showByDefaultProducts']]);
 
         return $pages;
     }
@@ -77,5 +78,16 @@ class ProductService
     {
         $products = $this->productRepository->getProductPagination($offset, $limit);
         return $products;
+    }
+
+    public function deleteProductAjax(array $productId, int $offset, int $limit): array
+    {
+        $productsArray = $this->productRepository->getProductListByArray($productId);
+        foreach ($productsArray as $productItem) {
+            $this->productRepository->delete($productItem);
+        }
+
+        $product = $this->productRepository->getProductPagination($offset, $limit);
+        return $product;
     }
 }

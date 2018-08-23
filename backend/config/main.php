@@ -59,6 +59,7 @@ return [
                 '/category/create' => 'category/create',
                 '/category' => 'category/index',
                 // Админ товары :
+                '/product/deleteAjax' => 'product/delete-ajax',
                 '/product/delete/<id:\d+>' => 'product/delete',
                 '/product/update/<id:\d+>' => 'product/update',
                 '/product/create' => 'product/create',
