@@ -5,6 +5,7 @@ use frontend\models\repository\ProductRepository;
 use frontend\widgets\categoryList\CategoryList;
 use frontend\widgets\recommendProductsList\RecommendProductsList;
 use frontend\widgets\galleryImages\GalleryImages;
+use yii\widgets\LinkPager;
 
 MyShopAsset::register($this);
 
@@ -23,14 +24,14 @@ $this->registerMetaTag([
 <section>
     <div class="container">
         <div class="row">
-            <?= /* Список категорий */ GalleryImages::widget(); ?>
+            <?php /* Слайдер */ /*GalleryImages::widget(); */ ?>
             <?= /* Список категорий */ CategoryList::widget(); ?>
 
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Последние товары</h2>
 
-                        <?php foreach ($latestProducts as $product): ?>
+                        <?php foreach ($products as $product): ?>
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
@@ -65,7 +66,7 @@ $this->registerMetaTag([
                 </div><!--features_items-->
                 
                 <!-- Постраничная навигация -->
-                <?php echo $pagination->get(); ?>
+                <?= LinkPager::widget(['pagination' => $pages,]); ?>
                 
                 <?= /* Список категорий */ RecommendProductsList::widget(); ?>
                 

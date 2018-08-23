@@ -27,18 +27,14 @@ class SyteController extends Controller
         parent::__construct($id, $module, $config);
     }
 
-    public function actionIndex($page = 1)
+    public function actionIndex()
     {
-        $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
-
-        $latestProducts = $this->productRep->getTotalProductsCategory($offset);
-        $total = $this->productRep->getCountProductsCategory();
-        // Создаем объект Pagination - постраничная навигация
-        $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
+        $pages = $this->syteService->getPagination();
+        $products = $this->syteService->getProductsPagination();
 
         return $this->render('index', [
-            'latestProducts' => $latestProducts,
-            'pagination' => $pagination,
+            'products' => $products,
+            'pages' => $pages,
         ]);
     }
 

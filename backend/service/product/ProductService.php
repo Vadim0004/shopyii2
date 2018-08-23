@@ -74,9 +74,10 @@ class ProductService
         return $pages;
     }
 
-    public function getProductsPagination(int $offset, int $limit)
+    public function getProductsPagination()
     {
-        $products = $this->productRepository->getProductPagination($offset, $limit);
+        $pages = self::getPagination();
+        $products = $this->productRepository->getProductPagination($pages->offset, $pages->limit);
         return $products;
     }
 

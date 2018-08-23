@@ -34,7 +34,7 @@ class ProductController extends \yii\web\Controller
         self::checkAdmin();
         $url = Url::to(['product/delete-ajax']);
         $pages = $this->productService->getPagination();
-        $products = $this->productService->getProductsPagination($pages->offset, $pages->limit);
+        $products = $this->productService->getProductsPagination();
 
         return $this->render('index', [
             'products' => $products,

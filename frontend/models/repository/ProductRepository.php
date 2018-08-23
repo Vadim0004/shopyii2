@@ -4,6 +4,7 @@ namespace frontend\models\repository;
 
 use common\models\activerecord\Product;
 use Yii;
+use yii\db\ActiveQuery;
 
 class ProductRepository
 {
@@ -211,5 +212,27 @@ class ProductRepository
                 echo "Отображется";
                 break;
         }
+    }
+
+    /**
+     * @return yii\db\ActiveQuery
+     */
+    public function getQueryProductsPagination(): ActiveQuery
+    {
+        $query = Product::find()->orderBy(['id' => SORT_DESC]);
+        return $query;
+    }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return array
+     */
+    public function getProductPagination(int $offset, int $limit): array
+    {
+        $products = self::getQueryProductsPagination()->offset($offset)
+            ->limit($limit)
+            ->all();
+        return $products;
     }
 }

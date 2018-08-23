@@ -88,7 +88,7 @@ return [
                 'category/<categoryId:\d+>/page-<page:\d+>' => 'syte/category', // actionCategory в CatalogController
                 'category' => 'catalog/index', // actionIndex в CatalogController
                 // Главная страница:
-                'page-<page:\d+>/' => 'syte/index', // SyteController in actionIndex 
+                '/page/<page:\d+>/' => 'syte/index', // SyteController in actionIndex
                 '/' => 'syte/index', // SyteController in actionIndex
             ],
         ],
