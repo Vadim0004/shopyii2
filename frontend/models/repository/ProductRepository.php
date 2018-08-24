@@ -217,9 +217,15 @@ class ProductRepository
     /**
      * @return yii\db\ActiveQuery
      */
-    public function getQueryProductsPagination(): ActiveQuery
+    public function getQueryProductsPagination(int $categoryId = null): ActiveQuery
     {
-        $query = Product::find()->orderBy(['id' => SORT_DESC]);
+        if ($categoryId) {
+            $query = Product::find()
+                ->andWhere(['category_id' => $categoryId])
+                ->orderBy(['id' => SORT_DESC]);
+        } else {
+            $query = Product::find()->orderBy(['id' => SORT_DESC]);
+        }
         return $query;
     }
 
@@ -228,11 +234,19 @@ class ProductRepository
      * @param int $limit
      * @return array
      */
-    public function getProductPagination(int $offset, int $limit): array
+    public function getProductPagination(int $offset, int $limit, int $categoryId = null): array
     {
-        $products = self::getQueryProductsPagination()->offset($offset)
-            ->limit($limit)
-            ->all();
+        if ($categoryId) {
+            $products = self::getQueryProductsPagination()
+                ->andWhere(['category_id' => $categoryId])
+                ->offset($offset)
+                ->limit($limit)
+                ->all();
+        } else {
+            $products = self::getQueryProductsPagination()->offset($offset)
+                ->limit($limit)
+                ->all();
+        }
         return $products;
     }
 }

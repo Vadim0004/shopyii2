@@ -85,7 +85,7 @@ return [
                 // Продукты
                 'product/<id:\d+>' => 'product/index', // ProductController in actionIndex
                 // Категории товаров:
-                'category/<categoryId:\d+>/page-<page:\d+>' => 'syte/category', // actionCategory в CatalogController
+                'category/<categoryId:\d+>/page/<page:\d+>' => 'syte/category', // actionCategory в CatalogController
                 'category' => 'catalog/index', // actionIndex в CatalogController
                 // Главная страница:
                 '/page/<page:\d+>/' => 'syte/index', // SyteController in actionIndex
