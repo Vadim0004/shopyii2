@@ -33,9 +33,11 @@ class OrderService
         $orders = $this->userRepository->getAllOrdersByUser();
 
         foreach ($orders as $order) {
-            $decode = json_decode($order->productOrdersById[0]->products, true);
-            $product = array_keys($decode);
-            $order->productOrdersById[0]->products = $this->productRepository->getAllProductByIdArray($product);
+            foreach ($order->productOrdersById as $productId) {
+                $decode = json_decode($productId['products'], true);
+                $product = array_keys($decode);
+                $productId['products'] = $this->productRepository->getAllProductByIdArray($product);
+            }
         };
         return $orders;
     }
