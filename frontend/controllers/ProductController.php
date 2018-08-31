@@ -9,10 +9,7 @@ class ProductController extends Controller
 {
     private $repository;
 
-    public function __construct($id,
-                                $module,
-                                ProductRepository $repository,
-                                $config = [])
+    public function __construct($id, $module, ProductRepository $repository, $config = [])
     {
         $this->repository = $repository;
         parent::__construct($id, $module, $config);

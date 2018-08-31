@@ -10,11 +10,7 @@ class BlogController extends Controller
 {
     private $repository;
     
-    public function __construct(
-        $id,
-        $module,
-        BlogRepository $repository,
-        $config = [])
+    public function __construct($id, $module, BlogRepository $repository, $config = [])
     {
         $this->repository = $repository;
         parent::__construct($id, $module, $config);

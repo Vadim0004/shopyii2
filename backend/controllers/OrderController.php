@@ -12,10 +12,7 @@ class OrderController extends Controller
     use AdminBase;
     private $orderService;
 
-    public function __construct($id,
-                                $module,
-                                OrderService $orderService,
-                                array $config = [])
+    public function __construct($id, $module, OrderService $orderService, array $config = [])
     {
         $this->orderService = $orderService;
         parent::__construct($id, $module, $config);
@@ -31,7 +28,7 @@ class OrderController extends Controller
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        
+
         return $this->render('index', [
             'userByOrder' => $userByOrder,
         ]);

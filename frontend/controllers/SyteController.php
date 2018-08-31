@@ -11,11 +11,7 @@ class SyteController extends Controller
 {
     private $syteService;
 
-    public function __construct(
-        $id,
-        $module,
-        SyteService $syteService,
-        $config = [])
+    public function __construct($id, $module, SyteService $syteService, $config = [])
     {
         $this->syteService = $syteService;
         parent::__construct($id, $module, $config);

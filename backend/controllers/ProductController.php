@@ -18,11 +18,7 @@ class ProductController extends \yii\web\Controller
     private $categoryService;
     private $productService;
 
-    public function __construct($id,
-                                $module,
-                                CategoryService $categoryService,
-                                ProductService $productService,
-                                array $config = [])
+    public function __construct($id, $module, CategoryService $categoryService, ProductService $productService, array $config = [])
     {
         $this->categoryService = $categoryService;
         $this->productService = $productService;

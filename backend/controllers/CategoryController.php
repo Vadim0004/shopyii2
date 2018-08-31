@@ -12,10 +12,7 @@ class CategoryController extends \yii\web\Controller
 {
     use AdminBase;
     private $categoryService;
-    public function __construct($id,
-                                $module,
-                                CategoryService $categoryService,
-                                array $config = [])
+    public function __construct($id, $module, CategoryService $categoryService, array $config = [])
     {
         $this->categoryService = $categoryService;
         parent::__construct($id, $module, $config);
