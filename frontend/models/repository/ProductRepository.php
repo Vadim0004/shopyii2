@@ -117,9 +117,8 @@ class ProductRepository
     }
 
     /**
-     *
      * @param array $ids
-     * @return array ActiveQuery
+     * @return array|\yii\db\ActiveRecord[]
      */
     public function getAllProductById(array $ids)
     {

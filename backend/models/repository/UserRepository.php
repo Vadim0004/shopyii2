@@ -6,7 +6,6 @@ use common\models\activerecord\User;
 
 class UserRepository
 {
-
     /**
      * @return array|\yii\db\ActiveRecord[]
      */
@@ -18,9 +17,11 @@ class UserRepository
             ->innerJoinWith(['productOrdersById p' => function ($query) {
                 $query->select(['p.id', 'p.user_id', 'p.products', 'p.user_name', 'p.user_phone', 'p.user_comment', 'p.date', 'p.status', 'p.value'])
                     ->OrderBy(['id' => SORT_ASC]);
-            }]);
-
-        return $orders->all();
+            }])->all();
+        if ($orders) {
+            return $orders;
+        } else {
+            throw new \DomainException('Orders is not found.');
+        }
     }
-
 }

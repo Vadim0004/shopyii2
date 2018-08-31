@@ -97,4 +97,18 @@ class ProductRepository
         $productArray = Product::find()->where(['id' => $productId])->all();
         return $productArray;
     }
+
+    /**
+     * @param array $ids
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getAllProductByIdArray(array $ids): array
+    {
+        $products = Product::find()
+            ->where(['id' => $ids])
+            ->asArray()
+            ->all();
+
+        return $products;
+    }
 }

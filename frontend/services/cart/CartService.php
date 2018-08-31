@@ -14,18 +14,15 @@ class CartService
 {
     private $adminEmail;
     private $productRepository;
-    private $productOrder;
     private $productOrderRepository;
 
     public function __construct(
         $adminEmail,
         ProductRepository $productRepository,
-        ProductOrder $productOrder,
         ProductOrderRepository $productOrderRepository)
     {
         $this->adminEmail = $adminEmail;
         $this->productRepository = $productRepository;
-        $this->productOrder = $productOrder;
         $this->productOrderRepository = $productOrderRepository;
     }
 
@@ -55,8 +52,14 @@ class CartService
 
     public function saveCheckout($userId, $productsInCart, Checkout $chekout, $totalPrice)
     {
-        $beforeSave = $this->productOrder->orderSave($userId, $productsInCart, $chekout->userName, $chekout->userPhone, $chekout->userComment, $totalPrice);
-        $save = $this->productOrderRepository->save($beforeSave);
+        $orderSave = ProductOrder::orderSave(
+            $userId,
+            $productsInCart,
+            $chekout->userName,
+            $chekout->userPhone,
+            $chekout->userComment,
+            $totalPrice);
+        $save = $this->productOrderRepository->save($orderSave);
         if ($save) {
             self::sendLetterCart($chekout);
             Cart::clear();

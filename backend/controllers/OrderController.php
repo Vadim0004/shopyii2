@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\service\order\OrderService;
 use yii\web\Controller;
 use backend\models\general\AdminBase;
+use Yii;
 
 class OrderController extends Controller
 {
@@ -23,8 +24,14 @@ class OrderController extends Controller
     public function actionIndex()
     {
         self::checkAdmin();
-        $userByOrder = $this->orderService->getAllOrdersByIdUser();
-
+        try {
+            $userByOrder = false;
+            $userByOrder = $this->orderService->getAllOrdersByIdUser();
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        
         return $this->render('index', [
             'userByOrder' => $userByOrder,
         ]);

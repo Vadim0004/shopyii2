@@ -58,7 +58,13 @@ class ProductOrder extends ActiveRecord
         ];
     }
     
-    public function orderSave(int $userId, array $productsInCart, string $user_name, $user_phone, string $user_comment, float $totalPrice)
+    public static function orderSave(
+        int $userId,
+        array $productsInCart,
+        string $user_name,
+        $user_phone,
+        string $user_comment,
+        float $totalPrice): self
     {
         $chekout = new Static();
         $productsInCart = json_encode($productsInCart);

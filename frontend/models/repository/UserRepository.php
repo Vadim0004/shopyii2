@@ -22,9 +22,8 @@ class UserRepository
     }
 
     /**
-     *
      * @param int $id
-     * @return array ActiveQuery
+     * @return array|null|\yii\db\ActiveRecord
      */
     public function getUserById(int $id)
     {
