@@ -5,24 +5,18 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Contact;
 use yii\web\Controller;
-use frontend\components\Pagination;
-use frontend\models\repository\ProductRepository;
 use frontend\services\syte\SyteService;
 
 class SyteController extends Controller
 {
-    private $productRep;
     private $syteService;
-
 
     public function __construct(
         $id,
         $module,
-        ProductRepository $productRep,
         SyteService $syteService,
         $config = [])
     {
-        $this->productRep = $productRep;
         $this->syteService = $syteService;
         parent::__construct($id, $module, $config);
     }
@@ -38,19 +32,14 @@ class SyteController extends Controller
         ]);
     }
 
-    public function actionCategory($categoryId, $page = 1)
+    public function actionCategory($categoryId)
     {
-        $offset = ($page - 1) * Yii::$app->params['showByDefailtProducts'];
-
-        $categoryProducts = $this->productRep->getProductsListByCategory($categoryId, $offset);
-        $total = $this->productRep->getCountProductsByCategory($categoryId);
-        // Создаем объект Pagination - постраничная навигация
-        $pagination = new Pagination($total, $page, Yii::$app->params['showByDefailtProducts'], 'page-');
+        $pages = $this->syteService->getPagination($categoryId);
+        $products = $this->syteService->getProductsPagination($categoryId);
 
         return $this->render('category', [
-            'categoryId' => $categoryId,
-            'categoryProducts' => $categoryProducts,
-            'pagination' => $pagination,
+            'products' => $products,
+            'pages' => $pages,
         ]);
     }
 

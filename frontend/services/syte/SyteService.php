@@ -36,18 +36,18 @@ class SyteService
         return $result;
     }
 
-    public function getPagination()
+    public function getPagination(int $categoryId = null)
     {
-        $query = $this->productRepository->getQueryProductsPagination();
+        $query = $this->productRepository->getQueryProductsPagination($categoryId);
         $pages = new Pagination(['totalCount' => $query->count(), 'defaultPageSize' => Yii::$app->params['showByDefailtProducts']]);
 
         return $pages;
     }
 
-    public function getProductsPagination()
+    public function getProductsPagination(int $categoryId = null)
     {
         $pages = self::getPagination();
-        $products = $this->productRepository->getProductPagination($pages->offset, $pages->limit);
+        $products = $this->productRepository->getProductPagination($pages->offset, $pages->limit, $categoryId);
         return $products;
     }
 }

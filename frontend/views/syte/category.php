@@ -3,6 +3,10 @@
 use frontend\assets\MyShopAsset;
 use frontend\models\repository\ProductRepository;
 use frontend\widgets\categoryList;
+use yii\widgets\LinkPager;
+
+/* @var $products frontend\controllers\SyteController array ActiveRecord*/
+/* @var $pages frontend\controllers\SyteController yii\data\Pagination*/
 
 MyShopAsset::register($this);
 
@@ -28,7 +32,7 @@ $this->registerMetaTag([
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Последние товары</h2>
                     
-                    <?php foreach ($categoryProducts as $product): ?>
+                    <?php foreach ($products as $product): ?>
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
@@ -57,7 +61,7 @@ $this->registerMetaTag([
 
                 </div><!--features_items-->
                 <!-- Постраничная навигация -->
-                <?php echo $pagination->get(); ?>
+                <?= LinkPager::widget(['pagination' => $pages,]); ?>
 
 
             </div>
