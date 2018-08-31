@@ -16,7 +16,7 @@ class UserRepository
             ->select(['o.id', 'o.name', 'o.email'])
             ->innerJoinWith(['productOrdersById p' => function ($query) {
                 $query->select(['p.id', 'p.user_id', 'p.products', 'p.user_name', 'p.user_phone', 'p.user_comment', 'p.date', 'p.status', 'p.value'])
-                    ->OrderBy(['id' => SORT_ASC]);
+                    ->OrderBy(['p.id' => SORT_DESC]);
             }])->all();
         if ($orders) {
             return $orders;
