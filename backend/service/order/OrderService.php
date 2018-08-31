@@ -5,6 +5,7 @@ namespace backend\service\order;
 use backend\models\repository\ProductOrderRepository;
 use backend\models\repository\UserRepository;
 use backend\models\repository\ProductRepository;
+use common\models\activerecord\ProductOrder;
 
 class OrderService
 {
@@ -37,6 +38,16 @@ class OrderService
             $order->productOrdersById[0]->products = $this->productRepository->getAllProductByIdArray($product);
         };
         return $orders;
+    }
+
+    public function getOrderById(int $id): ProductOrder
+    {
+        $order = $this->productOrdersRepository->getOrderById($id);
+        $decode = json_decode($order->products, true);
+        $productkey = array_keys($decode);
+        $products = $this->productRepository->getAllProductByIdArray($productkey);
+        $order->products = $products;
+        return $order;
     }
 
 }

@@ -59,7 +59,7 @@ $this->registerMetaTag([
                 </td>
                 <td><?php echo $ordersItem->productOrdersById[0]->user_comment; ?></td>
                 <td><?php echo $ordersItem->productOrdersById[0]->date; ?></td>
-                <td><a href="<?php echo Url::to(['order/view', 'id' => $ordersItem->id])?>" title="Отображение"> <i class="fa fa-eye"></i></a></td>
+                <td><a href="<?php echo Url::to(['order/view', 'id' => $ordersItem->productOrdersById[0]->id])?>" title="Отображение"> <i class="fa fa-eye"></i></a></td>
                 <td><a href="<?php echo Url::to(['order/update', 'id' => $ordersItem->id]); ?>" title="Редактировать" ><i class="fa fa-pencil-square-o"></i></a></td>
                 <td><a href="<?php echo Url::to(['order/delete', 'id' => $ordersItem->id]); ?>" title="Удалить"><i class="fa fa-times"></a></td>
             </tr>

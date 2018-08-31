@@ -33,5 +33,17 @@ class OrderController extends Controller
             'userByOrder' => $userByOrder,
         ]);
     }
-
+    public function actionView($id)
+    {
+        try {
+            $order = false;
+            $order = $this->orderService->getOrderById($id);
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->render('view', [
+            'order' => $order,
+        ]);
+    }
 }
