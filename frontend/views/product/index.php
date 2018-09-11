@@ -10,10 +10,10 @@ $this->registerJsFile('@web/js/myFooter.js', ['depends' => [
 ]]);
 
 // @var $this yii\web\View
-$this->title = 'Product';
+$this->title = 'ProductForm';
 $this->registerMetaTag([
-    'name' => 'Product',
-    'content' => 'Product description',
+    'name' => 'ProductForm',
+    'content' => 'ProductForm description',
 ]);
 ?>
 

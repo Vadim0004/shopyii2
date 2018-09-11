@@ -3,7 +3,7 @@
 namespace common\models\activerecord;
 
 use yii\db\ActiveRecord;
-use backend\models\Product as ProductModel;
+use backend\models\ProductForm as ProductModel;
 
 /**
  * This is the model class for table "product".

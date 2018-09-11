@@ -3,7 +3,7 @@
 namespace common\models\activerecord;
 
 use yii\db\ActiveRecord;
-use backend\models\Category as CategoryModel;
+use backend\models\CategoryForm as CategoryModel;
 
 /**
  * This is the model class for table "category".

@@ -7,7 +7,7 @@ use backend\service\category\CategoryService;
 use Yii;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
-use backend\models\Product;
+use backend\models\ProductForm;
 use backend\models\general\AdminBase;
 use yii\web\Response;
 use yii\helpers\Url;
@@ -44,7 +44,7 @@ class ProductController extends \yii\web\Controller
         self::checkAdmin();
         $category = $this->categoryService->getAllCategorys();
         $formImage = new UploadForm();
-        $form = new Product();
+        $form = new ProductForm();
         $formAttrLable = $form->attributeLabels();
 
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
@@ -75,7 +75,7 @@ class ProductController extends \yii\web\Controller
         $product = $this->productService->getProductsById($id);
         $category = $this->categoryService->getAllCategorys();
         $formImage = new UploadForm();
-        $form = new Product($product);
+        $form = new ProductForm($product);
         $formAttrLable = $form->attributeLabels();
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
             $formImage->image = UploadedFile::getInstance($formImage, 'image');

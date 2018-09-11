@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 use frontend\models\repository\ProductRepository;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Product */
+/* @var $model backend\models\ProductForm */
 /* @var $formAttrLable backend\controllers\ProductController array */
 /* @var $category backend\controllers\ProductController ActiveRecord */
 /* @var $product backend\controllers\ProductController ActiveRecord */

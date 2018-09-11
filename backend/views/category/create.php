@@ -7,7 +7,7 @@ AdminAsset::register($this);
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Category */
+/* @var $model backend\models\CategoryForm */
 
 $this->title = 'E-shopper';
 $this->registerMetaTag([

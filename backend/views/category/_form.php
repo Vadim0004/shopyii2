@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Category */
+/* @var $model backend\models\CategoryForm */
 /* @var $formLabel backend\controllers\CategoryController array */
 
 ?>

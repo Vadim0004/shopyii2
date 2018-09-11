@@ -5,7 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use common\models\activerecord\Category as CategoryActive;
 
-class Category extends Model
+class CategoryForm extends Model
 {
     public $id;
     public $name;

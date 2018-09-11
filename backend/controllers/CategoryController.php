@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\service\category\CategoryService;
-use backend\models\Category;
+use backend\models\CategoryForm;
 use backend\models\general\AdminBase;
 use yii\web\Response;
 
@@ -31,7 +31,7 @@ class CategoryController extends \yii\web\Controller
     public function actionCreate()
     {
         self::checkAdmin();
-        $form = new Category();
+        $form = new CategoryForm();
         $formLabel = $form->attributeLabels();
 
         if (Yii::$app->request->post() && $form->load(Yii::$app->request->post()) && $form->validate()) {
@@ -56,7 +56,7 @@ class CategoryController extends \yii\web\Controller
     {
         self::checkAdmin();
         $category = $this->categoryService->getCategoryById($id);
-        $form = new Category($category);
+        $form = new CategoryForm($category);
         $formLabel = $form->attributeLabels();
 
         if (Yii::$app->request->post() && $form->load(Yii::$app->request->post()) && $form->validate()) {

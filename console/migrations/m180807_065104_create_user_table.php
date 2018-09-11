@@ -7,57 +7,58 @@ use yii\db\Migration;
  */
 class m180807_065104_create_user_table extends Migration
 {
-	/**
-	 * @inheritdoc
-	 */
-	public function up()
-	{
-		$this->createUser();
-	}
+    /**
+     * @inheritdoc
+     */
+    public function up()
+    {
+        $this->createUser();
+    }
 
-	private function createUser()
-	{
-		$this->createTable('user', [
-			'id' => $this->primaryKey(),
-			'name' => $this->string(255)->notNull(),
-			'email' => $this->string(255)->notNull(),
-			'password' => $this->string(255)->notNull(),
-			'role' => $this->string(50)->notNull(),
-		]);
+    private function createUser()
+    {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        $this->createTable('user', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(255)->notNull(),
+            'email' => $this->string(255)->notNull(),
+            'password' => $this->string(255)->notNull(),
+            'role' => $this->string(50)->notNull(),
+        ], $tableOptions);
 
-		$this->insert('user', [
-			'id' => 3,
-			'name' => 'Александр',
-			'email' => 'alex@mail.com',
-			'password' => '111111',
-			'role' => '',
-		]);
+        $this->insert('user', [
+            'id' => 3,
+            'name' => 'Александр',
+            'email' => 'alex@mail.com',
+            'password' => '111111',
+            'role' => '',
+        ]);
 
-		$this->insert('user', [
-			'id' => 4,
-			'name' => 'Виктор',
-			'email' => 'viktor@gmail.com',
-			'password' => '111111',
-			'role' => 'admin',
-		]);
+        $this->insert('user', [
+            'id' => 4,
+            'name' => 'Виктор',
+            'email' => 'viktor@gmail.com',
+            'password' => '111111',
+            'role' => 'admin',
+        ]);
 
-		$this->insert('user', [
-			'id' => 5,
-			'name' => 'Сергей',
-			'email' => 'serg@mail.com',
-			'password' => '111111',
-			'role' => '',
-		]);
+        $this->insert('user', [
+            'id' => 5,
+            'name' => 'Сергей',
+            'email' => 'serg@mail.com',
+            'password' => '111111',
+            'role' => '',
+        ]);
 
-		$this->insert('user', [
-			'id' => 29,
-			'name' => 'Вадим',
-			'email' => 'vadimtestacc@gmail.com',
-			'password' => '111111',
-			'role' => 'admin',
-		]);
+        $this->insert('user', [
+            'id' => 29,
+            'name' => 'Вадим',
+            'email' => 'vadimtestacc@gmail.com',
+            'password' => '111111',
+            'role' => 'admin',
+        ]);
 
-	}
+    }
 
     public function down()
     {

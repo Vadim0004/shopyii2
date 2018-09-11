@@ -17,12 +17,13 @@ class m180628_121131_create_category_table extends Migration
     
     private function createCategory()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         $this->createTable('category', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
             'sort_order' => $this->integer(11)->notNull(),
             'status' => $this->integer(11)->defaultValue(1)->notNull(),
-        ]);
+        ], $tableOptions);
         
         $this->insert('category', [
             'id' => 13,

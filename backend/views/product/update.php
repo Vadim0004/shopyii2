@@ -7,7 +7,7 @@ AdminAsset::register($this);
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Product */
+/* @var $model backend\models\ProductForm */
 /* @var $formAttrLable backend\controllers\ProductController array */
 /* @var $product backend\controllers\ProductController ActiveRecord */
 /* @var $category backend\controllers\ProductController ActiveRecord */

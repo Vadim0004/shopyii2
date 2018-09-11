@@ -25,7 +25,7 @@ class CategoryRepository
             ->where(['id' => $id])
             ->one();
         if (!$category) {
-            throw new \NotFoundException('Category is not found.');
+            throw new \NotFoundException('CategoryForm is not found.');
         }
         return $category;
     }

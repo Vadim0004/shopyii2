@@ -12,6 +12,7 @@ class m180802_134350_create_address_book extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         $this->createTable('address_book', [
             'id' => $this->primaryKey(),
             'customer_id' => $this->integer()->notNull(),
@@ -24,7 +25,7 @@ class m180802_134350_create_address_book extends Migration
             'state' => $this->string(32),
             'country_id' => $this->integer(11),
             '_api_time_modified' => $this->timestamp()->notNull()->defaultValue(new \yii\db\Expression('NOW()')),
-        ]);
+        ], $tableOptions);
     }
 
     /**

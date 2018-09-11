@@ -4,7 +4,7 @@ namespace backend\service\product;
 
 use common\models\activerecord\Product;
 use backend\models\repository\ProductRepository;
-use backend\models\Product as ProductModel;
+use backend\models\ProductForm as ProductModel;
 use yii\data\Pagination;
 use Yii;
 

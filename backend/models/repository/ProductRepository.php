@@ -28,7 +28,7 @@ class ProductRepository
             ->where(['id' => $id])
             ->one();
         if (!$product) {
-            throw new \NotFoundException('Product is not found.');
+            throw new \NotFoundException('ProductForm is not found.');
         }
         return $product;
     }

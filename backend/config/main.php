@@ -58,6 +58,9 @@ return [
                 '/category/update/<id:\d+>' => 'category/update',
                 '/category/create' => 'category/create',
                 '/category' => 'category/index',
+                // Админ бренды :
+                '/brand/create' => 'brand/create',
+                '/brand' => 'brand/index',
                 // Админ товары :
                 '/product/deleteAjax' => 'product/delete-ajax',
                 '/product/delete/<id:\d+>' => 'product/delete',

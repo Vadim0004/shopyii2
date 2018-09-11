@@ -15,9 +15,9 @@ $this->registerJsFile('@web/js/myFooter.js', ['depends' => [
 ]]);
 
 // @var $this yii\web\View
-$this->title = 'Category';
+$this->title = 'CategoryForm';
 $this->registerMetaTag([
-    'name' => 'Category',
+    'name' => 'CategoryForm',
     'content' => 'description of the page',
 ]);
 ?>

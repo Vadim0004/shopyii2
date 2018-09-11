@@ -5,7 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 use common\models\activerecord\Product as ProductActive;
 
-class Product extends Model
+class ProductForm extends Model
 {
     public $id;
     public $name;

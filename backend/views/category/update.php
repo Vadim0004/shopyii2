@@ -3,7 +3,7 @@
 use backend\assets\AdminAsset;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Category */
+/* @var $model backend\models\CategoryForm */
 
 AdminAsset::register($this);
 

@@ -17,13 +17,14 @@ class m180627_155101_create_blog_table extends Migration
     
     private function createBlog()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         $this->createTable('blog', [
             'id' => $this->primaryKey(),
             'title' => $this->string(255),
             'date' => $this->timestamp()->notNull()->defaultValue(new \yii\db\Expression('NOW()')),
             'short_content' => $this->text(),
             'content' => $this->text()->notNull(),
-        ]);
+        ], $tableOptions);
         
         $this->insert('blog', [
             'id' => 1,

@@ -12,12 +12,13 @@ class m180802_152009_create_countries extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         $this->createTable('{{countries}}', [
             'id' => $this->primaryKey(),
             'countries_name' => $this->string(64),
             'countries_iso_code_2' => $this->string(2),
             'countries_iso_code_3' => $this->string(3),
-        ]);
+        ], $tableOptions);
 
         $this->insert('{{countries}}', [
             'countries_name' => 'Afghanistan',

@@ -3,7 +3,7 @@
 namespace backend\service\category;
 
 use backend\models\repository\CategoryRepository;
-use backend\models\Category as CategoryModel;
+use backend\models\CategoryForm as CategoryModel;
 use common\models\activerecord\Category;
 
 class CategoryService

@@ -1,6 +1,6 @@
 <?php
 
-/* @var array categories frontend\models\activerecord\Category */
+/* @var array categories frontend\models\activerecord\CategoryForm */
 
 use yii\helpers\Html;
 
