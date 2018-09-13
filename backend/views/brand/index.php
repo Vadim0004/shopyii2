@@ -13,4 +13,8 @@ $this->registerMetaTag([
 ]);
 ?>
 
+<section>
+    <div class="row">
 
+    </div>
+</section>

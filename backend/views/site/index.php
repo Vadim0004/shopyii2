@@ -33,6 +33,9 @@ $this->registerMetaTag([
                     <a href="<?php echo Url::to(['order/index']); ?>">
                         <li class="list-group-item">Управление заказами</li>
                     </a>
+                    <a href="<?php echo Url::to(['brand/index']); ?>">
+                        <li class="list-group-item">Управление брендами</li>
+                    </a>
                 </ul>
             </div>
         </div>
