@@ -12,9 +12,12 @@ use yii\helpers\Json;
  * @property string $name
  * @property string $slug
  * @property string $meta_json
+ * @property Meta $meta
  */
 class Brand extends \yii\db\ActiveRecord
 {
+    public $meta;
+
     /**
      * @inheritdoc
      */
@@ -28,7 +31,7 @@ class Brand extends \yii\db\ActiveRecord
         $brand = new Static();
         $brand->name = $name;
         $brand->slug = $slug;
-        $brand->meta_json = $meta;
+        $brand->meta = $meta;
         return $brand;
     }
 
@@ -36,23 +39,29 @@ class Brand extends \yii\db\ActiveRecord
     {
         $this->name = $name;
         $this->slug = $slug;
-        $this->meta_json = $meta;
+        $this->meta = $meta;
     }
 
     public function afterFind(): void
     {
         $meta = Json::decode($this->getAttribute('meta_json'));
-        $this->meta_json = new Meta($meta['title'], $meta['description'], $meta['keywords']);
+        $this->meta = new Meta($meta['title'], $meta['description'], $meta['keywords']);
         parent::afterFind();
     }
 
-    public function beforeSave($insert): void
+    public function beforeSave($insert)
     {
-        $this->attributes('meta_json', Json::encode([
-            'title' => $this->meta_json->title,
-            'description' => $this->meta_json->description,
-            'keywords' => $this->meta_json->keywords,
-        ]));
-        parent::beforeSave($insert);
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        $json = Json::encode([
+            'title' => $this->meta->title,
+            'description' => $this->meta->description,
+            'keywords' => $this->meta->keywords,
+        ]);
+
+        $this->__set('meta_json', $json);
+        return true;
     }
 }

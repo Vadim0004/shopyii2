@@ -4,13 +4,13 @@ namespace backend\models;
 
 use yii\base\Model;
 use common\models\activerecord\Brand;
-use backend\models\MetaForm;
 use yii\helpers\ArrayHelper;
 
 class BrandForm extends Model
 {
     public $name;
     public $slug;
+
     public $_meta;
     private $_brand;
 
@@ -19,7 +19,7 @@ class BrandForm extends Model
         if ($brand) {
             $this->name = $brand->name;
             $this->slug = $brand->slug;
-            $this->_meta = new MetaForm($brand->meta_json);
+            $this->_meta = new MetaForm($brand->meta);
             $this->_brand = $brand;
         } else {
             $this->_meta = new MetaForm();

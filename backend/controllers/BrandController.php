@@ -28,7 +28,6 @@ class BrandController extends Controller
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-
         return $this->render('index', [
             'brand' => $brand,
         ]);

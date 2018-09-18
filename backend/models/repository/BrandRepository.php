@@ -10,7 +10,7 @@ class BrandRepository
      * @return array|\yii\db\ActiveRecord[]
      *
      */
-    public function getAllBrands(): Brand
+    public function getAllBrands()
     {
         $brand = Brand::find()->all();
         if ($brand) {

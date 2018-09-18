@@ -16,13 +16,13 @@ class BrandService
         $this->brandRepository = $brandRepository;
     }
 
-    public function getAllBrands(): Brand
+    public function getAllBrands(): array
     {
         $brand = $this->brandRepository->getAllBrands();
         return $brand;
     }
 
-    public function saveBrand(BrandForm $brandForm): Brand
+    public function saveBrand(BrandForm $brandForm)
     {
         $brand = Brand::create(
             $brandForm->name,
