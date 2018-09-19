@@ -37,4 +37,15 @@ class BrandService
         $this->brandRepository->save($brand);
         return $brand;
     }
+
+    public function getOneBrand($id): Brand
+    {
+        $brand = $this->brandRepository->getOneItemBrand($id);
+        return $brand;
+    }
+
+    public function updateBrand(BrandForm $brandForm)
+    {
+
+    }
 }

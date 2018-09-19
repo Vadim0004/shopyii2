@@ -56,8 +56,8 @@ $this->registerMetaTag([
                 <td><?php echo $brandItem->meta->title; ?></td>
                 <td><?php echo $brandItem->meta->keywords; ?></td>
                 <td><?php echo $brandItem->meta->description; ?></td>
-                <td><a href="<?php echo Url::to(['brand/update', 'id' => $brand->id]); ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                <td><a href="<?php echo Url::to(['category/delete', 'id' => $brand->id]); ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
+                <td><a href="<?php echo Url::to(['brand/update', 'id' => $brandItem->id]); ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
+                <td><a href="<?php echo Url::to(['category/delete', 'id' => $brandItem->id]); ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
             </tr>
             <?php endforeach; ?>
         </table>

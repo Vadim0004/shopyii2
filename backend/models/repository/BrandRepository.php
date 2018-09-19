@@ -49,4 +49,21 @@ class BrandRepository
             throw new \RuntimeException('Delete error.');
         }
     }
+
+    /**
+     * @param $id
+     * @return \yii\db\ActiveRecord
+     * @throws \Throwable
+     */
+    public function getOneItemBrand($id)
+    {
+        $brand = Brand::find()
+            ->andWhere(['id' => $id])
+            ->limit(1)
+            ->one();
+        if (!$brand) {
+            throw new NotFoundException('Brand is not found.');
+        }
+        return $brand;
+    }
 }

@@ -54,4 +54,14 @@ class BrandController extends Controller
             'model' => $form,
         ]);
     }
+
+    public function actionUpdate($id)
+    {
+        $brand = $this->branService->getOneBrand($id);
+        $form = new BrandForm($brand);
+
+        return $this->render( 'update', [
+            'model' => $form,
+        ]);
+    }
 }
