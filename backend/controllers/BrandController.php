@@ -22,6 +22,7 @@ class BrandController extends Controller
     public function actionIndex()
     {
         self::checkAdmin();
+        $brand = [];
         try {
             $brand = $this->branService->getAllBrands();
         } catch (\DomainException $e) {
