@@ -44,8 +44,20 @@ class BrandService
         return $brand;
     }
 
-    public function updateBrand(BrandForm $brandForm)
+    public function updateBrand(Brand $brand, BrandForm $brandForm)
     {
+        $edite = $brand::edit(
+            $brand,
+            $brandForm->name,
+            $brandForm->slug,
+            new Meta(
+                $brandForm->_meta->title,
+                $brandForm->_meta->description,
+                $brandForm->_meta->keywords
+            )
+        );
 
+        $this->brandRepository->save($edite);
+        return $edite;
     }
 }

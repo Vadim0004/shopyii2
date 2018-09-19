@@ -41,6 +41,7 @@ $this->registerMetaTag([
     <div class="row">
         <table class="table-bordered table-striped table">
             <tr>
+                <th>Id бренда</th>
                 <th>Название бренда</th>
                 <th>Slug</th>
                 <th>SEO title</th>
@@ -51,6 +52,7 @@ $this->registerMetaTag([
             </tr>
             <?php foreach ($brand as $brandItem): ?>
             <tr>
+                <td><?php echo $brandItem->id; ?></td>
                 <td><?php echo $brandItem->name; ?></td>
                 <td><?php echo $brandItem->slug; ?></td>
                 <td><?php echo $brandItem->meta->title; ?></td>

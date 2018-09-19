@@ -35,11 +35,12 @@ class Brand extends \yii\db\ActiveRecord
         return $brand;
     }
 
-    public function edit($name, $slug, Meta $meta): void
+    public static function edit(Brand $brand, $name, $slug, Meta $meta)
     {
-        $this->name = $name;
-        $this->slug = $slug;
-        $this->meta = $meta;
+        $brand->name = $name;
+        $brand->slug = $slug;
+        $brand->meta = $meta;
+        return $brand;
     }
 
     public function afterFind(): void

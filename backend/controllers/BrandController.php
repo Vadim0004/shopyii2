@@ -60,6 +60,17 @@ class BrandController extends Controller
         $brand = $this->branService->getOneBrand($id);
         $form = new BrandForm($brand);
 
+        if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->branService->updateBrand($brand, $form);
+                Yii::$app->getSession()->setFlash('success', 'Brand успешно отредактирован');
+                return $this->redirect(['brand/index']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
         return $this->render( 'update', [
             'model' => $form,
         ]);
