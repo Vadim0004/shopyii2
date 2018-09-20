@@ -7,6 +7,7 @@ use yii\web\Controller;
 use backend\models\BrandForm;
 use yii;
 use backend\service\brand\BrandService;
+use yii\web\Response;
 
 class BrandController extends Controller
 {
@@ -78,7 +79,21 @@ class BrandController extends Controller
 
     public function actionDelete($id)
     {
+        $id = intval($id);
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->renderAjax('delete');
+        if (Yii::$app->request->isAjax) {
+
+            try {
+                $this->branService->deleteBrand($id);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->renderAjax('delete', [
+            'id' => $id,
+        ]);
     }
 }

@@ -51,11 +51,10 @@ class BrandRepository
     }
 
     /**
-     * @param $id
-     * @return \yii\db\ActiveRecord
-     * @throws \Throwable
+     * @param int $id
+     * @return array|null|\yii\db\ActiveRecord
      */
-    public function getOneItemBrand($id)
+    public function getOneItemBrand(int $id)
     {
         $brand = Brand::find()
             ->andWhere(['id' => $id])

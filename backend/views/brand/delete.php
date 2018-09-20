@@ -1,7 +1,7 @@
 <?php
 
 use backend\assets\AdminAsset;
-use yii\widgets\Breadcrumbs;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
@@ -16,18 +16,6 @@ $this->registerMetaTag([
 
 <section>
     <div class="container">
-        <div class="breadcrumbs">
-            <?php echo Breadcrumbs::widget([
-                'itemTemplate' => "<li>{link}</li>\n",
-                'links' => [
-                    ['label' => 'Админпанель', 'url' => ['/']],
-                    [
-                        'label' => 'Редактирование бренда',
-                        'class' => 'breadcrumb',
-                    ],
-                ],
-            ]);
-            ?>
-        </div>
+        <a href="<?php echo Url::to(['brand/delete', 'id' => $brandItem->id]); ?>" title="Удалить" class="modalButton">Удалить</a>
     </div>
 </section>

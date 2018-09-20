@@ -60,4 +60,11 @@ class BrandService
         $this->brandRepository->save($edite);
         return $edite;
     }
+
+    public function deleteBrand(int $id)
+    {
+        $brand = $this->brandRepository->getOneItemBrand($id);
+        $brand->delete();
+        return $brand;
+    }
 }

@@ -24,19 +24,6 @@ $this->registerMetaTag([
 
 <section>
 
-    <?php
-    Modal::begin([
-        'header' => '<h2>Hello world</h2>',
-        'id' => 'modal',
-        'size' => 'modal-lg',
-    ]);
-
-    echo "<div id='modalContent'></div>";
-
-    Modal::end();
-
-    ?>
-
     <div class="breadcrumbs">
     <?php echo Breadcrumbs::widget([
         'itemTemplate' => "<li>{link}</li>\n",
@@ -78,9 +65,23 @@ $this->registerMetaTag([
                 <td><?php echo $brandItem->meta->keywords; ?></td>
                 <td><?php echo $brandItem->meta->description; ?></td>
                 <td><a href="<?php echo Url::to(['brand/update', 'id' => $brandItem->id]); ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                <td><a href="<?php echo Url::to(['brand/delete', 'id' => $brandItem->id]); ?>" title="Удалить" id="openPopup"><i class="fa fa-times"></i></a></td>
+                <td><a href="<?php echo Url::to(['brand/delete', 'id' => $brandItem->id]); ?>" title="Удалить" class="modalButton"><i class="fa fa-times"></i></a></td>
             </tr>
             <?php endforeach; ?>
         </table>
     </div>
+
+    <?php
+    Modal::begin([
+        'header' => 'Вы хотите точно Удалить?',
+        'id' => 'modal',
+        'size' => 'modal-lg',
+    ]);
+
+    echo "<div id='modalContent'></div>";
+
+    Modal::end();
+
+    ?>
+
 </section>
