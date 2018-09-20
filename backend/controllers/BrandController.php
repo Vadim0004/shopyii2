@@ -75,4 +75,10 @@ class BrandController extends Controller
             'model' => $form,
         ]);
     }
+
+    public function actionDelete($id)
+    {
+
+        return $this->renderAjax('delete');
+    }
 }

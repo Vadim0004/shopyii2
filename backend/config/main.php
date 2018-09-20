@@ -59,6 +59,7 @@ return [
                 '/category/create' => 'category/create',
                 '/category' => 'category/index',
                 // Админ бренды :
+                '/brand/delete/<id:\d+>' => 'brand/delete',
                 '/brand/update/<id:\d+>' => 'brand/update',
                 '/brand/create' => 'brand/create',
                 '/brand' => 'brand/index',
