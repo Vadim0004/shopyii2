@@ -8,6 +8,7 @@ use backend\models\BrandForm;
 use yii;
 use backend\service\brand\BrandService;
 use yii\web\Response;
+use yii\helpers\Url;
 
 class BrandController extends Controller
 {
@@ -24,6 +25,7 @@ class BrandController extends Controller
     {
         self::checkAdmin();
         $brand = [];
+        $url = Url::to(['brand/ajax']);
         try {
             $brand = $this->branService->getAllBrands();
         } catch (\DomainException $e) {
@@ -31,6 +33,7 @@ class BrandController extends Controller
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->render('index', [
+            'url' => $url,
             'brand' => $brand,
         ]);
     }
@@ -95,5 +98,39 @@ class BrandController extends Controller
         return $this->renderAjax('delete', [
             'id' => $id,
         ]);
+    }
+
+    public function actionTest()
+    {
+        self::checkAdmin();
+        $form = new BrandForm();
+
+        if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->branService->saveBrand($form);
+                Yii::$app->getSession()->setFlash('success', 'Brand успешно сохранен');
+                return $this->redirect(['brand/index']);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->renderAjax('test', [
+            'model' => $form,
+        ]);
+    }
+
+    public function actionAjax()
+    {
+        $f = new BrandForm();
+        if (yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            $f->load($post);
+            echo '<pre>';
+            var_dump($f);
+            echo '</pre>';
+            die();
+        }
     }
 }

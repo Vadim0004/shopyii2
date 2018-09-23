@@ -4,6 +4,7 @@ use backend\assets\AdminAsset;
 use yii\widgets\Breadcrumbs;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use yii\web\View;
 
 AdminAsset::register($this);
 
@@ -14,6 +15,12 @@ AdminAsset::register($this);
 $this->registerJsFile('@web/js/brand/popup.js', ['depends' => [
     AdminAsset::className()
 ]]);
+
+$this->registerJs(
+    "var url = ".\yii\helpers\Json::htmlEncode($url).";",
+    View::POS_HEAD,
+    'url'
+);
 
 $this->title = 'E-shopper';
 $this->registerMetaTag([
@@ -38,7 +45,7 @@ $this->registerMetaTag([
     ?>
     </div>
 
-    <a href="<?php echo Url::to(['brand/create'])?>" class="btn btn-default back"><i class="fa fa-plus"></i> Добавить Бранд</a>
+    <a href="<?php echo Url::to(['brand/test'])?>" class="modalButton"><i class="fa fa-plus"></i> Добавить Бранд</a>
 
     <h4>Список брендов</h4>
 
