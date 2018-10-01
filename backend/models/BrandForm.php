@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\validators\SlugValidator;
 use yii\base\Model;
 use common\models\activerecord\Brand;
 use yii\helpers\ArrayHelper;
@@ -36,7 +37,7 @@ class BrandForm extends Model
 
     public function validate($attributeNames = null, $clearErrors = true)
     {
-        $self = parent::validate(array_filter($attributeNames, 'is_string'), $clearErrors);
+        $self = parent::validate($attributeNames, $clearErrors);
         $meta = $this->_meta->validate(ArrayHelper::getValue($attributeNames, 'meta'), $clearErrors);
         return $self && $meta;
     }
@@ -46,6 +47,7 @@ class BrandForm extends Model
         return [
             [['name', 'slug'], 'required'],
             [['name', 'slug'], 'string', 'max' => 255],
+            ['slug', SlugValidator::class],
             [['name', 'slug'], 'unique', 'targetClass' => Brand::class, 'filter' => $this->_brand ? ['<>', 'id', $this->_brand->id] : null]
         ];
     }

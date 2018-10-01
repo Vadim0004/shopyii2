@@ -45,7 +45,7 @@ $this->registerMetaTag([
     ?>
     </div>
 
-    <a href="<?php echo Url::to(['brand/test'])?>" class="modalButton"><i class="fa fa-plus"></i> Добавить Бранд</a>
+    <a href="<?php echo Url::to(['brand/create'])?>" class="modalButton"><i class="fa fa-plus"></i> Добавить Бранд</a>
 
     <h4>Список брендов</h4>
 
