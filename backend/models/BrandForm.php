@@ -36,7 +36,7 @@ class BrandForm extends Model
 
     public function validate($attributeNames = null, $clearErrors = true)
     {
-        $self = parent::validate($attributeNames, $clearErrors);
+        $self = parent::validate(array_filter($attributeNames, 'is_string'), $clearErrors);
         $meta = $this->_meta->validate(ArrayHelper::getValue($attributeNames, 'meta'), $clearErrors);
         return $self && $meta;
     }
