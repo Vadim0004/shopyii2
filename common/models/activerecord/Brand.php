@@ -2,8 +2,8 @@
 
 namespace common\models\activerecord;
 
+use backend\models\behaviors\MetaBehavior;
 use common\models\Meta;
-use yii\helpers\Json;
 
 /**
  * This is the model class for table "brand".
@@ -43,26 +43,14 @@ class Brand extends \yii\db\ActiveRecord
         return $brand;
     }
 
-    public function afterFind(): void
+    public function behaviors()
     {
-        $meta = Json::decode($this->getAttribute('meta_json'));
-        $this->meta = new Meta($meta['title'], $meta['description'], $meta['keywords']);
-        parent::afterFind();
-    }
-
-    public function beforeSave($insert)
-    {
-        if (!parent::beforeSave($insert)) {
-            return false;
-        }
-
-        $json = Json::encode([
-            'title' => $this->meta->title,
-            'description' => $this->meta->description,
-            'keywords' => $this->meta->keywords,
-        ]);
-
-        $this->__set('meta_json', $json);
-        return true;
+        return [
+            [
+                'class' => MetaBehavior::class,
+                'attribute' => 'meta',
+                'jsonAttribute' => 'meta_json',
+            ],
+        ];
     }
 }
